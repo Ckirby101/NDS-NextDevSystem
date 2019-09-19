@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendMemory", "SendMemory\SendMemory.csproj", "{9F308ED4-4C89-47EB-BB9E-53FDAAF30577}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendNex", "SendNex\SendNex.csproj", "{D523D2D8-3D61-4834-A156-B19AC9B6F105}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F308ED4-4C89-47EB-BB9E-53FDAAF30577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F308ED4-4C89-47EB-BB9E-53FDAAF30577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F308ED4-4C89-47EB-BB9E-53FDAAF30577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F308ED4-4C89-47EB-BB9E-53FDAAF30577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D523D2D8-3D61-4834-A156-B19AC9B6F105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D523D2D8-3D61-4834-A156-B19AC9B6F105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D523D2D8-3D61-4834-A156-B19AC9B6F105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D523D2D8-3D61-4834-A156-B19AC9B6F105}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {222142BE-6F3E-4969-A427-28C683291F09}
+	EndGlobalSection
+EndGlobal
