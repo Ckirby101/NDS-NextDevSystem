@@ -5,26 +5,75 @@
 	DEVICE ZXSPECTRUMNEXT
 	CSPECTMAP "uart.map"
 
-
 Cmd_SetBank	equ 180
 Cmd_PutData	equ 181
 Cmd_Execute	equ 182
 
+Cmd_GetRegs	equ 183
+Cmd_SetRegs	equ 184
+Cmd_GetMem	equ 185
+Cmd_SetMem	equ 186
 
-	  org     $8000
 
+	org $8000
 
+	include "includes.asm"
 
 StackEnd:
-   ds      4
+   ds      100
 StackStart:
    db      0
+
+
+StartAddress:
+	BREAK
+
+	di
+
+
+	//bank in my code over rom!
+	nextreg 0x50,111
+
+	jp InitComms
+
+
+
+
+	MMU 0 e,111
+	org $0000
+RST00:
+
+	org $0008
+RST08:
+
+	org $0010
+RST10:
+
+	org $0018
+RST18:
+
+	org $0020
+RST20:
+
+	org $0028
+RST28:
+
+	org $0030
+RST30:
+
+	org $0038
+RST38:
+
+
+	org $0066
+RST66:
+
 
 ;opt	sna=StartAddress:StackStart                             ; save SNA,Set PC = run point in SNA file and TOP of stack
 ;opt	Z80                                                     ; Set z80 mode
 ;opt	ZXNEXT 
 ;opt Illegal
-	  include "includes.asm"
+
 
 ; SPECTRUM NEXT SERIAL LINK ROUTINES.
 
@@ -50,8 +99,7 @@ StackStart:
 
 
 
-
-bordercolor db GREEN
+bordercolor db CYAN
 
 
 RX	equ	143Bh
@@ -94,20 +142,19 @@ TX	equ	133Bh
 rate: equ 30 ;61 ;15 ;121 ;243
 
 
-StartAddress:
-	di
+InitComms:
 
 	;want 14mhz
 	;nextreg $7,%00
 	;copy this code into very high bank (and hope it wont be needed)
-	nextreg 0x57,110
-	ld hl,$8000
-	ld de,$e000
-	ld bc,CodeSize
-	ldir
+	;nextreg 0x57,110
+	;ld hl,$8000
+	;ld de,$e000
+	;ld bc,CodeSize
+	;ldir
 
 	;we are now runnign code in high bank memory
-	nextreg 0x54,110
+	;nextreg 0x54,110
 
 ; ************************************************************************************************
 ; init
@@ -134,9 +181,9 @@ checkCommand:
 	ld bc,400
 	call delay
 
-	ld a,(bordercolor)
+	ld a,(bordercolor) ;ok
 	out	(254),a
-	ld bc,GREEN
+	ld bc,20
 	call delay
 
 	jr checkCommand
@@ -388,6 +435,8 @@ Command_Execute:
 ; Copied to $4000 and executed there
 ; ************************************************************************************************
 BootStrap:
+	nextreg 0x50,$ff
+	nextreg 0x51,$ff
 	nextreg 0x54,4
 	nextreg 0x55,5
 	nextreg 0x56,0
@@ -410,6 +459,23 @@ BootStrapSize equ $ - BootStrap
 CodeSize equ $ - StackEnd
 
 
+
+	;want 14mhz
+	;nextreg $7,%00
+	;copy this code into very high bank (and hope it wont be needed)
+	;ld hl,$8000
+	;ld de,$e000
+	;ld bc,CodeSize
+	;ldir
+
+	;we are now runnign code in high bank memory
+	;nextreg 0x54,110
+
+
+
+	;MMU 0 e,111
+	;org     $0000
+
 ;	SAVESNA "uart.sna", StartAddress
 
 
@@ -420,7 +486,7 @@ CodeSize equ $ - StackEnd
 
         ; This sets the name of the project, the start address, 
         ; and the initial stack pointer.
-        SAVENEX OPEN "uart.nex", StartAddress, StackStart
+        SAVENEX OPEN "uart.nex", StartAddress, $9000 ;StackStart
 
         ; This asserts the minimum core version.  Set it to the core version 
         ; you are developing on.
