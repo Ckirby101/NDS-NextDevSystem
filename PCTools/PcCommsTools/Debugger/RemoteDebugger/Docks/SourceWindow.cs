@@ -1,4 +1,10 @@
-﻿using System;
+﻿// -------------------------------------------------------------------------------------------------
+// \file    Docks\SourceWindow.cs.
+//
+// Implements the source Windows Form
+// -------------------------------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,10 +14,18 @@ using RemoteDebugger.Main;
 
 namespace RemoteDebugger
 {
+    // Form for viewing the source.
 	public partial class SourceWindow  : Form
 	{
 
+        // Name of the view
 		public string viewName;
+        // -------------------------------------------------------------------------------------------------
+        // Constructor
+        //
+        // \param   name        The name.
+        // \param   viewname    The viewname.
+        // -------------------------------------------------------------------------------------------------
 		public SourceWindow(string name, string viewname)
 		{
 			viewName = viewname;
@@ -24,6 +38,12 @@ namespace RemoteDebugger
 
 		}
 
+        // -------------------------------------------------------------------------------------------------
+        // Focus line
+        //
+        // \param   cf      The cf.
+        // \param   line    The line.
+        // -------------------------------------------------------------------------------------------------
 		public void FocusLine(SourceCodeView.CodeFile cf, int line)
 		{
 			//Console.WriteLine("Focus Line!");
@@ -57,6 +77,11 @@ namespace RemoteDebugger
 
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Initialises the source window
+        //
+        // \param   path    Full pathname of the file.
+        // -------------------------------------------------------------------------------------------------
 		public void InitSourceWindow(string path)
 		{
 			MainForm.sourceCodeView.initSourceFiles(TraceFile.traceFiles.ToArray(), SourceTab, path);
@@ -76,6 +101,12 @@ namespace RemoteDebugger
 
 		}
 
+        // -------------------------------------------------------------------------------------------------
+        // Updates the PC
+        //
+        // \param   pc      The PC.
+        // \param   focus   True to focus.
+        // -------------------------------------------------------------------------------------------------
 		public void UpdatePC(int pc,bool focus)
 		{
 			TraceFile.SetPC(pc,focus);
@@ -96,57 +127,160 @@ namespace RemoteDebugger
 
 		//}
 
+        // -------------------------------------------------------------------------------------------------
+        // Event handler. Called by breakbutton for click events
+        //
+        // \param   sender  Source of the event.
+        // \param   e       Event information.
+        // -------------------------------------------------------------------------------------------------
 		private void breakbutton_Click(object sender, EventArgs e)
 		{
 			SwapMode(!Program.InStepMode);
 		}
+        // -------------------------------------------------------------------------------------------------
+        // Event handler. Called by continuebutton for click events
+        //
+        // \param   sender  Source of the event.
+        // \param   e       Event information.
+        // -------------------------------------------------------------------------------------------------
 		private void continuebutton_Click(object sender, EventArgs e)
 		{
 			SwapMode(!Program.InStepMode);
 		}
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Swap mode
+        //
+        // \param   pause   True to pause.
+        // -------------------------------------------------------------------------------------------------
 		public void SwapMode(bool pause)
 		{
 			if (Program.InStepMode && !pause)
 			{
-				Program.telnetConnection.SendCommand("disable-breakpoints", commandResponse);
-				Program.telnetConnection.SendCommand("exit-cpu-step", commandResponseStepUpdate);
-				Program.InStepMode = false;
-				breakbutton.Visible = true;
-				continuebutton.Visible = false;
+                Program.serialport.PauseExecution(PauseExecutionCallback,false);
+				//Program.telnetConnection.SendCommand("disable-breakpoints", commandResponse);
+				//Program.telnetConnection.SendCommand("exit-cpu-step", commandResponseStepUpdate);
+
 			}
 			if (!Program.InStepMode && pause)
-			{
-				Program.telnetConnection.SendCommand("enter-cpu-step", commandResponse);
-				Program.telnetConnection.SendCommand("enable-breakpoints", commandResponseStepUpdate);
-				Program.InStepMode = true;
-				breakbutton.Visible = false;
-				continuebutton.Visible = true;
+            {
+                Program.serialport.PauseExecution(PauseExecutionCallback,true);
+
+
+				//Program.telnetConnection.SendCommand("enter-cpu-step", commandResponse);
+				//Program.telnetConnection.SendCommand("enable-breakpoints", commandResponseStepUpdate);
+
 			}
+
 
 			UpdateSourceButtons();
 
 		}
+
+        // -------------------------------------------------------------------------------------------------
+        // Callback, called when the pause execution
+        //
+        // \param   response    The response.
+        // \param   tag         The tag.
+        // -------------------------------------------------------------------------------------------------
+        private void PauseExecutionCallback(byte[] response, int tag)
+        {
+            if (Program.InStepMode)
+            {
+
+                try
+                {
+                    if (InvokeRequired)
+                    {
+                        Invoke((MethodInvoker)delegate { Program.myMainForm.UpdateAllWindows(true); });
+                    }
+                    else
+                    {
+                        Program.myMainForm.UpdateAllWindows(true);
+                    }
+                }
+                catch
+                {
+                
+                }
+
+            }
+
+        }
+
+        private void StepCallback(byte[] response, int tag)
+        {
+            if (Program.InStepMode)
+            {
+
+                try
+                {
+                    if (InvokeRequired)
+                    {
+                        Invoke((MethodInvoker)delegate { Program.myMainForm.UpdateAllWindows(true); });
+                    }
+                    else
+                    {
+                        Program.myMainForm.UpdateAllWindows(true);
+                    }
+                }
+                catch
+                {
+                
+                }
+
+            }
+
+        }
+
+
+
+        // -------------------------------------------------------------------------------------------------
+        // Command response
+        //
+        // \param   s   A string[] to process.
+        // \param   tag The tag.
+        // -------------------------------------------------------------------------------------------------
 		void commandResponse(string[] s,int tag)
 		{
 			Console.WriteLine(s[0]);
 		}
 
+        // Updates the source buttons
 		public void UpdateSourceButtons()
 		{
-			buttonRunBreak.Visible = false;
-			if (Program.InStepMode)
-			{
-				//only enable if there is breakpoints.. otherwise emualtor goes a bit mad
-				if (Breakpoint.NumBreakpointsActive() >0)
-					buttonRunBreak.Visible = true;
+            buttonRunBreak.Visible = false;
 
-			}
+            
+            if (Program.InStepMode)
+            {
+                Program.InStepMode = false;
+                breakbutton.Visible = true;
+                continuebutton.Visible = false;
+
+                if (Breakpoint.NumBreakpointsActive() >0)
+                    buttonRunBreak.Visible = true;
+
+            }
+            else
+            {
+                Program.InStepMode = true;
+                breakbutton.Visible = false;
+                continuebutton.Visible = true;
+            }
+
+
 
 		}
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Command response step update
+        //
+        // \param   s   A string[] to process.
+        // \param   tag The tag.
+        // -------------------------------------------------------------------------------------------------
 		void commandResponseStepUpdate(string[] s,int tag)
 		{
 			try
@@ -171,12 +305,31 @@ namespace RemoteDebugger
 		}
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Event handler. Called by stepbutton for click events
+        //
+        // \param   sender  Source of the event.
+        // \param   e       Event information.
+        // -------------------------------------------------------------------------------------------------
 		private void stepbutton_Click(object sender, EventArgs e)
 		{
-			Program.telnetConnection.SendCommand("cpu-step", commandResponseStepUpdate);
+			//Program.telnetConnection.SendCommand("cpu-step", commandResponseStepUpdate);
 
-		}
+            //get the address of where to run to
+            int breakpointAddress = MainForm.myDisassembly.GetStepAddress();
 
+
+            Program.serialport.Step(StepCallback,breakpointAddress);
+
+
+        }
+
+        // -------------------------------------------------------------------------------------------------
+        // Event handler. Called by stepoverbutton for click events
+        //
+        // \param   sender  Source of the event.
+        // \param   e       Event information.
+        // -------------------------------------------------------------------------------------------------
 		private void stepoverbutton_Click(object sender, EventArgs e)
 		{
 			string line = MainForm.myDisassembly.GetCurrentLineCode().ToLower().TrimStart();
@@ -187,12 +340,24 @@ namespace RemoteDebugger
 				Program.telnetConnection.SendCommand("cpu-step-over", commandResponseStepUpdate);
 		}
 
+        // -------------------------------------------------------------------------------------------------
+        // Event handler. Called by button1 for click events
+        //
+        // \param   sender  Source of the event.
+        // \param   e       Event information.
+        // -------------------------------------------------------------------------------------------------
 		private void button1_Click(object sender, EventArgs e)
 		{
 			Program.telnetConnection.SendCommand("run", commandResponseStepUpdate);
 
 		}
 
+        // -------------------------------------------------------------------------------------------------
+        // Event handler. Called by FunctionComboBox for selected index changed events
+        //
+        // \param   sender  Source of the event.
+        // \param   e       Event information.
+        // -------------------------------------------------------------------------------------------------
 		private void FunctionComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (FunctionComboBox.SelectedIndex < 0) return;

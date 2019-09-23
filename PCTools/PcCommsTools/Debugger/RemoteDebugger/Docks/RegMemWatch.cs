@@ -5,24 +5,29 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HexControlLibrary;
+using Microsoft.Win32;
 
 namespace RemoteDebugger.Docks
 {
 
-	/// -------------------------------------------------------------------------------------------------
-	/// <summary> A byte provider. </summary>
-	///
-	/// <remarks> 09/09/2018. </remarks>
-	/// -------------------------------------------------------------------------------------------------
+    /// -------------------------------------------------------------------------------------------------
+    /// <summary> A byte provider. </summary>
+    ///
+    /// <remarks> 09/09/2018. </remarks>
+    /// -------------------------------------------------------------------------------------------------
 
 
-	public partial class RegMemWatch : Form
-	{
-		private ByteProvider[] ByteProviders;
+    public partial class RegMemWatch : Form
+    {
+        private ByteProvider[] ByteProviders;
+
+        public Registers.Z80Register[] regs = { Registers.Z80Register.hl, Registers.Z80Register.de, Registers.Z80Register.bc, Registers.Z80Register.ix, Registers.Z80Register.iy };
+        private bool sending = false;
 
 
 		public RegMemWatch()
@@ -57,10 +62,7 @@ namespace RemoteDebugger.Docks
 			IYHexControl.Model.ByteProvider = ByteProviders[4];
 			IYHexControl.UpdateView();
 
-			ByteProviders[5] = new ByteProvider();
-			ByteProviders[5].init(32,1000);
-			MEMHexControl.Model.ByteProvider = ByteProviders[5];
-			MEMHexControl.UpdateView();
+
 		}
 
 		/// -------------------------------------------------------------------------------------------------
@@ -69,43 +71,24 @@ namespace RemoteDebugger.Docks
 		/// <remarks> 09/09/2018. </remarks>
 		/// -------------------------------------------------------------------------------------------------
 		public void UpdateMemory()
-		{
-			int v = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.hl);
-			ByteProvider bp = ByteProviders[0];
-			bp.offset = v;
-			Program.telnetConnection.SendCommand("read-memory "+v.ToString()+" 32", Callback,0);
-			HLlabel.Text = "( HL ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.hl);
+        {
+
+            if (!this.Visible) return;
+            if (sending) return;
+            sending = true;
+
+            
+            int v;
+            for (int i = 0; i < 5; i++)
+            {
+                v = MainForm.myNewRegisters.GetRegisterValueint(regs[i]);
+                ByteProvider bp = ByteProviders[i]; 
+                bp.offset = v; 
+                Program.serialport.GetMemory(Callback, v,32,i);
+            }
+
 
 			
-			v = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.de);
-			bp = ByteProviders[1];
-			bp.offset = v;
-			Program.telnetConnection.SendCommand("read-memory "+v.ToString()+" 32", Callback,1);
-			DElabel.Text = "( DE ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.de);
-
-			v = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.bc);
-			bp = ByteProviders[2];
-			bp.offset = v;
-			Program.telnetConnection.SendCommand("read-memory "+v.ToString()+" 32", Callback,2);
-			BClabel.Text = "( BC ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.bc);
-
-			v = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.ix);
-			bp = ByteProviders[3];
-			bp.offset = v;
-			Program.telnetConnection.SendCommand("read-memory "+v.ToString()+" 32", Callback,3);
-			IXlabel.Text = "( IX ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.ix);
-
-			v = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.iy);
-			bp = ByteProviders[4];
-			bp.offset = v;
-			Program.telnetConnection.SendCommand("read-memory "+v.ToString()+" 32", Callback,4);
-			IYlabel.Text = "( IY ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.iy);
-
-			v = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.memptr);
-			bp = ByteProviders[5];
-			bp.offset = v;
-			Program.telnetConnection.SendCommand("read-memory "+v.ToString()+" 32", Callback,5);
-			MEMlabel.Text = "( MEMPTR ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.memptr);
 
 		}
 
@@ -117,8 +100,10 @@ namespace RemoteDebugger.Docks
 		/// <param name="response"> The response. </param>
 		/// <param name="tag">	    The tag. </param>
 		/// -------------------------------------------------------------------------------------------------
-		void Callback(string[] response,int tag)
-		{
+		void Callback(byte[] response,int tag)
+        {
+
+
 			try
 			{
 				if (InvokeRequired)
@@ -144,30 +129,49 @@ namespace RemoteDebugger.Docks
 		/// <param name="response"> The response. </param>
 		/// <param name="tag">	    The tag. </param>
 		/// -------------------------------------------------------------------------------------------------
-		private void UIUpdate(string[] response,int tag)
-		{
-			ByteProviders[tag].parseData(response[0]);
+		private void UIUpdate(byte[] response,int tag)
+        {
+
+            int v = 0;
+
+
+            byte[] arraycopy = new byte[response.Length-5];
+            Array.Copy(response, 5, arraycopy, 0,arraycopy.Length);
+
+            ByteProviders[tag].bytes = arraycopy;// parseData(response[0]);
 
 			switch (tag)
 			{
 				case 0:
+                    v = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.hl);
+                    HLlabel.Text = "( HL ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.hl);
 					HLHexControl.UpdateView();
 					break;
 				case 1:
+                    v = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.de);
+                    DElabel.Text = "( DE ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.de);
 					DEHexControl.UpdateView();
 					break;
 				case 2:
+                    v = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.bc);
+                    BClabel.Text = "( BC ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.bc);
 					BCHexControl.UpdateView();
 					break;
 				case 3:
+                    v = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.ix);
+                    IXlabel.Text = "( IX ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.hl);
 					IXHexControl.UpdateView();
 					break;
 				case 4:
+                    v = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.iy);
+                    IYlabel.Text = "( IY ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.hl);
 					IYHexControl.UpdateView();
+                    sending = false;
+ 
 					break;
-				case 5:
-					MEMHexControl.UpdateView();
-					break;
+				//case 5:
+				//	MEMHexControl.UpdateView();
+				//	break;
 			}
 		}
 

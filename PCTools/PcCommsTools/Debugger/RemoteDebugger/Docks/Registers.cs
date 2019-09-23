@@ -62,11 +62,22 @@ namespace RemoteDebugger
 		    f,
 		    f_e,
 
-		    memptr,
+            MACHINE_ID_00,NEXT_VERSION_01,NEXT_RESET_02,MACHINE_TYPE_03,ROM_MAPPING_04,PERIPHERAL_1_05,PERIPHERAL_2_06,TURBO_CONTROL_07,PERIPHERAL_3_08,PERIPHERAL_4_09,NEXT_VERSION_MINOR_0E,ANTI_BRICK_10,VIDEO_TIMING_11,LAYER2_RAM_BANK_12,LAYER2_RAM_SHADOW_BANK_13,GLOBAL_TRANSPARENCY_14,SPRITE_CONTROL_15,LAYER2_XOFFSET_16,LAYER2_YOFFSET_17,CLIP_LAYER2_18,CLIP_SPRITE_19,CLIP_ULA_LORES_1A,CLIP_TILEMAP_1B,CLIP_WINDOW_CONTROL_1C,RASTER_LINE_MSB_1E,RASTER_LINE_LSB_1F,RASTER_INTERUPT_CONTROL_22,RASTER_INTERUPT_VALUE_23,TILEMAP_XOFFSET_MSB_2F,TILEMAP_XOFFSET_LSB_30,TILEMAP_YOFFSET_31,LORES_XOFFSET_32,LORES_YOFFSET_33,SPRITE_ATTR_SLOT_SEL_34,PALETTE_INDEX_40,PALETTE_VALUE_41,PALETTE_FORMAT_42,PALETTE_CONTROL_43,PALETTE_VALUE_9BIT_44,TRANSPARENCY_FALLBACK_COL_4A,SPRITE_TRANSPARENCY_I_4B,TILEMAP_TRANSPARENCY_I_4C,
+            MMU0_0000_50,MMU1_2000_51,MMU2_4000_52,MMU3_6000_53,MMU4_8000_54,MMU5_A000_55,MMU6_C000_56,MMU7_E000_57,ULA_CONTROL_68,TILEMAP_CONTROL_6B,TILEMAP_DEFAULT_ATTR_6C,TILEMAP_BASE_ADR_6E,TILEMAP_GFX_ADR_6F,
 
-			numRgisters
+
+
+		    //memptr,
+
+			numRegisters,
+
+            //numZ80Registers = hw0,
+            numHW = TILEMAP_GFX_ADR_6F - MACHINE_ID_00
+
 
 	    }
+
+
 
         // -------------------------------------------------------------------------------------------------
         // Displays a function callback described by ri
@@ -115,6 +126,9 @@ namespace RemoteDebugger
 
 	    private Regex BankReg;
         RegisterItem[] registerData;
+
+        public int[] stackdata = new int[4];
+
         Dictionary<string, int> nameMap;
 
         string viewName;
@@ -126,8 +140,6 @@ namespace RemoteDebugger
 
 	        registerData[(int) index] = reg;
 
-            //registerData.Add(new RegisterItem() { RegisterName = name, Value = 0 ,regex = new Regex(regex), DisplayString = display });
-            //nameMap.Add(name, registerData.Count - 1);
         }
 
         // -------------------------------------------------------------------------------------------------
@@ -161,13 +173,13 @@ namespace RemoteDebugger
             viewName = viewname;
             InitializeComponent();
             //dataGridView1.CausesValidation = false;
-            registerData = new RegisterItem[ (int)Z80Register.numRgisters ];
+            registerData = new RegisterItem[ (int)Z80Register.numRegisters ];
             //regexList = new List<Regex>();
             nameMap = new Dictionary<string, int>();
             //validateList = new List<RegisterValidate>();
 
 
-	        BankReg = new Regex(@"([O:A])(\d+)\s([O:A])(\d+)\s([O:A])(\d+)\s([O:A])(\d+)\s([O:A])(\d+)\s([O:A])(\d+)\s([O:A])(\d+)\s([O:A])(\d+)\s");
+	        //BankReg = new Regex(@"([O:A])(\d+)\s([O:A])(\d+)\s([O:A])(\d+)\s([O:A])(\d+)\s([O:A])(\d+)\s([O:A])(\d+)\s([O:A])(\d+)\s([O:A])(\d+)\s");
             InitialiseRegister("A", "X2",Z80Register.a,RegA,DisplaySimpleRegister);
 	        InitialiseRegister("HL", "X4",Z80Register.hl,RegHL,DisplaySimpleRegister);
 	        InitialiseRegister("BC", "X4",Z80Register.bc,RegBC,DisplaySimpleRegister);
@@ -190,10 +202,51 @@ namespace RemoteDebugger
 
 	        InitialiseRegister("F", "X2",Z80Register.f,RegF,DisplaySimpleRegister);
 	        InitialiseRegister("F'", "X2",Z80Register.f_e,RegExF,DisplaySimpleRegister);
-	        InitialiseRegister("MEMPTR", "X2",Z80Register.memptr,null,DisplaySimpleRegister);
 
 
-            
+
+            InitialiseRegister("F'", "X2",Z80Register.MACHINE_ID_00,RegExF,DisplaySimpleRegister);
+
+            int y = 7;
+            for (int i = (int) Z80Register.MACHINE_ID_00; i <= (int)Z80Register.TILEMAP_GFX_ADR_6F; i++)
+            {
+                Z80Register reg = (Z80Register) i;
+
+
+                Label lb = new System.Windows.Forms.Label();
+
+                lb.AutoSize = true;
+                lb.Location = new System.Drawing.Point(6, y);
+                lb.Name = "";
+                lb.Size = new System.Drawing.Size(37, 13);
+                lb.TabIndex = 67;
+                lb.Text = reg.ToString();
+                lb.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                lb.Font = new System.Drawing.Font("Consolas", 8.0F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+
+                TextBox HW = new System.Windows.Forms.TextBox();
+
+                HW.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                HW.Location = new System.Drawing.Point(180, y);
+                HW.Name = "RegA";
+                HW.Size = new System.Drawing.Size(210, 23);
+                HW.TabIndex = 32;
+                HW.Text = "$00 / 256";
+                HW.ReadOnly = true;
+                HW.BorderStyle = BorderStyle.None;
+
+                this.hwpanel.Controls.Add(lb);
+                this.hwpanel.Controls.Add(HW);
+
+
+                y += 25;
+
+
+                InitialiseRegister(reg.ToString(), "X2",reg,HW,DisplaySimpleRegister);
+
+
+            }
 
         }
 
@@ -201,18 +254,6 @@ namespace RemoteDebugger
         // Request update
         public void RequestUpdate()
         {
-
-            Program.serialport.GetRegisters(regcallback, 0);
-	        //Program.telnetConnection.SendCommand("get-memory-pages", BankCallback);
-	        //Program.telnetConnection.SendCommand("tbblue-get-register 81", BankCallback,81);
-	        //Program.telnetConnection.SendCommand("tbblue-get-register 82", BankCallback,82);
-	        //Program.telnetConnection.SendCommand("tbblue-get-register 83", BankCallback,83);
-	        //Program.telnetConnection.SendCommand("tbblue-get-register 84", BankCallback,84);
-	        //Program.telnetConnection.SendCommand("tbblue-get-register 85", BankCallback,85);
-	        //Program.telnetConnection.SendCommand("tbblue-get-register 86", BankCallback,86);
-	        //Program.telnetConnection.SendCommand("tbblue-get-register 87", BankCallback,87);
-	        //Program.telnetConnection.SendCommand("get-registers", cb);
-
         }
 
 
@@ -223,7 +264,7 @@ namespace RemoteDebugger
         // \param   response    The response.
         // \param   tag         The tag.
         // -------------------------------------------------------------------------------------------------
-        void regcallback(byte[] response, int tag)
+        public void regcallback(byte[] response, int tag)
         {
             int index = 3;
 
@@ -244,6 +285,30 @@ namespace RemoteDebugger
             registerData[(int) Z80Register.hl].Value = Get16Bit(ref response, ref index);
             registerData[(int) Z80Register.pc].Value = Get16Bit(ref response, ref index);
             registerData[(int) Z80Register.sp].Value = Get16Bit(ref response, ref index);
+
+            for (int i = (int) Z80Register.MACHINE_ID_00; i <= (int) Z80Register.TILEMAP_GFX_ADR_6F; i++)
+            {
+                Z80Register reg = (Z80Register) i;
+
+                registerData[(int) reg].Value = Get8Bit(ref response, ref index);
+
+            }
+
+            stackdata[0] = Get16Bit(ref response, ref index);
+            stackdata[1] = Get16Bit(ref response, ref index);
+            stackdata[2] = Get16Bit(ref response, ref index);
+            stackdata[3] = Get16Bit(ref response, ref index);
+
+
+
+
+            //copy bank data from data
+            for (int i = 0; i < MainForm.banks.Length; i++)
+            {
+                MainForm.banks[ i ] = registerData[(int)(Z80Register.MMU0_0000_50+i)].Value;
+            }
+
+
 
             try
             {
@@ -385,8 +450,10 @@ namespace RemoteDebugger
         void UIUpdate()
         {
 
-	        for (int r = 0; r < registerData.Length; r++)
+	        for (int r = 0; r < (int)Z80Register.numRegisters; r++)
 	        {
+                if (registerData[r]==null) continue;
+
 		        if (registerData[r].uiTextBox != null)
 		        {
                     //registerData[r].uiTextBox.Text = "$"+registerData[r].Value.ToString(registerData[r].DisplayString) + " / " +
@@ -399,9 +466,9 @@ namespace RemoteDebugger
 	        }
 
 
-//	        BankData.Text = String.Format("${0:X2}  ${1:X2}  ${2:X2}  ${3:X2}  ${4:X2}  ${5:X2}  ${6:X2}  ${7:X2}", MainForm.banks[0],
-//		        MainForm.banks[1], MainForm.banks[2], MainForm.banks[3], MainForm.banks[4], MainForm.banks[5],
-//		        MainForm.banks[6], MainForm.banks[7]);
+	        BankData.Text = String.Format("${0:X2}  ${1:X2}  ${2:X2}  ${3:X2}  ${4:X2}  ${5:X2}  ${6:X2}  ${7:X2}", MainForm.banks[0],
+		        MainForm.banks[1], MainForm.banks[2], MainForm.banks[3], MainForm.banks[4], MainForm.banks[5],
+		        MainForm.banks[6], MainForm.banks[7]);
 
 
 	        int flg = registerData[(int) Z80Register.f].Value;
@@ -427,9 +494,12 @@ namespace RemoteDebugger
 
 	        RegFlags.Text = flags;
 
-
-
-
+            string stackstr = "";
+            foreach (int s in stackdata)
+            {
+                stackstr = stackstr + s.ToString("X4") + Environment.NewLine;
+            }
+            stack.Text = stackstr;
 
 /*            if (items.Count() != 1)
                 return;
@@ -484,60 +554,6 @@ namespace RemoteDebugger
 
 
 
-	    /// -------------------------------------------------------------------------------------------------
-	    /// <summary> Callback, called when the bank. </summary>
-	    ///
-	    /// <remarks> 07/09/2018. </remarks>
-	    ///
-	    /// <param name="response"> The response. </param>
-	    /// <param name="tag">	    The tag. </param>
-	    /// -------------------------------------------------------------------------------------------------
-	    void BankCallback(string[] response,int tag)
-	    {
-		    if (response.Count() != 1) return;
-
-		    Match m = BankReg.Match(response[0]);
-
-
-		    for (int i = 0; i < (16/2); i++)
-		    {
-			    if (m.Groups[1 + (i*2)].ToString() == "O")
-			    {
-				    MainForm.banks[ i ] = 0xff;
-			    }
-			    else
-			    {
-				    int bank;
-				    if (int.TryParse(m.Groups[2 + (i*2)].ToString(), NumberStyles.Integer, null, out bank))
-					    MainForm.banks[ i ] = bank;
-				    
-			    }
-
-
-
-
-		    }
-
-	    }
-
-        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-/*            if (e.ColumnIndex == 1)
-            {
-                dataGridView1.Rows[e.RowIndex].ErrorText = "";
-                string regName = dataGridView1.Rows[e.RowIndex].Cells[0].Value as string;
-                string cValue = dataGridView1.Rows[e.RowIndex].Cells[1].Value as string;
-                if (cValue != e.FormattedValue.ToString())
-                {
-                    string err;
-                    if (validateList[e.RowIndex](e.FormattedValue.ToString(), out err))
-                    {
-                        Program.telnetConnection.SendCommand("set-register " + regName + "=" + e.FormattedValue.ToString()+"h", null);
-                    }
-                    dataGridView1.Rows[e.RowIndex].ErrorText = err;
-                }
-            }*/
-        }
 
 
 	    void RegChangeCallback(string[] response,int tag)

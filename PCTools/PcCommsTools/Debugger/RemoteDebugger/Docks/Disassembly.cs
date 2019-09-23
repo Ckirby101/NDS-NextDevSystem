@@ -46,15 +46,18 @@ namespace RemoteDebugger
     {
         /// <summary> Information describing the disassembly. </summary>
         BindingList<DisassemblyData> disassemblyData;
+
+        private byte[] disassemblyMemory;
+        private int dissassemblyBaseAddress;
+
         /// <summary> The dis RegEx. </summary>
-        Regex disRegex;
+        //Regex disRegex;
 	    /// <summary> The address RegEx. </summary>
 	    Regex addrRegex;
         /// <summary> Name of the view. </summary>
         string viewName;
 
-        private byte[] data;
-
+        private eZ80Disassembler.DisassembledInstruction[] instrs;
 
         /// -------------------------------------------------------------------------------------------------
         /// <summary> Constructor. </summary>
@@ -67,12 +70,11 @@ namespace RemoteDebugger
         public Disassembly(string name, string viewname)
         {
 
-            data = File.ReadAllBytes("out.bin");
 
             viewName = viewname;
             InitializeComponent();
             disassemblyData = new BindingList<DisassemblyData>();
-            disRegex = new Regex(@"([0-9a-fA-F]{4})\s([0-9a-fA-F]*)\s*(.*)");   //gets the address and opcode hex
+            //disRegex = new Regex(@"([0-9a-fA-F]{4})\s([0-9a-fA-F]*)\s*(.*)");   //gets the address and opcode hex
 	        addrRegex = new Regex(@"([0-9a-fA-F]{4})");
             for (int a=0;a<30;a++)
             {
@@ -87,13 +89,42 @@ namespace RemoteDebugger
             DissasemblyDataGrid.RowHeadersVisible = false;
 
 
-            UIUpdate(null,0);
+            //UIUpdate(null,0);
         }
 
         ~Disassembly()
         {
             // Your code
         }
+
+
+        // -------------------------------------------------------------------------------------------------
+        // Gets step address
+        //
+        // \return  The step address.
+        // -------------------------------------------------------------------------------------------------
+        public int GetStepAddress()
+        {
+
+            //get address of next instruction
+            int addr = instrs[1].MemoryAddress;
+
+            //but check that current instruction is a branch or jump
+            if (instrs[0].IsBranch)
+            {
+                //we now need to see if jump will be taken.
+                
+
+
+                addr = instrs[0].BranchTarget;
+                Console.WriteLine("branch");
+            }
+
+
+
+            return addr;
+        }
+
 
         /// -------------------------------------------------------------------------------------------------
         /// <summary> Request update. </summary>
@@ -105,20 +136,34 @@ namespace RemoteDebugger
         public void RequestUpdate(int pc)
         {
 
-	        int addr = TraceFile.GetCloestValidCodeAddress(pc - 10);
+            int addr = pc;//TraceFile.GetCloestValidCodeAddress(pc - 10);
 
 			if (addr<0)
 	        {
-		        Program.telnetConnection.SendCommand("d "+pc.ToString()+" 30", Callback,pc);
+                Program.serialport.GetMemory(memcallback, addr,64,addr);
+		        //Program.telnetConnection.SendCommand("d "+pc.ToString()+" 30", Callback,pc);
 	        }
 	        else
 	        {
 		        
-		        Program.telnetConnection.SendCommand("d "+addr.ToString()+" 30", Callback,pc);
+                Program.serialport.GetMemory(memcallback, addr,64,addr);
+		        //Program.telnetConnection.SendCommand("d "+addr.ToString()+" 30", Callback,pc);
 	        }
-
-
         }
+
+        
+
+        // -------------------------------------------------------------------------------------------------
+        // Memcallback, called when the memory
+        //
+        // \param   response    The response.
+        // \param   tag         The tag.
+        // -------------------------------------------------------------------------------------------------
+        void memcallback(byte[] response, int tag)
+        {
+            UIUpdate(tag,response);
+        }
+
 
         /// -------------------------------------------------------------------------------------------------
         /// <summary> Updates the given items. </summary>
@@ -127,18 +172,25 @@ namespace RemoteDebugger
         ///
         /// <param name="items"> The items. </param>
         /// -------------------------------------------------------------------------------------------------
-        void UIUpdate(string[] items,int pc)
+        void UIUpdate(int pc,byte[] data)
         {
+
+            dissassemblyBaseAddress = pc;
+
+            disassemblyMemory = new byte[data.Length-5];
+            Array.Copy(data,5,disassemblyMemory,0,data.Length-5);
+
             int start = 0;
-            int end = 100;
-            int baseAddress = 0x4000;
+            int end = disassemblyMemory.Length-1;
+            int baseAddress = dissassemblyBaseAddress;
             bool hasBaseAddress = true;
             bool adlMode = false;
-            bool z80ClassicMode = false;
+            bool z80ClassicMode = true;
             bool addLabels = false;
 
-            eZ80Disassembler.DisassembledInstruction[] instrs =
-                eZ80Disassembler.Disassemble(data, start, end, baseAddress, hasBaseAddress, adlMode, z80ClassicMode, addLabels ? "label_" : "", addLabels ? "loc_" : "");
+            
+
+            instrs = eZ80Disassembler.Disassemble(disassemblyMemory, start, end, baseAddress, hasBaseAddress, adlMode, z80ClassicMode, addLabels ? "label_" : "", addLabels ? "loc_" : "");
 
             int index = 0;
             foreach (eZ80Disassembler.DisassembledInstruction di in instrs)
@@ -193,12 +245,22 @@ namespace RemoteDebugger
                 }
                 disassemblyData[index].Value = dis;
 
+                if (addr == pc)
+                {
+                    DissasemblyDataGrid.Rows[index].DefaultCellStyle.BackColor = System.Drawing.Color.LightBlue;
 
-
+                }
+                else
+                {
+                    DissasemblyDataGrid.Rows[index].DefaultCellStyle.BackColor = System.Drawing.Color.White;
+                    
+                }
                 index++;
             }
 
+            DissasemblyDataGrid.Invalidate();
 
+            Invalidate();
 
 /*
             //bool updated = false;
@@ -291,7 +353,7 @@ namespace RemoteDebugger
         /// <param name="response"> The response. </param>
         /// <param name="tag">	    The tag. </param>
         /// -------------------------------------------------------------------------------------------------
-        void Callback(string[] response,int pc)
+/*        void Callback(string[] response,int pc)
         {
             try
             {
@@ -308,7 +370,7 @@ namespace RemoteDebugger
             {
                 
             }
-        }
+        }*/
 
 	    /// -------------------------------------------------------------------------------------------------
 	    /// <summary> Gets current line code. </summary>

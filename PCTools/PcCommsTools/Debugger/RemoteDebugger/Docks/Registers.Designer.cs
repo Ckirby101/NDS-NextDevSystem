@@ -65,16 +65,20 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.z80 = new System.Windows.Forms.TabPage();
+            this.HWRegisters = new System.Windows.Forms.TabPage();
+            this.hwpanel = new System.Windows.Forms.Panel();
+            this.stack = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
+            this.z80.SuspendLayout();
+            this.HWRegisters.SuspendLayout();
             this.SuspendLayout();
             // 
             // label15
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(882, 42);
+            this.label15.Location = new System.Drawing.Point(330, 40);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(15, 13);
             this.label15.TabIndex = 63;
@@ -85,7 +89,7 @@
             // 
             this.RegExF.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.RegExF.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegExF.Location = new System.Drawing.Point(472, 39);
+            this.RegExF.Location = new System.Drawing.Point(190, 36);
             this.RegExF.Name = "RegExF";
             this.RegExF.Size = new System.Drawing.Size(110, 23);
             this.RegExF.TabIndex = 42;
@@ -94,7 +98,7 @@
             // 
             this.RegR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RegR.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegR.Location = new System.Drawing.Point(899, 39);
+            this.RegR.Location = new System.Drawing.Point(347, 37);
             this.RegR.Name = "RegR";
             this.RegR.Size = new System.Drawing.Size(110, 23);
             this.RegR.TabIndex = 62;
@@ -102,7 +106,7 @@
             // RegA
             // 
             this.RegA.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegA.Location = new System.Drawing.Point(37, 10);
+            this.RegA.Location = new System.Drawing.Point(27, 7);
             this.RegA.Name = "RegA";
             this.RegA.Size = new System.Drawing.Size(110, 23);
             this.RegA.TabIndex = 32;
@@ -113,7 +117,7 @@
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(885, 12);
+            this.label16.Location = new System.Drawing.Point(333, 10);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(10, 13);
             this.label16.TabIndex = 61;
@@ -123,7 +127,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 13);
+            this.label1.Location = new System.Drawing.Point(7, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(14, 13);
             this.label1.TabIndex = 33;
@@ -134,7 +138,7 @@
             // 
             this.RegI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RegI.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegI.Location = new System.Drawing.Point(899, 9);
+            this.RegI.Location = new System.Drawing.Point(347, 7);
             this.RegI.Name = "RegI";
             this.RegI.Size = new System.Drawing.Size(110, 23);
             this.RegI.TabIndex = 60;
@@ -143,7 +147,7 @@
             // 
             this.RegExA.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.RegExA.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegExA.Location = new System.Drawing.Point(472, 10);
+            this.RegExA.Location = new System.Drawing.Point(190, 7);
             this.RegExA.Name = "RegExA";
             this.RegExA.Size = new System.Drawing.Size(110, 23);
             this.RegExA.TabIndex = 34;
@@ -152,7 +156,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(15, 169);
+            this.label13.Location = new System.Drawing.Point(5, 150);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(21, 13);
             this.label13.TabIndex = 59;
@@ -163,7 +167,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(452, 13);
+            this.label2.Location = new System.Drawing.Point(170, 10);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(16, 13);
             this.label2.TabIndex = 35;
@@ -173,7 +177,7 @@
             // RegPC
             // 
             this.RegPC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegPC.Location = new System.Drawing.Point(37, 166);
+            this.RegPC.Location = new System.Drawing.Point(27, 147);
             this.RegPC.Name = "RegPC";
             this.RegPC.Size = new System.Drawing.Size(110, 23);
             this.RegPC.TabIndex = 58;
@@ -182,7 +186,7 @@
             // RegF
             // 
             this.RegF.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegF.Location = new System.Drawing.Point(37, 39);
+            this.RegF.Location = new System.Drawing.Point(27, 36);
             this.RegF.Name = "RegF";
             this.RegF.Size = new System.Drawing.Size(110, 23);
             this.RegF.TabIndex = 36;
@@ -191,7 +195,7 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(876, 139);
+            this.label14.Location = new System.Drawing.Point(4, 176);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(21, 13);
             this.label14.TabIndex = 57;
@@ -201,7 +205,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 42);
+            this.label3.Location = new System.Drawing.Point(7, 39);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(13, 13);
             this.label3.TabIndex = 37;
@@ -212,7 +216,7 @@
             // 
             this.RegSP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RegSP.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegSP.Location = new System.Drawing.Point(899, 137);
+            this.RegSP.Location = new System.Drawing.Point(27, 174);
             this.RegSP.Name = "RegSP";
             this.RegSP.Size = new System.Drawing.Size(110, 23);
             this.RegSP.TabIndex = 56;
@@ -221,7 +225,7 @@
             // RegHL
             // 
             this.RegHL.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegHL.Location = new System.Drawing.Point(37, 83);
+            this.RegHL.Location = new System.Drawing.Point(27, 64);
             this.RegHL.Name = "RegHL";
             this.RegHL.Size = new System.Drawing.Size(110, 23);
             this.RegHL.TabIndex = 38;
@@ -232,7 +236,7 @@
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(877, 113);
+            this.label11.Location = new System.Drawing.Point(325, 95);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(17, 13);
             this.label11.TabIndex = 55;
@@ -242,7 +246,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 86);
+            this.label5.Location = new System.Drawing.Point(3, 67);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(21, 13);
             this.label5.TabIndex = 39;
@@ -253,7 +257,7 @@
             // 
             this.RegIY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RegIY.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegIY.Location = new System.Drawing.Point(899, 110);
+            this.RegIY.Location = new System.Drawing.Point(347, 92);
             this.RegIY.Name = "RegIY";
             this.RegIY.Size = new System.Drawing.Size(110, 23);
             this.RegIY.TabIndex = 54;
@@ -263,7 +267,7 @@
             // 
             this.RegExHL.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.RegExHL.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegExHL.Location = new System.Drawing.Point(472, 83);
+            this.RegExHL.Location = new System.Drawing.Point(190, 64);
             this.RegExHL.Name = "RegExHL";
             this.RegExHL.Size = new System.Drawing.Size(110, 23);
             this.RegExHL.TabIndex = 40;
@@ -273,7 +277,7 @@
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(877, 86);
+            this.label12.Location = new System.Drawing.Point(325, 68);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(17, 13);
             this.label12.TabIndex = 53;
@@ -284,7 +288,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(445, 86);
+            this.label4.Location = new System.Drawing.Point(163, 67);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(23, 13);
             this.label4.TabIndex = 41;
@@ -295,7 +299,7 @@
             // 
             this.RegIX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RegIX.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegIX.Location = new System.Drawing.Point(899, 83);
+            this.RegIX.Location = new System.Drawing.Point(347, 65);
             this.RegIX.Name = "RegIX";
             this.RegIX.Size = new System.Drawing.Size(110, 23);
             this.RegIX.TabIndex = 52;
@@ -305,7 +309,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(452, 42);
+            this.label6.Location = new System.Drawing.Point(170, 39);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(15, 13);
             this.label6.TabIndex = 43;
@@ -316,7 +320,7 @@
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(445, 139);
+            this.label9.Location = new System.Drawing.Point(163, 120);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(23, 13);
             this.label9.TabIndex = 51;
@@ -326,7 +330,7 @@
             // RegDE
             // 
             this.RegDE.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegDE.Location = new System.Drawing.Point(37, 111);
+            this.RegDE.Location = new System.Drawing.Point(27, 92);
             this.RegDE.Name = "RegDE";
             this.RegDE.Size = new System.Drawing.Size(110, 23);
             this.RegDE.TabIndex = 44;
@@ -336,7 +340,7 @@
             // 
             this.RegExBC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.RegExBC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegExBC.Location = new System.Drawing.Point(472, 136);
+            this.RegExBC.Location = new System.Drawing.Point(190, 117);
             this.RegExBC.Name = "RegExBC";
             this.RegExBC.Size = new System.Drawing.Size(110, 23);
             this.RegExBC.TabIndex = 50;
@@ -345,7 +349,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(13, 114);
+            this.label8.Location = new System.Drawing.Point(3, 95);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(22, 13);
             this.label8.TabIndex = 45;
@@ -355,7 +359,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(14, 140);
+            this.label10.Location = new System.Drawing.Point(4, 121);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(21, 13);
             this.label10.TabIndex = 49;
@@ -366,7 +370,7 @@
             // 
             this.RegExDE.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.RegExDE.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegExDE.Location = new System.Drawing.Point(472, 110);
+            this.RegExDE.Location = new System.Drawing.Point(190, 91);
             this.RegExDE.Name = "RegExDE";
             this.RegExDE.Size = new System.Drawing.Size(110, 23);
             this.RegExDE.TabIndex = 46;
@@ -375,7 +379,7 @@
             // RegBC
             // 
             this.RegBC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegBC.Location = new System.Drawing.Point(37, 137);
+            this.RegBC.Location = new System.Drawing.Point(27, 118);
             this.RegBC.Name = "RegBC";
             this.RegBC.Size = new System.Drawing.Size(110, 23);
             this.RegBC.TabIndex = 48;
@@ -385,7 +389,7 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(445, 113);
+            this.label7.Location = new System.Drawing.Point(163, 94);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(24, 13);
             this.label7.TabIndex = 47;
@@ -396,7 +400,7 @@
             // 
             this.RegFlags.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.RegFlags.AutoSize = true;
-            this.RegFlags.Location = new System.Drawing.Point(469, 169);
+            this.RegFlags.Location = new System.Drawing.Point(187, 150);
             this.RegFlags.Name = "RegFlags";
             this.RegFlags.Size = new System.Drawing.Size(52, 13);
             this.RegFlags.TabIndex = 65;
@@ -407,7 +411,7 @@
             // 
             this.BankData.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.BankData.AutoSize = true;
-            this.BankData.Location = new System.Drawing.Point(322, 202);
+            this.BankData.Location = new System.Drawing.Point(49, 203);
             this.BankData.Name = "BankData";
             this.BankData.Size = new System.Drawing.Size(88, 13);
             this.BankData.TabIndex = 66;
@@ -417,7 +421,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(-1, 202);
+            this.label18.Location = new System.Drawing.Point(6, 203);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(37, 13);
             this.label18.TabIndex = 67;
@@ -427,7 +431,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(156, 169);
+            this.label17.Location = new System.Drawing.Point(161, 148);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(23, 13);
             this.label17.TabIndex = 68;
@@ -436,82 +440,105 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 260);
+            this.tabControl1.Controls.Add(this.z80);
+            this.tabControl1.Controls.Add(this.HWRegisters);
+            this.tabControl1.Location = new System.Drawing.Point(2, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(200, 142);
+            this.tabControl1.Size = new System.Drawing.Size(479, 247);
             this.tabControl1.TabIndex = 69;
             // 
-            // tabPage1
+            // z80
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(192, 116);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.z80.Controls.Add(this.stack);
+            this.z80.Controls.Add(this.RegF);
+            this.z80.Controls.Add(this.BankData);
+            this.z80.Controls.Add(this.label18);
+            this.z80.Controls.Add(this.label17);
+            this.z80.Controls.Add(this.RegBC);
+            this.z80.Controls.Add(this.label10);
+            this.z80.Controls.Add(this.label8);
+            this.z80.Controls.Add(this.label15);
+            this.z80.Controls.Add(this.RegFlags);
+            this.z80.Controls.Add(this.RegR);
+            this.z80.Controls.Add(this.RegDE);
+            this.z80.Controls.Add(this.label16);
+            this.z80.Controls.Add(this.label5);
+            this.z80.Controls.Add(this.RegI);
+            this.z80.Controls.Add(this.label14);
+            this.z80.Controls.Add(this.RegExF);
+            this.z80.Controls.Add(this.RegSP);
+            this.z80.Controls.Add(this.RegHL);
+            this.z80.Controls.Add(this.label11);
+            this.z80.Controls.Add(this.label3);
+            this.z80.Controls.Add(this.RegIY);
+            this.z80.Controls.Add(this.RegA);
+            this.z80.Controls.Add(this.label12);
+            this.z80.Controls.Add(this.RegPC);
+            this.z80.Controls.Add(this.RegIX);
+            this.z80.Controls.Add(this.RegExA);
+            this.z80.Controls.Add(this.label2);
+            this.z80.Controls.Add(this.label13);
+            this.z80.Controls.Add(this.label1);
+            this.z80.Controls.Add(this.label7);
+            this.z80.Controls.Add(this.RegExDE);
+            this.z80.Controls.Add(this.RegExBC);
+            this.z80.Controls.Add(this.RegExHL);
+            this.z80.Controls.Add(this.label9);
+            this.z80.Controls.Add(this.label6);
+            this.z80.Controls.Add(this.label4);
+            this.z80.Location = new System.Drawing.Point(4, 22);
+            this.z80.Name = "z80";
+            this.z80.Padding = new System.Windows.Forms.Padding(3);
+            this.z80.Size = new System.Drawing.Size(471, 221);
+            this.z80.TabIndex = 0;
+            this.z80.Text = "Z80";
+            this.z80.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // HWRegisters
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(192, 74);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.HWRegisters.Controls.Add(this.hwpanel);
+            this.HWRegisters.Location = new System.Drawing.Point(4, 22);
+            this.HWRegisters.Name = "HWRegisters";
+            this.HWRegisters.Padding = new System.Windows.Forms.Padding(3);
+            this.HWRegisters.Size = new System.Drawing.Size(471, 221);
+            this.HWRegisters.TabIndex = 1;
+            this.HWRegisters.Text = "Next IO";
+            this.HWRegisters.UseVisualStyleBackColor = true;
+            // 
+            // hwpanel
+            // 
+            this.hwpanel.AutoScroll = true;
+            this.hwpanel.Location = new System.Drawing.Point(2, 2);
+            this.hwpanel.Name = "hwpanel";
+            this.hwpanel.Size = new System.Drawing.Size(465, 219);
+            this.hwpanel.TabIndex = 0;
+            // 
+            // stack
+            // 
+            this.stack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.stack.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stack.Location = new System.Drawing.Point(347, 147);
+            this.stack.Multiline = true;
+            this.stack.Name = "stack";
+            this.stack.ReadOnly = true;
+            this.stack.Size = new System.Drawing.Size(110, 68);
+            this.stack.TabIndex = 69;
             // 
             // Registers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1021, 708);
+            this.ClientSize = new System.Drawing.Size(481, 251);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.BankData);
-            this.Controls.Add(this.RegFlags);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.RegExF);
-            this.Controls.Add(this.RegR);
-            this.Controls.Add(this.RegA);
-            this.Controls.Add(this.label16);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.RegI);
-            this.Controls.Add(this.RegExA);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.RegPC);
-            this.Controls.Add(this.RegF);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.RegSP);
-            this.Controls.Add(this.RegHL);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.RegIY);
-            this.Controls.Add(this.RegExHL);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.RegIX);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.RegDE);
-            this.Controls.Add(this.RegExBC);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.RegExDE);
-            this.Controls.Add(this.RegBC);
-            this.Controls.Add(this.label7);
             this.MinimumSize = new System.Drawing.Size(460, 39);
             this.Name = "Registers";
             this.Text = "Registers";
             this.tabControl1.ResumeLayout(false);
+            this.z80.ResumeLayout(false);
+            this.z80.PerformLayout();
+            this.HWRegisters.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -553,7 +580,9 @@
 		private System.Windows.Forms.Label label18;
 		private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage z80;
+        private System.Windows.Forms.TabPage HWRegisters;
+        private System.Windows.Forms.Panel hwpanel;
+        private System.Windows.Forms.TextBox stack;
     }
 }

@@ -28,7 +28,10 @@ namespace RemoteDebugger.Remote
 
             Cmd_SendRegs	= 183,		//send registers to pc
             Cmd_SetRegs	= 184,		//set the registers
-            Cmd_GetMem	= 185,		//send memeory to pc
+            Cmd_SendMem	= 185,		//send memeory to pc
+            Cmd_Pause	= 186,		//send memeory to pc
+            Cmd_Continue = 187,
+            Cmd_Step = 188,
             
         }
 
@@ -36,13 +39,15 @@ namespace RemoteDebugger.Remote
         public delegate void SerialCallback(byte[] response,int tag);
         public class SerialCommand
         {
-            public SerialCommand(UARTCommand uart,byte[] c, SerialCallback cb,int wantBytes, int _tag=0)
+            public SerialCommand(UARTCommand uart,byte[] c, SerialCallback cb,int wantBytes, int _tag=0,int _a0=0,int _a1=0)
             {
                 sendcommand = c;
                 callback = cb;
                 tag = _tag;
                 uartCommand = uart;
                 returnbytes = wantBytes;
+                a0 = _a0;
+                a1 = _a1;
             }
             //public ConcurrentQueue<string> callback;
             public byte[] sendcommand;
@@ -50,6 +55,9 @@ namespace RemoteDebugger.Remote
             public int tag=0;
             public UARTCommand uartCommand;
             public int returnbytes = 0;
+
+            public int a0 = 0;
+            public int a1 = 0;
         }
 
 
@@ -113,6 +121,16 @@ namespace RemoteDebugger.Remote
                 mySerialPort.Close();
 
             }
+
+        }
+
+
+        public string GetStatus()
+        {
+            string v = "";
+            if (mySerialPort.IsOpen) v = v + "Connected @" + mySerialPort.BaudRate+" | Commands in Que:"+commands.Count;
+
+            return v;
 
         }
         // -------------------------------------------------------------------------------------------------
@@ -203,9 +221,49 @@ namespace RemoteDebugger.Remote
             sendbuffer.Clear();
             AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_SendRegs);
 
-            SendCommand(UARTCommand.Cmd_SendRegs, sendbuffer.ToArray(), cb,84, tag);
+            SendCommand(UARTCommand.Cmd_SendRegs, sendbuffer.ToArray(), cb,92, tag,0,0);
 
         }
+
+
+        public void GetMemory(SerialCallback cb,int addr,int bytes,int tag = 0)
+        {
+            sendbuffer.Clear();
+            AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_SendMem);
+            Add16Value(ref sendbuffer,addr);
+            Add16Value(ref sendbuffer,bytes);
+
+            SendCommand(UARTCommand.Cmd_SendMem, sendbuffer.ToArray(), cb,bytes+5, tag,addr,bytes);
+
+        }
+
+
+        public void PauseExecution(SerialCallback cb,bool pause)
+        {
+            sendbuffer.Clear();
+            if (pause)
+            {
+                AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_Pause);
+                SendCommand(UARTCommand.Cmd_Pause, sendbuffer.ToArray(), cb,0, 0,0,0);
+            }
+            else
+            {
+                AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_Continue);
+                SendCommand(UARTCommand.Cmd_Continue, sendbuffer.ToArray(), cb,0, 0,0,0);
+            }
+
+        }
+
+
+        public void Step(SerialCallback cb, int addr)
+        {
+            sendbuffer.Clear();
+            AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_Step);
+            Add16Value(ref sendbuffer,addr);
+
+            SendCommand(UARTCommand.Cmd_Step, sendbuffer.ToArray(), cb,0, 0,0,0);
+        }
+
 
         // -------------------------------------------------------------------------------------------------
         // Sends a command
@@ -216,9 +274,9 @@ namespace RemoteDebugger.Remote
         // \param   wantbytes   The wantbytes.
         // \param   tag         (Optional) The tag.
         // -------------------------------------------------------------------------------------------------
-        public void SendCommand(UARTCommand uart,byte[] sendBytes, SerialCallback cb, int wantbytes ,int tag = 0)
+        public void SendCommand(UARTCommand uart,byte[] sendBytes, SerialCallback cb, int wantbytes ,int tag ,int a0,int a1)
         {
-            SerialCommand t = new SerialCommand(uart,sendBytes, cb, wantbytes,tag);
+            SerialCommand t = new SerialCommand(uart,sendBytes, cb, wantbytes,tag,a0,a1);
             commands.Enqueue(t);
         }
 
@@ -233,15 +291,22 @@ namespace RemoteDebugger.Remote
             {
                 SerialCommand sc;
 
-                Thread.Sleep(100);
+                Thread.Sleep(20);
 
                 //is port open
                 if (mySerialPort.IsOpen)
                 {
                     if (commands.TryDequeue(out sc))
                     {
+                        Console.WriteLine("Deque "+sc.uartCommand.ToString());
                         //got a command
                         SendBytes(sc.sendcommand);
+
+                        //wait until all bytes sent
+                        while (mySerialPort.BytesToWrite >0)
+                        {
+                            Thread.Sleep(10);
+                        }
 
                         while (mySerialPort.BytesToRead <sc.returnbytes)
                         {
@@ -252,6 +317,7 @@ namespace RemoteDebugger.Remote
                         byte[] returnbytes = new byte[sc.returnbytes];
 
                         mySerialPort.Read(returnbytes, 0, sc.returnbytes);
+
 
                         sc.callback(returnbytes, sc.tag);
                     }

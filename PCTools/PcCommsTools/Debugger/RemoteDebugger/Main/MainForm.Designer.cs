@@ -35,15 +35,14 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disasmHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.VsplitContainer = new System.Windows.Forms.SplitContainer();
             this.LeftsplitContainer = new System.Windows.Forms.SplitContainer();
             this.RightFlow = new System.Windows.Forms.FlowLayoutPanel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.disasmHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VsplitContainer)).BeginInit();
@@ -100,26 +99,28 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // disasmHelpToolStripMenuItem
+            // 
+            this.disasmHelpToolStripMenuItem.Name = "disasmHelpToolStripMenuItem";
+            this.disasmHelpToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.disasmHelpToolStripMenuItem.Text = "DisasmHelp";
+            this.disasmHelpToolStripMenuItem.Click += new System.EventHandler(this.disasmHelpToolStripMenuItem_Click);
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
+            this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // timer2
-            // 
-            this.timer2.Enabled = true;
-            this.timer2.Interval = 500;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 995);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 1018);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1496, 22);
             this.statusStrip1.TabIndex = 1;
@@ -145,7 +146,7 @@
             // VsplitContainer.Panel2
             // 
             this.VsplitContainer.Panel2.Controls.Add(this.RightFlow);
-            this.VsplitContainer.Size = new System.Drawing.Size(1496, 971);
+            this.VsplitContainer.Size = new System.Drawing.Size(1496, 994);
             this.VsplitContainer.SplitterDistance = 1000;
             this.VsplitContainer.SplitterWidth = 6;
             this.VsplitContainer.TabIndex = 2;
@@ -157,8 +158,8 @@
             this.LeftsplitContainer.Location = new System.Drawing.Point(0, 0);
             this.LeftsplitContainer.Name = "LeftsplitContainer";
             this.LeftsplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.LeftsplitContainer.Size = new System.Drawing.Size(1000, 971);
-            this.LeftsplitContainer.SplitterDistance = 751;
+            this.LeftsplitContainer.Size = new System.Drawing.Size(1000, 994);
+            this.LeftsplitContainer.SplitterDistance = 768;
             this.LeftsplitContainer.SplitterWidth = 6;
             this.LeftsplitContainer.TabIndex = 0;
             // 
@@ -168,25 +169,18 @@
             this.RightFlow.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.RightFlow.Location = new System.Drawing.Point(0, 0);
             this.RightFlow.Name = "RightFlow";
-            this.RightFlow.Size = new System.Drawing.Size(488, 969);
+            this.RightFlow.Size = new System.Drawing.Size(488, 992);
             this.RightFlow.TabIndex = 0;
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // disasmHelpToolStripMenuItem
-            // 
-            this.disasmHelpToolStripMenuItem.Name = "disasmHelpToolStripMenuItem";
-            this.disasmHelpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.disasmHelpToolStripMenuItem.Text = "DisasmHelp";
-            this.disasmHelpToolStripMenuItem.Click += new System.EventHandler(this.disasmHelpToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1496, 1017);
+            this.ClientSize = new System.Drawing.Size(1496, 1040);
             this.Controls.Add(this.VsplitContainer);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -215,7 +209,6 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;

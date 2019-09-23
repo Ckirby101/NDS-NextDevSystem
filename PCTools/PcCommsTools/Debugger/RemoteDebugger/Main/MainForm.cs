@@ -319,14 +319,7 @@ namespace RemoteDebugger
 
         private void UpdateStatus()
         {
-            if (Program.telnetConnection.connected)
-            {
-                toolStripStatusLabel1.Text = "Connected";
-            }
-            else
-            {
-                toolStripStatusLabel1.Text = "Please launch ZEsarUX with --enable-remoteprotocol  (also confirm remote Address and remote Port in settings)";
-            }
+            toolStripStatusLabel1.Text = Program.serialport.GetStatus();
         }
 
 	    /// -------------------------------------------------------------------------------------------------
@@ -339,20 +332,7 @@ namespace RemoteDebugger
 	    /// -------------------------------------------------------------------------------------------------
 	    private void timer1_Tick(object sender, EventArgs e)
 	    {
-		    if (Program.telnetConnection.connected && Program.telnetConnection.JustConnected)
-		    {
-			    Breakpoint.ResetBreakpoints();
-
-			    Program.telnetConnection.SendCommand("set-debug-settings 8", null);
-			    Program.telnetConnection.SendCommand("run", null);
-			    Program.telnetConnection.JustConnected = false;
-			    return;
-		    }
-
-		    UpdateStatus();
-		    //if (!Program.telnetConnection.connected)
-			//    return;
-
+            UpdateStatus();
 
 		    if (Program.InStepMode) return;
 
@@ -369,16 +349,49 @@ namespace RemoteDebugger
 	    /// -------------------------------------------------------------------------------------------------
 	    public void UpdateAllWindows(bool fromstep)
 	    {
+            UpdatePcFocus = fromstep;
 
-		    UpdatePcFocus = fromstep;
-            //if (Program.telnetConnection.IsQueueEmpty())
-            {
-                if (myNewRegisters != null)
-                {
-                    myNewRegisters.RequestUpdate( ) ;
-                }
-            }
+            //we yupdate registeres first because all other windows rely on registers
+            Program.serialport.GetRegisters(RegisterUpdateCallback, 0);
+
+
+
+
+
         }
+
+        // -------------------------------------------------------------------------------------------------
+        // Registers the update callback
+        //
+        // \param   response    The response.
+        // \param   tag         The tag.
+        // -------------------------------------------------------------------------------------------------
+        public void RegisterUpdateCallback(byte[] response, int tag)
+        {
+            myNewRegisters.regcallback(response,tag);
+
+            if ((Program.InStepMode && UpdatePcFocus) || !Program.InStepMode)
+            {
+                //UpdateBreakpoints();
+
+                if (myDisassembly != null)
+                {
+                    int pc = 0;
+                    if (myNewRegisters != null)
+                    {
+                        pc = myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
+                    }
+                    myDisassembly.RequestUpdate(pc);
+                }
+
+
+                MainForm.myMemoryWatch.UpdateMemory();
+
+            }
+
+
+        }
+
 
 
 
@@ -390,34 +403,9 @@ namespace RemoteDebugger
 	    ///
 	    /// <param name="response"> The response. </param>
 	    /// -------------------------------------------------------------------------------------------------
-	    void UpdateAfterRegisters(string[] response)
+	    public void UpdateAfterRegisters()
 	    {
-		    myNewRegisters.UpdateRegisters(response);
-
-		    UpdateBreakpoints();
-
-		    if (myDisassembly != null)
-		    {
-			    int pc = 0;
-			    if (myNewRegisters != null)
-			    {
-				    pc = myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
-			    }
-			    myDisassembly.RequestUpdate(pc);
-		    }
-
-		    //foreach (BaseDock sv in myDocks)
-		    //{
-		    //    sv.RequestUpdate();
-		    //}
-		    //if (myScreen!=null)
-		    //{
-		    //    if (refreshScreen)
-		    //    {
-		    //        refreshScreen = false;
-		    //        myScreen.RequestUpdate();
-		    //    }
-		    //}
+/*
 		    if (UpdatePcFocus)
 		    {
 
@@ -446,7 +434,7 @@ namespace RemoteDebugger
 			    }
 
 		    }
-
+*/
 	    }
 
 
@@ -489,10 +477,6 @@ namespace RemoteDebugger
 
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            refreshScreen = true;
-        }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {

@@ -18,7 +18,9 @@ namespace eZDisasm
             public byte Length;
             public bool IsBranch;
             public int BranchTarget;
-            
+
+            public int MemoryAddress;
+
             public string ToString(bool indentArguments = false)
             {
                 if (!indentArguments)
@@ -103,6 +105,7 @@ namespace eZDisasm
             CurrentInstruction.Length = 0;
             //CurrentInstruction.Disassembly = "ERROR";
             CurrentInstruction.StartPosition = CurrentByte;
+            CurrentInstruction.MemoryAddress = BaseAddress + CurrentByte;
             try
             {
                 DisassembleInstruction();
@@ -539,6 +542,115 @@ namespace eZDisasm
             string indexreg;
             string tempstr = "";
             byte b = Data[CurrentByte++];
+
+            //next instructions
+            switch (b)
+            {
+                case 0x23:
+                    CurrentInstruction.InstructionName = "swapnib";
+                    CurrentInstruction.InstructionArguments = "";
+                    return;
+                case 0x24:
+                    CurrentInstruction.InstructionName = "mirror";
+                    CurrentInstruction.InstructionArguments = "";
+                    return;
+                case 0x27:
+                    CurrentInstruction.InstructionName = "test";
+                    CurrentInstruction.InstructionArguments = Data[CurrentByte++].ToString(Format1Byte);
+                    return;
+                case 0x30:
+                    CurrentInstruction.InstructionName = "mul";
+                    CurrentInstruction.InstructionArguments = "d,e";
+                    return;
+                case 0x31:
+                    CurrentInstruction.InstructionName = "add";
+                    CurrentInstruction.InstructionArguments = "hl,a";
+                    return;
+                case 0x32:
+                    CurrentInstruction.InstructionName = "add";
+                    CurrentInstruction.InstructionArguments = "de,a";
+                    return;
+                case 0x33:
+                    CurrentInstruction.InstructionName = "add";
+                    CurrentInstruction.InstructionArguments = "bc,a";
+                    return;
+                case 0x34:
+                    CurrentInstruction.InstructionName = "add";
+                    CurrentInstruction.InstructionArguments = "hl," + ReadImmWord().ToString(WordDataFormatString);
+                    return;
+                case 0x35:
+                    CurrentInstruction.InstructionName = "add";
+                    CurrentInstruction.InstructionArguments = "de," + ReadImmWord().ToString(WordDataFormatString);
+                    return;
+                case 0x36:
+                    CurrentInstruction.InstructionName = "add";
+                    CurrentInstruction.InstructionArguments = "bc," + ReadImmWord().ToString(WordDataFormatString);
+                    return;
+                case 0x8A:
+                    //data is hilo
+                    CurrentInstruction.InstructionName = "push";
+                    CurrentInstruction.InstructionArguments =
+                        Data[CurrentByte++].ToString(Format1Byte) + "" + Data[CurrentByte++].ToString(Format1Byte);
+                    return;
+                case 0x90:
+                    CurrentInstruction.InstructionName = "outinb";
+                    CurrentInstruction.InstructionArguments = "";
+                    return;
+                case 0x91:
+                    CurrentInstruction.InstructionName = "nextreg";
+                    CurrentInstruction.InstructionArguments = Data[CurrentByte++].ToString(Format1Byte)+","+Data[CurrentByte++].ToString(Format1Byte);
+                    return;
+                case 0x92:
+                    CurrentInstruction.InstructionName = "nextreg";
+                    CurrentInstruction.InstructionArguments = Data[CurrentByte++].ToString(Format1Byte)+",a";
+                    return;
+                case 0x93:
+                    CurrentInstruction.InstructionName = "pixeldn";
+                    CurrentInstruction.InstructionArguments = "";
+                    return;
+                case 0x94:
+                    CurrentInstruction.InstructionName = "pixelad";
+                    CurrentInstruction.InstructionArguments = "";
+                    return;
+                case 0x95:
+                    CurrentInstruction.InstructionName = "setae";
+                    CurrentInstruction.InstructionArguments = "";
+                    return;
+                case 0xA4:
+                    CurrentInstruction.InstructionName = "ldix";
+                    CurrentInstruction.InstructionArguments = "";
+                    return;
+                case 0xA5:
+                    CurrentInstruction.InstructionName = "ldws";
+                    CurrentInstruction.InstructionArguments = "";
+                    return;
+                case 0xAc:
+                    CurrentInstruction.InstructionName = "lddx";
+                    CurrentInstruction.InstructionArguments = "";
+                    return;
+                case 0xb4:
+                    CurrentInstruction.InstructionName = "ldirx";
+                    CurrentInstruction.InstructionArguments = "";
+                    return;
+                case 0xb7:
+                    CurrentInstruction.InstructionName = "ldpirx";
+                    CurrentInstruction.InstructionArguments = "";
+                    return;
+                case 0xbc:
+                    CurrentInstruction.InstructionName = "lddrx";
+                    CurrentInstruction.InstructionArguments = "";
+                    return;
+                
+                
+                
+                
+                
+                
+
+
+            }
+            
+            
             switch (GetField(Field.x, b))
             {
                 case 0:

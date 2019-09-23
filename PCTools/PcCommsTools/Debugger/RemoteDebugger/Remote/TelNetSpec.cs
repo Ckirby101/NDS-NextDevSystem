@@ -72,11 +72,11 @@ namespace RemoteDebugger
             messages = new ConcurrentQueue<string>();
             commands = new ConcurrentQueue<Command>();
 
-            new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-                ReadConsumer();
-            }).Start();
+//            new Thread(() =>
+//            {
+//                Thread.CurrentThread.IsBackground = true;
+//                ReadConsumer();
+//            }).Start();
         }
 
         public void CloseConnection()
