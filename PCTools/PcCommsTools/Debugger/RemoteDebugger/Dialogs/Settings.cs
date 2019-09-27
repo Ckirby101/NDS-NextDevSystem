@@ -59,7 +59,7 @@ namespace RemoteDebugger
             Properties.Settings.Default.remoteAddress = remoteAddress.Text;
             Properties.Settings.Default.remotePort = (int)remotePort.Value;
             Properties.Settings.Default.Save();
-            Program.telnetConnection.UpdateSettings(Properties.Settings.Default.remoteAddress, Properties.Settings.Default.remotePort);
+            //Program.telnetConnection.UpdateSettings(Properties.Settings.Default.remoteAddress, Properties.Settings.Default.remotePort);
             Close();
         }
     }

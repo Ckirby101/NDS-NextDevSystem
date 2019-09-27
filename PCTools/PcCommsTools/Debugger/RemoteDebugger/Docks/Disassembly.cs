@@ -34,6 +34,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using eZDisasm;
 using RemoteDebugger.Main;
+using Z80EmuLib;
 
 namespace RemoteDebugger
 {
@@ -49,6 +50,12 @@ namespace RemoteDebugger
 
         private byte[] disassemblyMemory;
         private int dissassemblyBaseAddress;
+
+        private TestMemory EmulatorMemory;
+        private TestPorts EmulatorPorts;
+        private Z80Emu Emulatorcpu;
+
+
 
         /// <summary> The dis RegEx. </summary>
         //Regex disRegex;
@@ -89,12 +96,13 @@ namespace RemoteDebugger
             DissasemblyDataGrid.RowHeadersVisible = false;
 
 
-            //UIUpdate(null,0);
+            InitEmulator();
+
         }
 
         ~Disassembly()
         {
-            // Your code
+
         }
 
 
@@ -105,24 +113,16 @@ namespace RemoteDebugger
         // -------------------------------------------------------------------------------------------------
         public int GetStepAddress()
         {
+            //just gets the pc upon next step!
+            return GetEmulatorPC();
+        }
+        public int GetStepOverAddress()
+        {
+            if (!instrs[0].IsCall)
+                return GetStepAddress();
 
-            //get address of next instruction
-            int addr = instrs[1].MemoryAddress;
-
-            //but check that current instruction is a branch or jump
-            if (instrs[0].IsBranch)
-            {
-                //we now need to see if jump will be taken.
-                
-
-
-                addr = instrs[0].BranchTarget;
-                Console.WriteLine("branch");
-            }
-
-
-
-            return addr;
+            //get address of next instruction after call
+            return instrs[1].MemoryAddress;
         }
 
 
@@ -151,8 +151,6 @@ namespace RemoteDebugger
 	        }
         }
 
-        
-
         // -------------------------------------------------------------------------------------------------
         // Memcallback, called when the memory
         //
@@ -161,6 +159,7 @@ namespace RemoteDebugger
         // -------------------------------------------------------------------------------------------------
         void memcallback(byte[] response, int tag)
         {
+            //we have the memory so we shoudl now update the dissambly and the emulator
             UIUpdate(tag,response);
         }
 
@@ -188,7 +187,11 @@ namespace RemoteDebugger
             bool z80ClassicMode = true;
             bool addLabels = false;
 
-            
+
+            SyncEmulator();
+            //goto next instruction
+            StepEmulator();
+
 
             instrs = eZ80Disassembler.Disassemble(disassemblyMemory, start, end, baseAddress, hasBaseAddress, adlMode, z80ClassicMode, addLabels ? "label_" : "", addLabels ? "loc_" : "");
 
@@ -345,32 +348,6 @@ namespace RemoteDebugger
 */
         }
 
-        /// -------------------------------------------------------------------------------------------------
-        /// <summary> Callbacks. </summary>
-        ///
-        /// <remarks> 12/09/2018. </remarks>
-        ///
-        /// <param name="response"> The response. </param>
-        /// <param name="tag">	    The tag. </param>
-        /// -------------------------------------------------------------------------------------------------
-/*        void Callback(string[] response,int pc)
-        {
-            try
-            {
-                if (InvokeRequired)
-                {
-                    Invoke((MethodInvoker)delegate { UIUpdate(response,pc); });
-                }
-                else
-                {
-                    UIUpdate(response,pc);
-                }
-            }
-            catch
-            {
-                
-            }
-        }*/
 
 	    /// -------------------------------------------------------------------------------------------------
 	    /// <summary> Gets current line code. </summary>
@@ -410,6 +387,68 @@ namespace RemoteDebugger
         {
 
         }
+
+
+
+
+        // Initialises the emulator
+        private void InitEmulator()
+        {
+            EmulatorMemory = new TestMemory();
+            EmulatorPorts = new TestPorts();
+            Emulatorcpu = new Z80Emu(EmulatorMemory, EmulatorPorts, null, true);
+
+        }
+
+
+        // Synchronises the emulator
+        private void SyncEmulator()
+        {
+            //Emulatorcpu.Registers.A = Registers[ Z80Registers]
+
+            //copy ram into z80 emulator
+            for (int i = 0; i < disassemblyMemory.Length; i++)
+            {
+                EmulatorMemory[dissassemblyBaseAddress + i] = disassemblyMemory[i];
+            }
+
+            Emulatorcpu.Registers.A = (byte)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.a);
+            Emulatorcpu.Registers.HL = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.hl);
+            Emulatorcpu.Registers.BC = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.bc);
+            Emulatorcpu.Registers.DE = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.de);
+
+            Emulatorcpu.Registers.A_ = (byte)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.a_e);
+            Emulatorcpu.Registers.HL = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.hl_e);
+            Emulatorcpu.Registers.BC = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.bc_e);
+            Emulatorcpu.Registers.DE = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.de_e);
+
+
+            Emulatorcpu.Registers.IX = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.ix);
+            Emulatorcpu.Registers.IY = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.iy);
+
+            Emulatorcpu.Registers.SP = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.sp);
+            Emulatorcpu.Registers.PC = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
+
+            Emulatorcpu.Registers.I = (byte)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.i);
+            Emulatorcpu.Registers.R = (byte)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.r);
+
+            Emulatorcpu.Registers.F = (byte)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.f);
+            Emulatorcpu.Registers.F_ = (byte)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.f_e);
+        }
+
+
+        private void StepEmulator()
+        {
+            Emulatorcpu.Step();
+        }
+
+
+        public int GetEmulatorPC()
+        {
+            return Emulatorcpu.Registers.PC;
+        }
+
+
     }
 
     /// -------------------------------------------------------------------------------------------------
@@ -433,4 +472,64 @@ namespace RemoteDebugger
         /// -------------------------------------------------------------------------------------------------
         public string Value { get; set; }
     }
+
+
+
+
+
+    #region Emulation_data
+
+
+    class TestMemory : IMemory
+    {
+        const int MemSize = 0x10000; // size of the memory in bytes
+
+        private Z80Emu m_cpu;
+
+        public byte this[int Address] { get => m_memory[Address]; set => m_memory[Address] = value; }
+
+        public int Size => MemSize;
+
+        private readonly byte[] m_memory = new byte[MemSize];
+
+        public void SetCPU(Z80Emu in_cpu)
+        {
+            m_cpu = in_cpu;
+        }
+
+        public byte Read(ushort in_address, bool in_m1_state)
+        {
+            return m_memory[in_address];
+        }
+
+        public void Write(ushort in_address, byte in_value)
+        {
+            m_memory[in_address] = in_value;
+        }
+
+    }
+
+
+    class TestPorts : IPort
+    {
+        private Z80Emu m_cpu;
+
+        public void SetCPU(Z80Emu in_cpu)
+        {
+            m_cpu = in_cpu;
+        }
+
+        public byte Read(ushort in_address)
+        {
+            return (byte)(in_address >> 8);
+        }
+
+        public void Write(ushort in_address, byte in_value)
+        {
+        }
+    }
+
+
+    #endregion
+
 }

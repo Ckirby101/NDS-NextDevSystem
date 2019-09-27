@@ -66,9 +66,10 @@
             this.label17 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.z80 = new System.Windows.Forms.TabPage();
+            this.stack = new System.Windows.Forms.TextBox();
             this.HWRegisters = new System.Windows.Forms.TabPage();
             this.hwpanel = new System.Windows.Forms.Panel();
-            this.stack = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.z80.SuspendLayout();
             this.HWRegisters.SuspendLayout();
@@ -450,6 +451,7 @@
             // 
             // z80
             // 
+            this.z80.Controls.Add(this.label19);
             this.z80.Controls.Add(this.stack);
             this.z80.Controls.Add(this.RegF);
             this.z80.Controls.Add(this.BankData);
@@ -495,6 +497,17 @@
             this.z80.Text = "Z80";
             this.z80.UseVisualStyleBackColor = true;
             // 
+            // stack
+            // 
+            this.stack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.stack.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stack.Location = new System.Drawing.Point(347, 147);
+            this.stack.Multiline = true;
+            this.stack.Name = "stack";
+            this.stack.ReadOnly = true;
+            this.stack.Size = new System.Drawing.Size(110, 68);
+            this.stack.TabIndex = 69;
+            // 
             // HWRegisters
             // 
             this.HWRegisters.Controls.Add(this.hwpanel);
@@ -514,16 +527,15 @@
             this.hwpanel.Size = new System.Drawing.Size(465, 219);
             this.hwpanel.TabIndex = 0;
             // 
-            // stack
+            // label19
             // 
-            this.stack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.stack.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.stack.Location = new System.Drawing.Point(347, 147);
-            this.stack.Multiline = true;
-            this.stack.Name = "stack";
-            this.stack.ReadOnly = true;
-            this.stack.Size = new System.Drawing.Size(110, 68);
-            this.stack.TabIndex = 69;
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(347, 128);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(33, 13);
+            this.label19.TabIndex = 70;
+            this.label19.Text = "stack";
+            this.label19.Click += new System.EventHandler(this.label19_Click);
             // 
             // Registers
             // 
@@ -584,5 +596,6 @@
         private System.Windows.Forms.TabPage HWRegisters;
         private System.Windows.Forms.Panel hwpanel;
         private System.Windows.Forms.TextBox stack;
+        private System.Windows.Forms.Label label19;
     }
 }

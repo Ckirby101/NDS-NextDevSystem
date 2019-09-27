@@ -17,6 +17,7 @@ namespace eZDisasm
             public int StartPosition;
             public byte Length;
             public bool IsBranch;
+            public bool IsCall;
             public int BranchTarget;
 
             public int MemoryAddress;
@@ -459,6 +460,8 @@ namespace eZDisasm
                                 break;
                             case 4:
                                 branchTarget = ReadImmWord();
+
+                                CurrentInstruction.IsCall = true;
                                 CurrentInstruction.IsBranch = true;
                                 CurrentInstruction.BranchTarget = branchTarget;
                                 CurrentInstruction.InstructionName = "call";
@@ -478,6 +481,8 @@ namespace eZDisasm
                                         {
                                             case 0xCD:
                                                 branchTarget = ReadImmWord();
+                                                CurrentInstruction.IsCall = true;
+
                                                 CurrentInstruction.IsBranch = true;
                                                 CurrentInstruction.BranchTarget = branchTarget;
                                                 CurrentInstruction.InstructionName = "call";
@@ -640,8 +645,30 @@ namespace eZDisasm
                     CurrentInstruction.InstructionName = "lddrx";
                     CurrentInstruction.InstructionArguments = "";
                     return;
-                
-                
+                case 0x28:
+                    CurrentInstruction.InstructionName = "bsla";
+                    CurrentInstruction.InstructionArguments = "de,b";
+                    return;
+                case 0x29:
+                    CurrentInstruction.InstructionName = "bsra";
+                    CurrentInstruction.InstructionArguments = "de,b";
+                    return;
+                case 0x2A:
+                    CurrentInstruction.InstructionName = "bsrl";
+                    CurrentInstruction.InstructionArguments = "de,b";
+                    return;
+                case 0x2B:
+                    CurrentInstruction.InstructionName = "bsrf";
+                    CurrentInstruction.InstructionArguments = "de,b";
+                    return;
+                case 0x2C:
+                    CurrentInstruction.InstructionName = "brlc";
+                    CurrentInstruction.InstructionArguments = "de,b";
+                    return;
+                case 0x98:
+                    CurrentInstruction.InstructionName = "jp";
+                    CurrentInstruction.InstructionArguments = "(c)";
+                    return;                
                 
                 
                 

@@ -214,7 +214,7 @@ namespace RemoteDebugger
             }
             else
             {
-                Program.telnetConnection.SendCommand("read-mapped-memory 16384 8192", Callback);
+                //Program.telnetConnection.SendCommand("read-mapped-memory 16384 8192", Callback);
             }
         }
 

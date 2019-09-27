@@ -484,7 +484,7 @@ namespace RemoteDebugger.Main
 				}
 				else
 				{
-					Program.telnetConnection.SendCommand("read-memory "+HoverLabel.address.ToString()+" 2", HoverCallback);
+					//Program.telnetConnection.SendCommand("read-memory "+HoverLabel.address.ToString()+" 2", HoverCallback);
 				}
 
 

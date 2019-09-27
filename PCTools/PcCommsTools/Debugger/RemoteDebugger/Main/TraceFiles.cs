@@ -204,7 +204,7 @@ namespace RemoteDebugger.Main
 			traceFiles = new List<TraceFile>();
 
 
-			Regex registersregex = new Regex(@"^(?<filename>[_a-zA-Z0-9\\.]*)\|(?<line>[0-9]*)\|(?<bank>[0-9]*)\|(?<addr>[0-9]*)\|(?<type>[LFT])");
+			Regex registersregex = new Regex(@"^(?<filename>[_a-zA-Z0-9\\. :-]*)\|(?<line>[0-9]*)\|(?<bank>[0-9]*)\|(?<addr>[0-9]*)\|(?<type>[LFT])");
 
 			string[] lines = File.ReadAllLines(filename);
 
@@ -216,6 +216,8 @@ namespace RemoteDebugger.Main
 					//Console.WriteLine(match.Groups["label"] + " " + match.Groups["address"] + " " + match.Groups["type"] + " " + match.Groups["section"]);
 
 					string fn = match.Groups["filename"].ToString();
+                    fn = Path.GetFileName(fn);
+
 					int bank = 0;
 					int.TryParse(match.Groups["bank"].ToString(), NumberStyles.Integer, null, out bank);
 					int line = 0;
@@ -304,7 +306,7 @@ namespace RemoteDebugger.Main
 
 					CurrentExecuteFile = t;
 					CurrentExecuteLine = ld.lineNumber;
-					var line = t.codefile.codewindow.Lines[CurrentExecuteLine];
+					Line line = t.codefile.codewindow.Lines[CurrentExecuteLine];
 					line.MarkerAdd(SourceCodeView.EXECUTE_MARKER);
 
 

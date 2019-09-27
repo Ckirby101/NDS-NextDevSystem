@@ -26,7 +26,7 @@ namespace RemoteDebugger.Docks
     {
         private ByteProvider[] ByteProviders;
 
-        public Registers.Z80Register[] regs = { Registers.Z80Register.hl, Registers.Z80Register.de, Registers.Z80Register.bc, Registers.Z80Register.ix, Registers.Z80Register.iy };
+        public Registers.Z80Register[] regs = { Registers.Z80Register.hl, Registers.Z80Register.de, Registers.Z80Register.bc, Registers.Z80Register.ix, Registers.Z80Register.iy ,Registers.Z80Register.sp};
         private bool sending = false;
 
 
@@ -62,6 +62,10 @@ namespace RemoteDebugger.Docks
 			IYHexControl.Model.ByteProvider = ByteProviders[4];
 			IYHexControl.UpdateView();
 
+            ByteProviders[5] = new ByteProvider();
+            ByteProviders[5].init(32,1000);
+            STACKHexControl.Model.ByteProvider = ByteProviders[5];
+            STACKHexControl.UpdateView();
 
 		}
 
@@ -79,7 +83,7 @@ namespace RemoteDebugger.Docks
 
             
             int v;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < regs.Length; i++)
             {
                 v = MainForm.myNewRegisters.GetRegisterValueint(regs[i]);
                 ByteProvider bp = ByteProviders[i]; 
@@ -169,6 +173,13 @@ namespace RemoteDebugger.Docks
                     sending = false;
  
 					break;
+                case 5:
+                    v = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.sp);
+                    SPlabel.Text = "( STACK ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.sp);
+                    STACKHexControl.UpdateView();
+                    sending = false;
+ 
+                    break;
 				//case 5:
 				//	MEMHexControl.UpdateView();
 				//	break;

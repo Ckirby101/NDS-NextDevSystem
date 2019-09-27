@@ -13,6 +13,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RemoteDebugger.Remote
 {
@@ -86,7 +87,7 @@ namespace RemoteDebugger.Remote
         // \param   baudrate    (Optional) The baudrate.
         // \param   comport     (Optional) The comport.
         // -------------------------------------------------------------------------------------------------
-        public Serial(int baudrate = 921600, string comport= "COM3")
+        public Serial(int baudrate = 921600, string comport= "COM4")
         {
             mySerialPort = new SerialPort(comport, baudrate, Parity.None, 8, StopBits.One);
             mySerialPort.Open();
@@ -276,6 +277,9 @@ namespace RemoteDebugger.Remote
         // -------------------------------------------------------------------------------------------------
         public void SendCommand(UARTCommand uart,byte[] sendBytes, SerialCallback cb, int wantbytes ,int tag ,int a0,int a1)
         {
+            if (commands.Count > 50) return;
+            if (!mySerialPort.IsOpen) return;
+
             SerialCommand t = new SerialCommand(uart,sendBytes, cb, wantbytes,tag,a0,a1);
             commands.Enqueue(t);
         }
@@ -291,7 +295,7 @@ namespace RemoteDebugger.Remote
             {
                 SerialCommand sc;
 
-                Thread.Sleep(20);
+                Thread.Sleep(10);
 
                 //is port open
                 if (mySerialPort.IsOpen)
@@ -305,12 +309,12 @@ namespace RemoteDebugger.Remote
                         //wait until all bytes sent
                         while (mySerialPort.BytesToWrite >0)
                         {
-                            Thread.Sleep(10);
+                            Thread.Sleep(5);
                         }
 
                         while (mySerialPort.BytesToRead <sc.returnbytes)
                         {
-                            Thread.Sleep(10);
+                            Thread.Sleep(5);
                         }
 
                         //read all the bytes in receive buffer
@@ -319,12 +323,16 @@ namespace RemoteDebugger.Remote
                         mySerialPort.Read(returnbytes, 0, sc.returnbytes);
 
 
+
+                        //sc.callback.Invoke(returnbytes, sc.tag);
+
                         sc.callback(returnbytes, sc.tag);
                     }
 
                 }
             }
         }
+
 
 
     }

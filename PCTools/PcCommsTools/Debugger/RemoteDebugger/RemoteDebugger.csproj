@@ -88,12 +88,6 @@
     <Compile Include="Docks\Breakpoint.Designer.cs">
       <DependentUpon>Breakpoint.cs</DependentUpon>
     </Compile>
-    <Compile Include="Docks\ButtonBar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Docks\ButtonBar.Designer.cs">
-      <DependentUpon>ButtonBar.cs</DependentUpon>
-    </Compile>
     <Compile Include="Docks\callstack.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,12 +138,6 @@
     <Compile Include="Main\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Docks\LogView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Docks\LogView.Designer.cs">
-      <DependentUpon>LogView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Main\Program.cs" />
     <Compile Include="Main\SourceCodeView.cs" />
     <Compile Include="Main\TraceFiles.cs" />
@@ -174,13 +162,20 @@
     <Compile Include="Dialogs\Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Docks\SpriteView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Docks\SpriteView.Designer.cs">
-      <DependentUpon>SpriteView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="temp.cs" />
+    <Compile Include="z80Emulator\IIRQRead.cs" />
+    <Compile Include="z80Emulator\IMemory.cs" />
+    <Compile Include="z80Emulator\IPort.cs" />
+    <Compile Include="z80Emulator\Z80.cs" />
+    <Compile Include="z80Emulator\Z80Instructions.cs" />
+    <Compile Include="z80Emulator\Z80OpcodesBase.cs" />
+    <Compile Include="z80Emulator\Z80OpcodesCB.cs" />
+    <Compile Include="z80Emulator\Z80OpcodesDD.cs" />
+    <Compile Include="z80Emulator\Z80OpcodesDDCB.cs" />
+    <Compile Include="z80Emulator\Z80OpcodesED.cs" />
+    <Compile Include="z80Emulator\Z80OpcodesFD.cs" />
+    <Compile Include="z80Emulator\Z80OpcodesFDCB.cs" />
+    <Compile Include="z80Emulator\Z80Registers.cs" />
+    <Compile Include="z80Emulator\Z80Tables.cs" />
     <EmbeddedResource Include="Dialogs\Watches.resx">
       <DependentUpon>Watches.cs</DependentUpon>
     </EmbeddedResource>
@@ -189,9 +184,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Docks\ButtonBar.resx">
-      <DependentUpon>ButtonBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Docks\callstack.resx">
       <DependentUpon>callstack.cs</DependentUpon>
@@ -217,9 +209,6 @@
     <EmbeddedResource Include="Main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Docks\LogView.resx">
-      <DependentUpon>LogView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -234,9 +223,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Docks\SpectrumScreen.resx">
       <DependentUpon>SpectrumScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Docks\SpriteView.resx">
-      <DependentUpon>SpriteView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
@@ -263,9 +249,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="z80Emulator\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

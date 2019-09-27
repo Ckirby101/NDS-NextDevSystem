@@ -119,12 +119,12 @@ namespace RemoteDebugger
                 {
                     toSend += " " + (int)inFile.ReadByte();
                 }
-                if (!checkAutoStart.Checked)
-                    Program.telnetConnection.SendCommand(toSend, LoadResponse);
-                else
-                    Program.telnetConnection.SendCommand(toSend, NoResponse);
+                //if (!checkAutoStart.Checked)
+                //    Program.telnetConnection.SendCommand(toSend, LoadResponse);
+                //else
+                //    Program.telnetConnection.SendCommand(toSend, NoResponse);
 
-                if (checkAutoStart.Checked && checkAutoBreak.Checked)
+/*                if (checkAutoStart.Checked && checkAutoBreak.Checked)
                 {
                     MainForm.myButtonBar.SwapMode(true);
                     for (int a = 0; a < 10; a++)        // HACK- for some reason immediately after entering step mode,commands get ignored, this hack works around that.
@@ -136,7 +136,7 @@ namespace RemoteDebugger
                 if (checkAutoStart.Checked)
                 {
                     Program.telnetConnection.SendCommand("set-register pc="+numAddress.Value.ToString(), LoadResponse);
-                }
+                }*/
             }
             catch
             {

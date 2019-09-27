@@ -186,27 +186,10 @@ namespace RemoteDebugger
         // -------------------------------------------------------------------------------------------------
         private void PauseExecutionCallback(byte[] response, int tag)
         {
-            if (Program.InStepMode)
-            {
-
-                try
-                {
-                    if (InvokeRequired)
-                    {
-                        Invoke((MethodInvoker)delegate { Program.myMainForm.UpdateAllWindows(true); });
-                    }
-                    else
-                    {
-                        Program.myMainForm.UpdateAllWindows(true);
-                    }
-                }
-                catch
-                {
-                
-                }
-
-            }
-
+            if (InvokeRequired)
+                Invoke((MethodInvoker)delegate { Program.myMainForm.UpdateAllWindows(true); });
+            else
+                Program.myMainForm.UpdateAllWindows(true);
         }
 
         private void StepCallback(byte[] response, int tag)
@@ -332,12 +315,17 @@ namespace RemoteDebugger
         // -------------------------------------------------------------------------------------------------
 		private void stepoverbutton_Click(object sender, EventArgs e)
 		{
-			string line = MainForm.myDisassembly.GetCurrentLineCode().ToLower().TrimStart();
+
+            int breakpointAddress = MainForm.myDisassembly.GetStepOverAddress();
+
+
+            Program.serialport.Step(StepCallback,breakpointAddress);
+/*			string line = MainForm.myDisassembly.GetCurrentLineCode().ToLower().TrimStart();
 
 			if (line.StartsWith("jp") || line.StartsWith("jr") || line.StartsWith("ret") || line.StartsWith("reti"))
 				Program.telnetConnection.SendCommand("cpu-step", commandResponseStepUpdate);
 			else
-				Program.telnetConnection.SendCommand("cpu-step-over", commandResponseStepUpdate);
+				Program.telnetConnection.SendCommand("cpu-step-over", commandResponseStepUpdate);*/
 		}
 
         // -------------------------------------------------------------------------------------------------
@@ -348,7 +336,7 @@ namespace RemoteDebugger
         // -------------------------------------------------------------------------------------------------
 		private void button1_Click(object sender, EventArgs e)
 		{
-			Program.telnetConnection.SendCommand("run", commandResponseStepUpdate);
+			//Program.telnetConnection.SendCommand("run", commandResponseStepUpdate);
 
 		}
 

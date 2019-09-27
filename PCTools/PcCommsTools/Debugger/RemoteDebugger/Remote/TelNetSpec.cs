@@ -27,7 +27,7 @@ SOFTWARE.
 using System.Collections.Concurrent;
 using System.Net.Sockets;
 using System.Threading;
-
+#if false
 namespace RemoteDebugger
 {
     public delegate void CommandResponse(string[] response,int tag);
@@ -242,3 +242,5 @@ namespace RemoteDebugger
         }
     }
 }
+
+#endif

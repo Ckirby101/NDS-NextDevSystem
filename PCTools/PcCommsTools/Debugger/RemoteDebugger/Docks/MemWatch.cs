@@ -39,8 +39,7 @@ namespace RemoteDebugger.Docks
 			int v = memaddress;
 			ByteProvider bp = byteProvider;
 			bp.offset = v;
-			Program.telnetConnection.SendCommand("read-memory "+v.ToString()+" 512", Callback,0);
-			//label1.Text = "( MEMPTR ) $" + v.ToString("X4")+" "+MainForm.myNewRegisters.GetRegisterLabelString(Registers.Z80Register.memptr);
+			//Program.telnetConnection.SendCommand("read-memory "+v.ToString()+" 512", Callback,0);
 		}
 
 

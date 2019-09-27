@@ -47,8 +47,8 @@ namespace RemoteDebugger
 
 
         DockPanel dockPanel;
-        public static ButtonBar myButtonBar;
-        public static LogView myLog;
+        //public static ButtonBar myButtonBar;
+        //public static LogView myLog;
 	    public static Registers myNewRegisters;
 	    public static Watch myWatchWindow;
 	    public static Disassembly myDisassembly;
@@ -59,7 +59,7 @@ namespace RemoteDebugger
 	    public static Watches myWatches;
         SpectrumScreen myScreen;
         public Breakpoint myBreakpoints;
-        public static List<BaseDock> myDocks;
+        //public static List<BaseDock> myDocks;
 
         bool refreshScreen;
 
@@ -85,12 +85,12 @@ namespace RemoteDebugger
 	        mySourceWindow.Show();
 
 	        //spawn log
-	        myLog = new LogView("","");
-	        myLog.TopLevel = false;
-	        LeftsplitContainer.Panel2.Controls.Add(myLog);
-	        myLog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-	        myLog.Dock = DockStyle.Fill;
-	        myLog.Show();
+	        //myLog = new LogView("","");
+	        //myLog.TopLevel = false;
+	        //LeftsplitContainer.Panel2.Controls.Add(myLog);
+	        //myLog.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+	        //myLog.Dock = DockStyle.Fill;
+	        //myLog.Show();
 
 
 
@@ -153,7 +153,7 @@ namespace RemoteDebugger
                 myDocks[0].Show(this.dockPanel, DockState.Float);
             }
 			*/
-            Program.telnetConnection.SendCommand("help", null);
+            //Program.telnetConnection.SendCommand("help", null);
             refreshScreen = false;
 
 
@@ -305,7 +305,7 @@ namespace RemoteDebugger
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             //dockPanel.SaveAsXml("layout.xml");
-            Program.telnetConnection.CloseConnection();
+            //Program.telnetConnection.CloseConnection();
         }
 
         private void newRegisterViewToolStripMenuItem_Click(object sender, EventArgs e)
@@ -368,6 +368,24 @@ namespace RemoteDebugger
         // -------------------------------------------------------------------------------------------------
         public void RegisterUpdateCallback(byte[] response, int tag)
         {
+            try
+            {
+                if (InvokeRequired)
+                {
+                    Invoke((MethodInvoker) delegate { RegisterUpdate(response, tag); });
+                }
+                else
+                {
+                    RegisterUpdate(response, tag);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private void RegisterUpdate(byte[] response, int tag)
+        {
             myNewRegisters.regcallback(response,tag);
 
             if ((Program.InStepMode && UpdatePcFocus) || !Program.InStepMode)
@@ -380,6 +398,10 @@ namespace RemoteDebugger
                     if (myNewRegisters != null)
                     {
                         pc = myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
+                        if (Program.InStepMode)
+                        {
+                            TraceFile.SetPC(pc,true);
+                        }
                     }
                     myDisassembly.RequestUpdate(pc);
                 }
@@ -388,6 +410,8 @@ namespace RemoteDebugger
                 MainForm.myMemoryWatch.UpdateMemory();
 
             }
+
+
 
 
         }
@@ -505,9 +529,9 @@ namespace RemoteDebugger
 
         private void newSpriteViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SpriteView t = new SpriteView("Sprite Patterns", "SpritePatterns");
-            t.Show(dockPanel, DockState.Float);
-            myDocks.Add(t);
+            //SpriteView t = new SpriteView("Sprite Patterns", "SpritePatterns");
+            //t.Show(dockPanel, DockState.Float);
+            //myDocks.Add(t);
         }
 
 		private void newSourceWindowToolStripMenuItem_Click(object sender, EventArgs e)

@@ -21,7 +21,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 SOFTWARE. 
-
+"C:\Users\ckirb\Documents\Spectrum Next\Beast\tracedata.txt"
 */
 using System;
 using System.ComponentModel;
@@ -37,7 +37,7 @@ namespace RemoteDebugger
     {
 
 
-        public static TelNetSpec telnetConnection=new TelNetSpec();
+        //public static TelNetSpec telnetConnection=new TelNetSpec();
         public static bool InStepMode = false;
 	    public static MainForm myMainForm;
         public static Serial serialport;
@@ -55,10 +55,14 @@ namespace RemoteDebugger
 		        MainForm.TraceDataPath = args[0];
 	        }
 
-            serialport = new Serial(921600,"COM3");
+            
+            serialport = new Serial(1958400,"COM4");
+//            serialport = new Serial(1958400,"COM4");
+//            serialport = new Serial(921600,"COM4");
+//            serialport = new Serial(1843200,"COM4");
 
 			Breakpoint.InitBreakpointData();
-            telnetConnection.UpdateSettings(Properties.Settings.Default.remoteAddress, Properties.Settings.Default.remotePort);
+            //telnetConnection.UpdateSettings(Properties.Settings.Default.remoteAddress, Properties.Settings.Default.remotePort);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

@@ -284,7 +284,7 @@ namespace RemoteDebugger
             registerData[(int) Z80Register.de].Value = Get16Bit(ref response, ref index);
             registerData[(int) Z80Register.hl].Value = Get16Bit(ref response, ref index);
             registerData[(int) Z80Register.pc].Value = Get16Bit(ref response, ref index);
-            registerData[(int) Z80Register.sp].Value = Get16Bit(ref response, ref index);
+            registerData[(int) Z80Register.sp].Value = Get16Bit(ref response, ref index) + 2;  //plus 2 because comms has return address on stack.
 
             for (int i = (int) Z80Register.MACHINE_ID_00; i <= (int) Z80Register.TILEMAP_GFX_ADR_6F; i++)
             {
@@ -495,9 +495,9 @@ namespace RemoteDebugger
 	        RegFlags.Text = flags;
 
             string stackstr = "";
-            foreach (int s in stackdata)
+            for (int i = stackdata.Length - 1; i >= 0; i--)
             {
-                stackstr = stackstr + s.ToString("X4") + Environment.NewLine;
+                stackstr = stackstr + i.ToString()+" - "+stackdata[i].ToString("X4") + Environment.NewLine;
             }
             stack.Text = stackstr;
 
@@ -602,7 +602,7 @@ namespace RemoteDebugger
 	    public void SetRegister(int value, Z80Register reg)
 	    {
 		    registerData[(int) reg].Value = value;
-		    Program.telnetConnection.SendCommand("set-register "+registerData[(int) reg].RegisterName+"="+value, RegChangeCallback);
+		    //Program.telnetConnection.SendCommand("set-register "+registerData[(int) reg].RegisterName+"="+value, RegChangeCallback);
 
 	    }
 
@@ -679,7 +679,12 @@ namespace RemoteDebugger
 			UpdateRegister(e, RegSP.Text,Z80Register.sp);
 
 		}
-	}
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 
 
 }

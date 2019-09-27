@@ -44,12 +44,16 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.IYHexControl = new HexControlLibrary.HexControl();
             this.IYlabel = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.STACKHexControl = new HexControlLibrary.HexControl();
+            this.SPlabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -87,10 +91,11 @@
             this.flowLayoutPanel1.Controls.Add(this.panel3);
             this.flowLayoutPanel1.Controls.Add(this.panel4);
             this.flowLayoutPanel1.Controls.Add(this.panel5);
+            this.flowLayoutPanel1.Controls.Add(this.panel6);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(438, 456);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(454, 448);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // panel2
@@ -205,11 +210,39 @@
             this.IYlabel.TabIndex = 1;
             this.IYlabel.Text = "( IY )";
             // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.STACKHexControl);
+            this.panel6.Controls.Add(this.SPlabel);
+            this.panel6.Location = new System.Drawing.Point(3, 381);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(451, 70);
+            this.panel6.TabIndex = 7;
+            // 
+            // STACKHexControl
+            // 
+            this.STACKHexControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.STACKHexControl.ColumnsPerRow = 16;
+            this.STACKHexControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.STACKHexControl.Location = new System.Drawing.Point(0, 19);
+            this.STACKHexControl.Name = "STACKHexControl";
+            this.STACKHexControl.Size = new System.Drawing.Size(443, 46);
+            this.STACKHexControl.TabIndex = 2;
+            // 
+            // SPlabel
+            // 
+            this.SPlabel.AutoSize = true;
+            this.SPlabel.Location = new System.Drawing.Point(5, 3);
+            this.SPlabel.Name = "SPlabel";
+            this.SPlabel.Size = new System.Drawing.Size(51, 13);
+            this.SPlabel.TabIndex = 1;
+            this.SPlabel.Text = "( STACK)";
+            // 
             // RegMemWatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 456);
+            this.ClientSize = new System.Drawing.Size(454, 448);
             this.ControlBox = false;
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -228,6 +261,8 @@
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -250,5 +285,8 @@
 		private System.Windows.Forms.Panel panel5;
 		private HexControlLibrary.HexControl IYHexControl;
 		private System.Windows.Forms.Label IYlabel;
-	}
+        private System.Windows.Forms.Panel panel6;
+        private HexControlLibrary.HexControl STACKHexControl;
+        private System.Windows.Forms.Label SPlabel;
+    }
 }

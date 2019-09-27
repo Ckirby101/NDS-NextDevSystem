@@ -7,22 +7,22 @@
 		void InitializeOpcodesED()
 		{
 			m_opcodes_ed = new OperationDelegate[] {
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
+								null      , null      , null      , null      , //0
+								null      , null      , null      , null      , //4
+								null      , null      , null      , null      , //8
+								null      , null      , null      , null      , //12
+								null      , null      , null      , null      , //
+								null      , null      , null      , null      , //
+								null      , null      , null      , null      , //
+								null      , null      , null      , null      , //
+								null      , null      , null      , op_ED_0x23, //20
+                                op_ED_0x24, null      , null, op_ED_0x27      ,//24
+                                op_ED_0x28, op_ED_0x29, op_ED_0x2A, op_ED_0x2B,//28
+                                op_ED_0x2C, null      , null      , null      ,//2c
+                                op_ED_0x30, op_ED_0x31, op_ED_0x32, op_ED_0x33,
+                                op_ED_0x34, op_ED_0x35, op_ED_0x36, null      ,//34
+								null      , null      , null      , null      ,//38
+								null      , null      , null      , null      ,//3c
 								op_ED_0x40, op_ED_0x41, op_ED_0x42, op_ED_0x43,
 								op_ED_0x44, op_ED_0x45, op_ED_0x46, op_ED_0x47,
 								op_ED_0x48, op_ED_0x49, op_ED_0x4a, op_ED_0x4b,
@@ -39,22 +39,22 @@
 								op_ED_0x74, op_ED_0x75, op_ED_0x76, null      ,
 								op_ED_0x78, op_ED_0x79, op_ED_0x7a, op_ED_0x7b,
 								op_ED_0x7c, op_ED_0x7d, op_ED_0x7e, null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
-								null      , null      , null      , null      ,
+								null      , null      , null      , null      , //80
+								null      , null      , null      , null      , //84
+								null      , null      , null      , null      , //88
+								null      , op_ED_0x8A, null      , null      , //8C
+                                op_ED_0x90, op_ED_0x91, op_ED_0x92, op_ED_0x93, //90
+                                op_ED_0x94, op_ED_0x95, null      , null      , //94
+                                op_ED_0x98, null      , null      , null      , //98
 								null      , null      , null      , null      ,
 								op_ED_0xa0, op_ED_0xa1, op_ED_0xa2, op_ED_0xa3,
-								null      , null      , null      , null      ,
+                                op_ED_0xA4, op_ED_0xA5, null      , null      ,
 								op_ED_0xa8, op_ED_0xa9, op_ED_0xaa, op_ED_0xab,
-								null      , null      , null      , null      ,
+                                op_ED_0xAC, null      , null      , null      ,
 								op_ED_0xb0, op_ED_0xb1, op_ED_0xb2, op_ED_0xb3,
-								null      , null      , null      , null      ,
+                                op_ED_0xB4, null      , null      , op_ED_0xB7,
 								op_ED_0xb8, op_ED_0xb9, op_ED_0xba, op_ED_0xbb,
-								null      , null      , null      , null      ,
+                                op_ED_0xBC, null      , null      , null      ,
 								null      , null      , null      , null      ,
 								null      , null      , null      , null      ,
 								null      , null      , null      , null      ,
@@ -73,6 +73,197 @@
 								null      , null      , null      , null
 						};
 		}
+
+        // Spectrum NEXT INSTRUCTIONS
+
+
+        void op_ED_0x23()
+        {
+            SWAPNIB();
+            CPUSetTState(8);
+
+        }
+        void op_ED_0x24()
+        {
+            MIRROR();
+            CPUSetTState(8);
+
+        }
+
+        void op_ED_0x27()
+        {
+
+            m_tmpbyte = READ_OP();
+            //test $XX
+            SN_TEST(m_tmpbyte);
+            CPUSetTState(11);
+        }
+
+
+        void op_ED_0x28()
+        {
+            BSLA();
+            CPUSetTState(8);
+        }
+
+        void op_ED_0x29()
+        {
+            BSRA();
+            CPUSetTState(8);
+        }
+        void op_ED_0x2A()
+        {
+            BSRL();
+            CPUSetTState(8);
+        }
+        void op_ED_0x2B()
+        {
+            BSRF();
+            CPUSetTState(8);
+        }
+        void op_ED_0x2C()
+        {
+            BRLC();
+            CPUSetTState(8);
+        }
+
+        void op_ED_0x30()
+        {
+            MULDE();
+            CPUSetTState(8);
+        }
+
+        void op_ED_0x31()
+        {
+            ADDHLA();
+            CPUSetTState(8);
+
+        }
+        void op_ED_0x32()
+        {
+            ADDDEA();
+            CPUSetTState(8);
+
+        }
+
+        void op_ED_0x33()
+        {
+            ADDBCA();
+            CPUSetTState(8);
+
+        }
+
+        void op_ED_0x34()
+        {
+            Registers.TDl = READ_OP();
+            Registers.TDh = READ_OP();
+
+            ADDHLNNNN(Registers.TD);
+            CPUSetTState(16);
+
+        }
+        void op_ED_0x35()
+        {
+            Registers.TDl = READ_OP();
+            Registers.TDh = READ_OP();
+
+            ADDDENNNN(Registers.TD);
+            CPUSetTState(16);
+
+        }
+        void op_ED_0x36()
+        {
+            Registers.TDl = READ_OP();
+            Registers.TDh = READ_OP();
+
+            ADDBCNNNN(Registers.TD);
+            CPUSetTState(16);
+
+        }
+
+        void op_ED_0x8A()
+        {
+            //its stored hi lo!!
+            Registers.TDh = READ_OP();
+            Registers.TDl = READ_OP();
+            PUSH(Registers.TD);
+            CPUSetTState(23);
+        }
+
+        void op_ED_0x90()
+        {
+            OUTINB();
+            CPUSetTState(16);
+        }
+
+        void op_ED_0x91()
+        {
+            //nextreg
+            READ_OP();
+            READ_OP();
+            CPUSetTState(20);
+
+        }
+        void op_ED_0x92()
+        {
+            //nextreg
+            READ_OP();
+            CPUSetTState(17);
+        }
+        void op_ED_0x93()
+        {
+            PIXELDN();
+            CPUSetTState(8);
+        }
+        void op_ED_0x94()
+        {
+            PIXELAD();
+            CPUSetTState(8);
+
+        }
+        void op_ED_0x95()
+        {
+            SETAE();
+            CPUSetTState(8);
+        }
+
+        void op_ED_0x98()
+        {
+            JPC();
+            CPUSetTState(13);
+        }
+
+
+        void op_ED_0xA4()
+        {
+            LDIX();
+
+        }
+
+        void op_ED_0xA5()
+        {
+            LDWS();
+        }
+
+        void op_ED_0xAC()
+        {
+            LDDX();
+        }
+
+        void op_ED_0xB4()
+        {
+            LDIRX();
+        }
+
+        void op_ED_0xB7()
+        {
+            LDPIRX();
+        }
+        void op_ED_0xBC()
+        {
+            LDDRX();
+        }
+
 
 		/*IN Registers.B,(Registers.C)*/
 		void op_ED_0x40()

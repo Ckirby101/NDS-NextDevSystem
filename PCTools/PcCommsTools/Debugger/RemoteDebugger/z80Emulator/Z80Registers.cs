@@ -135,6 +135,16 @@ namespace Z80EmuLib
 		[NonSerialized]
 		public byte F;
 
+        [FieldOffset(9)]
+        [NonSerialized]
+        public byte A_;
+
+        /// <summary>Flags</summary>
+        [FieldOffset(8)]
+        [NonSerialized]
+        public byte F_;
+
+
 		/// <summary>General purpose register B</summary>
 		[FieldOffset(3)]
 		[NonSerialized]

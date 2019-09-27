@@ -4,6 +4,243 @@ namespace Z80EmuLib
 {
 	partial class Z80Emu
 	{
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void SN_TEST(byte value)
+        {
+            byte A = Registers.A;
+            A &= value;
+            Registers.F = (byte)(Tables.FLAG_H | Tables.sz53p_table[A]);
+        }
+
+
+        void SWAPNIB()
+        {
+            byte A = Registers.A;
+
+            Registers.A = (byte) (((A & 0xF) << 4) | ((A & 0xf) >> 4));
+        }
+
+        void MIRROR()
+        {
+            byte v = Registers.A;
+
+            byte r = v; // r will be reversed bits of v; first get LSB of v
+            int s = 7; // extra shift needed at end
+            for (v >>= 1; v != 0; v >>= 1)
+            {
+                r <<= 1;
+                r |= (byte)(v & 1);
+                s--;
+            }
+            r <<= s; // shift when v's highest bits are zero
+
+            Registers.A = v;
+        }
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void BSLA()
+        {
+            Registers.DE = (ushort)(Registers.DE << (Registers.B & 31));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void BSRA()
+        {
+            Registers.DE = (ushort)(Registers.DE >> (Registers.B & 31));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void BSRL()
+        {
+            Registers.DE = (ushort)(Registers.DE << (Registers.B & 31));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void BSRF()
+        {
+            Registers.DE = (ushort)(Registers.DE >> (Registers.B & 31));
+
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void BRLC()
+        {
+            Registers.DE = (ushort)(Registers.DE << (Registers.B & 15));
+        }
+
+
+        void MULDE()
+        {
+            Registers.DE = (ushort)((ushort)Registers.D * (ushort)Registers.E);
+        }
+
+        void ADDHLA()
+        {
+            Registers.HL += (ushort) Registers.A;
+        }
+
+        void ADDDEA()
+        {
+            Registers.DE += (ushort) Registers.A;
+        }
+        void ADDBCA()
+        {
+            Registers.BC += (ushort) Registers.A;
+        }
+
+        void ADDHLNNNN(ushort v)
+        {
+            Registers.HL += v;
+        }
+
+        void ADDDENNNN(ushort v)
+        {
+            Registers.DE += v;
+        }
+        void ADDBCNNNN(ushort v)
+        {
+            Registers.BC += v;
+        }
+
+        void PIXELDN()
+        {
+            if((Registers.HL&0x0700) != 0x0700)
+            {
+                Registers.HL+=256;
+            }
+            else if((Registers.HL&0xe0)!=0xe0)
+            {
+                Registers.HL = (ushort)(Registers.HL&0xF8FF+0x20);
+
+            }
+            else 
+            {
+                Registers.HL = (ushort)(Registers.HL&0xF81F+0x0800);
+            }
+
+        }
+
+        void PIXELAD()
+        {
+
+            Registers.HL = (ushort)(0x4000 + (((ushort)Registers.D & 0xC0) << 5) + (((ushort)Registers.D & 0x07) << 8) +
+                           (((ushort)Registers.D & 0x38) << 2) + ((ushort)Registers.E >> 3));
+
+        }
+
+        void SETAE()
+        {
+            Registers.A = (byte)((0x80) >> (Registers.E & 7));
+        }
+
+        void LDIX()
+        {
+            byte bytetemp = CPUReadMemory(Registers.HL);
+            Registers.BC--;
+            byte b = CPUReadMemory(Registers.DE);
+
+            if (b != Registers.A)
+            {
+                CPUWriteMemory(Registers.DE, bytetemp);
+            }
+            Registers.DE++; Registers.HL++;
+        }
+
+        void LDWS()
+        {
+            byte bytetemp = CPUReadMemory(Registers.HL);
+            CPUWriteMemory(Registers.DE, bytetemp);
+            Registers.D++; Registers.L++;
+
+        }
+
+        void LDDX()
+        {
+            byte bytetemp = CPUReadMemory(Registers.HL);
+            Registers.BC--;
+            byte b = CPUReadMemory(Registers.DE);
+
+            if (b != Registers.A)
+            {
+                CPUWriteMemory(Registers.DE, bytetemp);
+            }
+            Registers.DE++; Registers.HL--;
+        }
+
+        void LDIRX()
+        {
+            do
+            {
+                LDIX();
+            } while (Registers.BC>0);
+        }
+
+        void LDPIRX()
+        {
+            do
+            {
+                ushort t = (ushort)((Registers.HL & 0xFFF8) + (Registers.E & 7));
+
+                byte b = CPUReadMemory(t);
+
+                if (b != Registers.A)
+                    CPUWriteMemory(Registers.DE, b);
+                Registers.DE++;
+                Registers.BC--;
+
+
+
+            } while (Registers.BC>0);
+        }
+
+        void LDDRX()
+        {
+            do
+            {
+                LDDRX();
+                
+            } while (Registers.BC>0);
+
+        }
+
+        void JPC()
+        {
+
+//            PC:=PC&$C000+IN(C)<<6
+
+        }
+
+
+
+
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        void OUTINB()
+        {
+            byte outitemp = CPUReadMemory(Registers.HL);
+            Registers.WZ = (ushort)(Registers.BC + 1);
+            CPUWritePort(Registers.BC, outitemp);
+            Registers.HL++;
+            Registers.F = (byte)(((outitemp & 0x80) != 0 ? Tables.FLAG_N : (byte)0) | Tables.sz53_table[Registers.B]);
+            OUT_BL(outitemp);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		void AND(byte value)
 		{

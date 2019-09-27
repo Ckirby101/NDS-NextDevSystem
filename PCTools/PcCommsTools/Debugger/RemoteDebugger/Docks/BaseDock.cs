@@ -18,7 +18,7 @@ namespace RemoteDebugger
 
         private void BaseDock_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
-            MainForm.myDocks.Remove(this);
+            //MainForm.myDocks.Remove(this);
         }
 
         public abstract void RequestUpdate();

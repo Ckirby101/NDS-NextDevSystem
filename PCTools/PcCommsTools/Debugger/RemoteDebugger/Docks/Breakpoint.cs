@@ -64,7 +64,7 @@ namespace RemoteDebugger
 
         public void RequestUpdate()
         {
-            Program.telnetConnection.SendCommand("get-breakpoints", Callback);
+            //Program.telnetConnection.SendCommand("get-breakpoints", Callback);
         }
 
         void UIUpdate(string[] items)
@@ -179,14 +179,14 @@ namespace RemoteDebugger
 	    /// -------------------------------------------------------------------------------------------------
 	    public static void ResetBreakpoints()
 	    {
-		    Program.telnetConnection.SendCommand("enable-breakpoints",null);
+		    //Program.telnetConnection.SendCommand("enable-breakpoints",null);
 
 		    for (int a = 0; a < BreakpointCount; a++)
 		    {
 			    breakpointData[a].IsEnabled = false;
 			    breakpointData[a].used = false;
-			    Program.telnetConnection.SendCommand("set-breakpoint " + (a + 1), null);
-			    Program.telnetConnection.SendCommand("disable-breakpoint " + (a + 1),null);
+			    //Program.telnetConnection.SendCommand("set-breakpoint " + (a + 1), null);
+			    //Program.telnetConnection.SendCommand("disable-breakpoint " + (a + 1),null);
 
 			    
 		    }
@@ -291,8 +291,8 @@ namespace RemoteDebugger
 				    breakpointData[b].markerSourcefilename = filename;
 			    }
 		    }
-		    Program.telnetConnection.SendCommand("sba " + (b + 1) + " break", null);
-		    Program.telnetConnection.SendCommand("sb " + (b + 1) + " PC=" + addr.ToString("X4")+"H", Program.myMainForm.myBreakpoints.UpdateCallback);
+		    //Program.telnetConnection.SendCommand("sba " + (b + 1) + " break", null);
+		    //Program.telnetConnection.SendCommand("sb " + (b + 1) + " PC=" + addr.ToString("X4")+"H", Program.myMainForm.myBreakpoints.UpdateCallback);
 
 		    //Program.myMainForm.UpdateBreakpoints();
 
@@ -333,8 +333,8 @@ namespace RemoteDebugger
 		    breakpointData[b].breakpointType = BreakpointType.disabled;
 		    breakpointData[b].markerset = false;
 
-		    Program.telnetConnection.SendCommand("sb " + (b + 1), null);
-		    Program.telnetConnection.SendCommand("disable-breakpoint " + (b + 1),Program.myMainForm.myBreakpoints.UpdateCallback);
+		    //Program.telnetConnection.SendCommand("sb " + (b + 1), null);
+		    //Program.telnetConnection.SendCommand("disable-breakpoint " + (b + 1),Program.myMainForm.myBreakpoints.UpdateCallback);
 
 
 		    MainForm.mySourceWindow.UpdateSourceButtons();

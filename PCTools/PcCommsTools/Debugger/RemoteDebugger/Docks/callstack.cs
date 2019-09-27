@@ -35,7 +35,7 @@ namespace RemoteDebugger.Docks
 		/// -------------------------------------------------------------------------------------------------
 		public void UpdateCallStack()
 		{
-			Program.telnetConnection.SendCommand("get-stack-backtrace ", Callback,0);
+			//Program.telnetConnection.SendCommand("get-stack-backtrace ", Callback,0);
 		}
 
 

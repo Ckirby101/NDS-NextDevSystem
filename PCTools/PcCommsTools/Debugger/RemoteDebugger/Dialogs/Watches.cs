@@ -118,7 +118,7 @@ namespace RemoteDebugger.Dialogs
 				}
 
 
-				Program.telnetConnection.SendCommand("read-memory "+vmd.label.address.ToString()+" 2", Callback,index);
+				//Program.telnetConnection.SendCommand("read-memory "+vmd.label.address.ToString()+" 2", Callback,index);
 				index++;
 
 			}
