@@ -612,8 +612,8 @@ namespace RemoteDebugger.Main
 					else
 					{
 						// Add breakpoint
-						if (Breakpoint.SetBreakPoint(ld.address, Breakpoint.BreakpointType.PC,
-							"PC=" + ld.address.ToString("X4") + "H", tf.filename, linenum))
+						//if (Breakpoint.SetBreakPoint(ld.address, Breakpoint.BreakpointType.PC,
+						//	"PC=" + ld.address.ToString("X4") + "H", tf.filename, linenum))
 						{
 
 						}

@@ -29,6 +29,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using RemoteDebugger.Main;
+using RemoteDebugger.Remote;
 
 namespace RemoteDebugger
 {
@@ -41,53 +42,95 @@ namespace RemoteDebugger
 
 
 
+        public class BreakpointData
+        {
+            public bool used = false;
 
-	    Regex breakRegex;
+            public string No
+            {
+                get { return (breakpointData.IndexOf(this)+1).ToString(); }
+            }
+            public string Address
+            {
+                get { return "$"+address.ToString("X4"); }
+            }
+
+
+            public int address;
+
+            //for the markers in source code
+            public bool markerset = false;
+            public int markerSourceLine = 0;
+            public string markerSourcefilename = "";
+        }
+
+
+
+
+
 
         public Breakpoint()
         {
             InitializeComponent();
 
-            breakRegex = new Regex(@"(Enabled|Disabled)\s*[0-9]+:\s*(.*)");
             dataGridView1.DataSource = breakpointData;
 
-			dataGridView1.Columns[0].ReadOnly = true;
-			dataGridView1.Columns[1].ReadOnly = false;
-	        dataGridView1.Columns[2].ReadOnly = false;
+
+            dataGridView1.AutoGenerateColumns = false;
+
+			//dataGridView1.Columns[0].ReadOnly = false;
+			//dataGridView1.Columns[1].ReadOnly = true;
+	        //dataGridView1.Columns[2].ReadOnly = false;
 	        //dataGridView1.Columns[3].ReadOnly = false;
 			dataGridView1.AllowUserToAddRows = false;
 			dataGridView1.RowHeadersVisible = false;
 	        //dataGridView1.AutoResizeColumns();
 	        //dataGridView1.Columns[0].Width = 50;
+            dataGridView1.CellClick += dataGridViewSoftware_CellClick;
         }
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Event handler. Called by dataGridViewSoftware for cell click events
+        //
+        // \param   sender  Source of the event.
+        // \param   e       Data grid view cell event information.
+        // -------------------------------------------------------------------------------------------------
+        private void dataGridViewSoftware_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridView1.Columns["Delete"].Index)
+            {
+                //varWatchData.RemoveAt( e.RowIndex );
+                Update();
+            }
+        }
+
+        // Request update
         public void RequestUpdate()
         {
+            Program.serialport.GetBreakpoints(Callback,0);
             //Program.telnetConnection.SendCommand("get-breakpoints", Callback);
         }
 
-        void UIUpdate(string[] items)
+        void UIUpdate(byte[] items)
         {
+            int index = 3;
+
             bool updated = false;
-            items = items.Skip(1).ToArray();    // Skip first line
-            for (int a=0;a<items.Count() && a< breakpointData.Count();a++)
+            for (int i=0;i<10;i++)
             {
-                Match m = breakRegex.Match(items[a]);
-                if (m.Success)
-                {
-                    breakpointData[a].IsEnabled = m.Groups[1].Value=="Enabled";
-                    breakpointData[a].ConditionString = m.Groups[2].Value;
-                    updated = true;
-                }
+                breakpointData[i].used = Serial.Get8Bit(ref items, ref index) ==0;
+                breakpointData[i].address = Serial.Get16Bit(ref items, ref index);
+                index++;
+
             }
-            if (updated)
-            {
+            //if (updated)
+            //{
                 dataGridView1.Invalidate(true);
-            }
+            //}
         }
 
-        void Callback(string[] response,int tag)
+        void Callback(byte[] response,int tag)
         {
             try
             {
@@ -122,39 +165,12 @@ namespace RemoteDebugger
 
 
 
-	    public enum BreakpointType
-	    {
-		    disabled,
-		    PC
-	    }
 
-	    public class BreakpointData
-	    {
-		    public bool used { get; set; }
-
-		    public bool IsEnabled { get; set; }
-		    public string ConditionString { get ; set; }
-
-		    public string addrString
-		    {
-			    get { return address.ToString("X4"); }
-		    }
-
-
-		    public int address;
-
-		    public BreakpointType breakpointType = BreakpointType.disabled;
-
-		    //for the markers in source code
-		    public bool markerset = false;
-		    public int markerSourceLine = 0;
-		    public string markerSourcefilename = "";
-	    }
 
 
 
 	    public static BindingList<BreakpointData> breakpointData;
-	    static readonly int BreakpointCount=30;
+	    static readonly int BreakpointCount=10;
 
 	    /// -------------------------------------------------------------------------------------------------
 	    /// <summary> Initializes the breakpoint data. </summary>
@@ -183,8 +199,8 @@ namespace RemoteDebugger
 
 		    for (int a = 0; a < BreakpointCount; a++)
 		    {
-			    breakpointData[a].IsEnabled = false;
-			    breakpointData[a].used = false;
+			    //breakpointData[a].IsEnabled = false;
+			    //breakpointData[a].used = false;
 			    //Program.telnetConnection.SendCommand("set-breakpoint " + (a + 1), null);
 			    //Program.telnetConnection.SendCommand("disable-breakpoint " + (a + 1),null);
 
@@ -224,7 +240,7 @@ namespace RemoteDebugger
 		    int c = 0;
 		    for (int i = 0; i < breakpointData.Count; i++)
 		    {
-			    if (breakpointData[i].used && breakpointData[i].IsEnabled) c++;
+			    //if (breakpointData[i].used && breakpointData[i].IsEnabled) c++;
 		    }
 
 		    return c;
@@ -262,7 +278,7 @@ namespace RemoteDebugger
 	    ///
 	    /// <returns> True if it succeeds, false if it fails. </returns>
 	    /// -------------------------------------------------------------------------------------------------
-	    public static bool SetBreakPoint(int addr, BreakpointType type, string Condition, string filename,int linenum)
+/*	    public static bool SetBreakPoint(int addr, BreakpointType type, string Condition, string filename,int linenum)
 	    {
 		    int b = FindFreeBreakpoint();
 		    if (b < 0) return false;
@@ -270,8 +286,8 @@ namespace RemoteDebugger
 
 		    breakpointData[b].address = addr;
 		    breakpointData[b].used = true;
-		    breakpointData[b].IsEnabled = true;
-		    breakpointData[b].ConditionString = Condition;
+		    //breakpointData[b].IsEnabled = true;
+		    //breakpointData[b].ConditionString = Condition;
 		    breakpointData[b].breakpointType = type;
 		    breakpointData[b].markerset = false;
 
@@ -300,7 +316,7 @@ namespace RemoteDebugger
 		    MainForm.mySourceWindow.UpdateSourceButtons();
 
 		    return true;
-	    }
+	    }*/
 
 	    /// -------------------------------------------------------------------------------------------------
 	    /// <summary> Removes the break point at address described by addr. </summary>
@@ -328,9 +344,9 @@ namespace RemoteDebugger
 		    
 		    breakpointData[b].address = -1;
 		    breakpointData[b].used = false;
-		    breakpointData[b].IsEnabled = false;
-		    breakpointData[b].ConditionString = "";
-		    breakpointData[b].breakpointType = BreakpointType.disabled;
+		    //breakpointData[b].IsEnabled = false;
+		    //breakpointData[b].ConditionString = "";
+		    //breakpointData[b].breakpointType = BreakpointType.disabled;
 		    breakpointData[b].markerset = false;
 
 		    //Program.telnetConnection.SendCommand("sb " + (b + 1), null);

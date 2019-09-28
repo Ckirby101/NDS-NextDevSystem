@@ -26,6 +26,7 @@ namespace RemoteDebugger.Dialogs
 
 			public Labels.Label label = null;
 			public string display = "";
+            public string display2 = "XXX";
 
 			public string Variable
 			{
@@ -38,7 +39,11 @@ namespace RemoteDebugger.Dialogs
 
 			}
 
+            public string Value16
+            {
+                get { return (display2); }
 
+            }
 
 			public event PropertyChangedEventHandler PropertyChanged;
 			private void NotifyPropertyChanged(string p)
@@ -69,6 +74,7 @@ namespace RemoteDebugger.Dialogs
 
 			watchesGrid.Columns[0].ReadOnly = true;
 			watchesGrid.Columns[1].ReadOnly = true;
+            watchesGrid.Columns[2].ReadOnly = true;
 
 			watchesGrid.CellClick += dataGridViewSoftware_CellClick;
 			
@@ -80,6 +86,12 @@ namespace RemoteDebugger.Dialogs
 		}
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Event handler. Called by dataGridViewSoftware for cell click events
+        //
+        // \param   sender  Source of the event.
+        // \param   e       Data grid view cell event information.
+        // -------------------------------------------------------------------------------------------------
 		private void dataGridViewSoftware_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.ColumnIndex == watchesGrid.Columns["Delete"].Index)
@@ -96,7 +108,7 @@ namespace RemoteDebugger.Dialogs
 		///
 		/// <remarks> 12/09/2018. </remarks>
 		/// -------------------------------------------------------------------------------------------------
-		public void Update()
+		public void UpdateWatches()
 		{
 			for (int i = (varWatchData.Count - 1); i >= 0; i--)
 			{
@@ -117,7 +129,7 @@ namespace RemoteDebugger.Dialogs
 					vmd.localcount--;
 				}
 
-
+                Program.serialport.SendWatch(Callback,vmd.label.address,vmd.label.bank,index);
 				//Program.telnetConnection.SendCommand("read-memory "+vmd.label.address.ToString()+" 2", Callback,index);
 				index++;
 
@@ -135,7 +147,7 @@ namespace RemoteDebugger.Dialogs
 		/// <param name="response"> The response. </param>
 		/// <param name="tag">	    The tag. </param>
 		/// -------------------------------------------------------------------------------------------------
-		void Callback(string[] response,int tag)
+		void Callback(byte[] response,int tag)
 		{
 			try
 			{
@@ -162,23 +174,32 @@ namespace RemoteDebugger.Dialogs
 		/// <param name="response"> The response. </param>
 		/// <param name="tag">	    The tag. </param>
 		/// -------------------------------------------------------------------------------------------------
-		private void UIUpdate(string[] response, int tag)
+		private void UIUpdate(byte[] response, int tag)
 		{
 			int value;
 
-			if (int.TryParse(response[0], NumberStyles.HexNumber, null, out value))
+            if (response[0]!='W') return;
+            if (response[1]!='A') return;
+            if (response[2]!='T') return;
+
+            if (tag>=varWatchData.Count) return;
+
+            value = response[3] | (response[4] << 8);
+			//if (int.TryParse(response[0], NumberStyles.HexNumber, null, out value))
 			{
-				value = MainForm.Endian(value);
-				int val8 = (value & 0xff);
+				//value = MainForm.Endian(value);
+				int val8 = response[3];
 				int val16 = (value & 0xffff);
 				
-				varWatchData[tag].display = "M: "+response[0]+"   8: $"+val8.ToString("X2")+" / "+val8+"    16: $"+val16.ToString("X4")+" / "+val16;
+				varWatchData[tag].display = "$"+val8.ToString("X2")+" | "+val8.ToString();
+                varWatchData[tag].display2 = "$"+val16.ToString("X4")+" | "+val16;
+
 				watchesGrid.InvalidateRow(tag);
 
 				if (varWatchData[tag].lastval != val16)
-					watchesGrid.Rows[tag].DefaultCellStyle.BackColor = Color.LightBlue;
+					watchesGrid.Rows[tag].DefaultCellStyle.ForeColor = Color.DarkRed;
 				else
-					watchesGrid.Rows[tag].DefaultCellStyle.BackColor = Color.White;
+					watchesGrid.Rows[tag].DefaultCellStyle.ForeColor = Color.Black;
 
 
 				varWatchData[tag].lastval = val16;

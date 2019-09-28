@@ -79,9 +79,6 @@
     <Compile Include="Dialogs\Watches.Designer.cs">
       <DependentUpon>Watches.cs</DependentUpon>
     </Compile>
-    <Compile Include="Docks\BaseDock.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Docks\Breakpoint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +127,7 @@
     <Compile Include="Docks\Watch.Designer.cs">
       <DependentUpon>Watch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Main\Address.cs" />
     <Compile Include="Main\eZDisasm.cs" />
     <Compile Include="Main\Labels.cs" />
     <Compile Include="Main\MainForm.cs">

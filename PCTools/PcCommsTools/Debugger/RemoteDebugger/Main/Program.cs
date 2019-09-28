@@ -39,6 +39,7 @@ namespace RemoteDebugger
 
         //public static TelNetSpec telnetConnection=new TelNetSpec();
         public static bool InStepMode = false;
+        public static bool StepBusy = false;
 	    public static MainForm myMainForm;
         public static Serial serialport;
   

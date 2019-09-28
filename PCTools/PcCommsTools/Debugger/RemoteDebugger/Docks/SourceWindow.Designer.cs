@@ -33,7 +33,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.FunctionComboBox = new System.Windows.Forms.ComboBox();
-            this.buttonRunBreak = new System.Windows.Forms.Button();
             this.continuebutton = new System.Windows.Forms.Button();
             this.stepoverbutton = new System.Windows.Forms.Button();
             this.breakbutton = new System.Windows.Forms.Button();
@@ -71,7 +70,6 @@
             // 
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.FunctionComboBox);
-            this.panel1.Controls.Add(this.buttonRunBreak);
             this.panel1.Controls.Add(this.continuebutton);
             this.panel1.Controls.Add(this.stepoverbutton);
             this.panel1.Controls.Add(this.breakbutton);
@@ -102,18 +100,6 @@
             this.FunctionComboBox.Size = new System.Drawing.Size(323, 21);
             this.FunctionComboBox.TabIndex = 5;
             this.FunctionComboBox.SelectedIndexChanged += new System.EventHandler(this.FunctionComboBox_SelectedIndexChanged);
-            // 
-            // buttonRunBreak
-            // 
-            this.buttonRunBreak.BackColor = System.Drawing.Color.PaleGreen;
-            this.buttonRunBreak.Location = new System.Drawing.Point(96, -1);
-            this.buttonRunBreak.Name = "buttonRunBreak";
-            this.buttonRunBreak.Size = new System.Drawing.Size(90, 36);
-            this.buttonRunBreak.TabIndex = 4;
-            this.buttonRunBreak.Text = "Run To breakpoint";
-            this.buttonRunBreak.UseVisualStyleBackColor = false;
-            this.buttonRunBreak.Visible = false;
-            this.buttonRunBreak.Click += new System.EventHandler(this.button1_Click);
             // 
             // continuebutton
             // 
@@ -183,7 +169,6 @@
 		private System.Windows.Forms.Button breakbutton;
 		private System.Windows.Forms.Button stepbutton;
 		private System.Windows.Forms.Button continuebutton;
-		private System.Windows.Forms.Button buttonRunBreak;
 		private System.Windows.Forms.ComboBox FunctionComboBox;
 		private System.Windows.Forms.Label label1;
 	}

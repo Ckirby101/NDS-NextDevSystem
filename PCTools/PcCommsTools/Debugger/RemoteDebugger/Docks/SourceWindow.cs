@@ -32,11 +32,10 @@ namespace RemoteDebugger
 			InitializeComponent();
 
 			List<TraceFile> tf = new List<TraceFile>();
-			
-			//tf.Add( new TraceFile("dma.asm") );
+            //tf.Add( new TraceFile("dma.asm") );
 
 
-		}
+        }
 
         // -------------------------------------------------------------------------------------------------
         // Focus line
@@ -166,17 +165,36 @@ namespace RemoteDebugger
 			if (!Program.InStepMode && pause)
             {
                 Program.serialport.PauseExecution(PauseExecutionCallback,true);
+//                Program.InStepMode = true;
 
+                //Program.telnetConnection.SendCommand("enter-cpu-step", commandResponse);
+                //Program.telnetConnection.SendCommand("enable-breakpoints", commandResponseStepUpdate);
 
-				//Program.telnetConnection.SendCommand("enter-cpu-step", commandResponse);
-				//Program.telnetConnection.SendCommand("enable-breakpoints", commandResponseStepUpdate);
-
-			}
+            }
 
 
 			UpdateSourceButtons();
 
 		}
+
+
+        public void UpdatePauseStatus(int mode)
+        {
+            if (mode == 1 && !Program.InStepMode)
+            {
+                Program.InStepMode = true;
+                UpdateSourceButtons();
+
+            }
+
+            if (mode == 0 && Program.InStepMode)
+            {
+                Program.InStepMode = false;
+                UpdateSourceButtons();
+
+            }
+
+        }
 
         // -------------------------------------------------------------------------------------------------
         // Callback, called when the pause execution
@@ -233,25 +251,27 @@ namespace RemoteDebugger
         // Updates the source buttons
 		public void UpdateSourceButtons()
 		{
-            buttonRunBreak.Visible = false;
 
-            
-            if (Program.InStepMode)
+
+            if (!Program.InStepMode)
             {
-                Program.InStepMode = false;
+                //not in step mode
                 breakbutton.Visible = true;
                 continuebutton.Visible = false;
 
-                if (Breakpoint.NumBreakpointsActive() >0)
-                    buttonRunBreak.Visible = true;
-
+                //if (Breakpoint.NumBreakpointsActive() >0)
+                //    buttonRunBreak.Visible = true;
             }
             else
             {
-                Program.InStepMode = true;
+                //are in step mode
                 breakbutton.Visible = false;
                 continuebutton.Visible = true;
+
+                stepbutton.Visible = true;
+                stepoverbutton.Visible = true;
             }
+
 
 
 

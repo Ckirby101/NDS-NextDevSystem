@@ -29,10 +29,12 @@ namespace RemoteDebugger.Remote
 
             Cmd_SendRegs	= 183,		//send registers to pc
             Cmd_SetRegs	= 184,		//set the registers
-            Cmd_SendMem	= 185,		//send memeory to pc
-            Cmd_Pause	= 186,		//send memeory to pc
+            Cmd_SendMem	= 185,		//send memory to pc
+            Cmd_Pause	= 186,
             Cmd_Continue = 187,
-            Cmd_Step = 188,
+            Cmd_SetBreakpoint = 188,
+            Cmd_SendWatch = 189,
+            Cmd_GetBreakpoint = 190,
             
         }
 
@@ -134,6 +136,14 @@ namespace RemoteDebugger.Remote
             return v;
 
         }
+
+        public bool busy()
+        {
+            if (!mySerialPort.IsOpen) return true;
+            if (commands.Count > 0) return true;
+            return false;
+        }
+
         // -------------------------------------------------------------------------------------------------
         // Ready byte
         //
@@ -210,7 +220,21 @@ namespace RemoteDebugger.Remote
             b.Add((byte)(value&0xff));          //lo
         }
 
+        public static int Get16Bit(ref byte[] b, ref int index)
+        {
+            int value = b[index] | (b[index + 1] << 8);
+            index += 2;
 
+            return value;
+        }
+
+        public static  int Get8Bit(ref byte[] b, ref int index)
+        {
+            int value = b[index];
+            index ++;
+
+            return value;
+        }
         // -------------------------------------------------------------------------------------------------
         // Gets the registers
         //
@@ -222,11 +246,19 @@ namespace RemoteDebugger.Remote
             sendbuffer.Clear();
             AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_SendRegs);
 
-            SendCommand(UARTCommand.Cmd_SendRegs, sendbuffer.ToArray(), cb,92, tag,0,0);
+            SendCommand(UARTCommand.Cmd_SendRegs, sendbuffer.ToArray(), cb,93, tag,0,0);
 
         }
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Gets a memory
+        //
+        // \param   cb      The cb.
+        // \param   addr    The address.
+        // \param   bytes   The bytes.
+        // \param   tag     (Optional) The tag.
+        // -------------------------------------------------------------------------------------------------
         public void GetMemory(SerialCallback cb,int addr,int bytes,int tag = 0)
         {
             sendbuffer.Clear();
@@ -238,12 +270,54 @@ namespace RemoteDebugger.Remote
 
         }
 
+        // -------------------------------------------------------------------------------------------------
+        // Sends a watch
+        //
+        // \param   cb      The cb.
+        // \param   addr    The address.
+        // \param   bank    The bank.
+        // \param   tag     (Optional) The tag.
+        // -------------------------------------------------------------------------------------------------
+        public void SendWatch(SerialCallback cb,int addr,int bank,int tag = 0)
+        {
+            sendbuffer.Clear();
+            AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_SendWatch);
+            Add8Value(ref sendbuffer,bank);
+            Add16Value(ref sendbuffer,addr);
 
+            SendCommand(UARTCommand.Cmd_SendWatch, sendbuffer.ToArray(), cb,5, tag,addr,0);
+
+        }
+
+
+        // -------------------------------------------------------------------------------------------------
+        // Gets the breakpoints
+        //
+        // \param   cb  The cb.
+        // \param   tag (Optional) The tag.
+        // -------------------------------------------------------------------------------------------------
+        public void GetBreakpoints(SerialCallback cb,int tag = 0)
+        {
+            sendbuffer.Clear();
+            AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_GetBreakpoint);
+
+            SendCommand(UARTCommand.Cmd_GetBreakpoint, sendbuffer.ToArray(), cb,43, tag,0,0);
+
+        }
+
+
+        // -------------------------------------------------------------------------------------------------
+        // Pause execution
+        //
+        // \param   cb      The cb.
+        // \param   pause   True to pause.
+        // -------------------------------------------------------------------------------------------------
         public void PauseExecution(SerialCallback cb,bool pause)
         {
             sendbuffer.Clear();
             if (pause)
             {
+                Program.StepBusy = true;
                 AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_Pause);
                 SendCommand(UARTCommand.Cmd_Pause, sendbuffer.ToArray(), cb,0, 0,0,0);
             }
@@ -256,13 +330,19 @@ namespace RemoteDebugger.Remote
         }
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Steps
+        //
+        // \param   cb      The cb.
+        // \param   addr    The address.
+        // -------------------------------------------------------------------------------------------------
         public void Step(SerialCallback cb, int addr)
         {
             sendbuffer.Clear();
-            AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_Step);
+            AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_SetBreakpoint);
             Add16Value(ref sendbuffer,addr);
 
-            SendCommand(UARTCommand.Cmd_Step, sendbuffer.ToArray(), cb,0, 0,0,0);
+            SendCommand(UARTCommand.Cmd_SetBreakpoint, sendbuffer.ToArray(), cb,0, 0,0,0);
         }
 
 
@@ -327,6 +407,9 @@ namespace RemoteDebugger.Remote
                         //sc.callback.Invoke(returnbytes, sc.tag);
 
                         sc.callback(returnbytes, sc.tag);
+                    }
+                    else
+                    {
                     }
 
                 }

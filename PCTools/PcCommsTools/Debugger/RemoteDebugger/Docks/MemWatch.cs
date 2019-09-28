@@ -36,9 +36,14 @@ namespace RemoteDebugger.Docks
 		/// -------------------------------------------------------------------------------------------------
 		public void UpdateMemory()
 		{
+            if (!this.Visible) return;
+
+
 			int v = memaddress;
 			ByteProvider bp = byteProvider;
 			bp.offset = v;
+
+            Program.serialport.GetMemory(Callback, v,512,0);
 			//Program.telnetConnection.SendCommand("read-memory "+v.ToString()+" 512", Callback,0);
 		}
 
@@ -51,7 +56,7 @@ namespace RemoteDebugger.Docks
 		/// <param name="response"> The response. </param>
 		/// <param name="tag">	    The tag. </param>
 		/// -------------------------------------------------------------------------------------------------
-		void Callback(string[] response,int tag)
+		void Callback(byte[] response,int tag)
 		{
 			try
 			{
@@ -78,9 +83,16 @@ namespace RemoteDebugger.Docks
 		/// <param name="response"> The response. </param>
 		/// <param name="tag">	    The tag. </param>
 		/// -------------------------------------------------------------------------------------------------
-		private void UIUpdate(string[] response,int tag)
-		{
-			byteProvider.parseData(response[0]);
+		private void UIUpdate(byte[] response,int tag)
+        {
+
+            byte[] arraycopy = new byte[response.Length-5];
+            Array.Copy(response, 5, arraycopy, 0,arraycopy.Length);
+
+            //ByteProviders[tag].bytes = arraycopy;// parseData(response[0]);
+
+
+            byteProvider.bytes = arraycopy;// parseData(response[0]);
 			MEMPTRHexControl.UpdateView();
 		}
 
@@ -92,6 +104,12 @@ namespace RemoteDebugger.Docks
 			UpdateMemory();
 		}
 
-
-	}
+        private void AddrtextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //if (e.KeyChar == (char) 13)
+            //{
+            //    UpdateMemory();
+            //}
+        }
+    }
 }

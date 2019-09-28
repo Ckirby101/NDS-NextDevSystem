@@ -58,14 +58,13 @@ namespace RemoteDebugger
 	    public static callstack mycallstack;
 	    public static Watches myWatches;
         SpectrumScreen myScreen;
-        public Breakpoint myBreakpoints;
+        public static Breakpoint myBreakpoints;
         //public static List<BaseDock> myDocks;
 
         bool refreshScreen;
 
 	    public static string TraceDataPath = "";
 
-		private bool UpdatePcFocus = false;
         public MainForm()
         {
 	        Program.myMainForm = this;
@@ -349,7 +348,10 @@ namespace RemoteDebugger
 	    /// -------------------------------------------------------------------------------------------------
 	    public void UpdateAllWindows(bool fromstep)
 	    {
-            UpdatePcFocus = fromstep;
+
+            if (fromstep)
+                Program.StepBusy = true;
+
 
             //we yupdate registeres first because all other windows rely on registers
             Program.serialport.GetRegisters(RegisterUpdateCallback, 0);
@@ -368,8 +370,6 @@ namespace RemoteDebugger
         // -------------------------------------------------------------------------------------------------
         public void RegisterUpdateCallback(byte[] response, int tag)
         {
-            try
-            {
                 if (InvokeRequired)
                 {
                     Invoke((MethodInvoker) delegate { RegisterUpdate(response, tag); });
@@ -378,18 +378,12 @@ namespace RemoteDebugger
                 {
                     RegisterUpdate(response, tag);
                 }
-            }
-            catch
-            {
-            }
         }
 
         private void RegisterUpdate(byte[] response, int tag)
         {
             myNewRegisters.regcallback(response,tag);
 
-            if ((Program.InStepMode && UpdatePcFocus) || !Program.InStepMode)
-            {
                 //UpdateBreakpoints();
 
                 if (myDisassembly != null)
@@ -408,9 +402,11 @@ namespace RemoteDebugger
 
 
                 MainForm.myMemoryWatch.UpdateMemory();
+                MainForm.myMemWatch.UpdateMemory();
+                MainForm.myWatches.UpdateWatches();
+                MainForm.myBreakpoints.RequestUpdate();
 
-            }
-
+                Program.StepBusy = false;
 
 
 

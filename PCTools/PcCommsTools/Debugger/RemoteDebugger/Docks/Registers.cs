@@ -33,6 +33,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using RemoteDebugger.Main;
+using RemoteDebugger.Remote;
 
 namespace RemoteDebugger
 {
@@ -268,37 +269,41 @@ namespace RemoteDebugger
         {
             int index = 3;
 
-            registerData[(int) Z80Register.f_e].Value = Get8Bit(ref response, ref index);
-            registerData[(int) Z80Register.a_e].Value = Get8Bit(ref response, ref index);
-            registerData[(int) Z80Register.r].Value = Get8Bit(ref response, ref index);
-            registerData[(int) Z80Register.i].Value = Get8Bit(ref response, ref index);
-            registerData[(int) Z80Register.f].Value = Get8Bit(ref response, ref index);
-            registerData[(int) Z80Register.a].Value = Get8Bit(ref response, ref index);
+            registerData[(int) Z80Register.f_e].Value = Serial.Get8Bit(ref response, ref index);
+            registerData[(int) Z80Register.a_e].Value = Serial.Get8Bit(ref response, ref index);
+            registerData[(int) Z80Register.r].Value = Serial.Get8Bit(ref response, ref index);
+            registerData[(int) Z80Register.i].Value = Serial.Get8Bit(ref response, ref index);
+            registerData[(int) Z80Register.f].Value = Serial.Get8Bit(ref response, ref index);
+            registerData[(int) Z80Register.a].Value = Serial.Get8Bit(ref response, ref index);
 
-            registerData[(int) Z80Register.iy].Value = Get16Bit(ref response, ref index);
-            registerData[(int) Z80Register.ix].Value = Get16Bit(ref response, ref index);
-            registerData[(int) Z80Register.bc_e].Value = Get16Bit(ref response, ref index);
-            registerData[(int) Z80Register.de_e].Value = Get16Bit(ref response, ref index);
-            registerData[(int) Z80Register.hl_e].Value = Get16Bit(ref response, ref index);
-            registerData[(int) Z80Register.bc].Value = Get16Bit(ref response, ref index);
-            registerData[(int) Z80Register.de].Value = Get16Bit(ref response, ref index);
-            registerData[(int) Z80Register.hl].Value = Get16Bit(ref response, ref index);
-            registerData[(int) Z80Register.pc].Value = Get16Bit(ref response, ref index);
-            registerData[(int) Z80Register.sp].Value = Get16Bit(ref response, ref index) + 2;  //plus 2 because comms has return address on stack.
+            registerData[(int) Z80Register.iy].Value = Serial.Get16Bit(ref response, ref index);
+            registerData[(int) Z80Register.ix].Value = Serial.Get16Bit(ref response, ref index);
+            registerData[(int) Z80Register.bc_e].Value = Serial.Get16Bit(ref response, ref index);
+            registerData[(int) Z80Register.de_e].Value = Serial.Get16Bit(ref response, ref index);
+            registerData[(int) Z80Register.hl_e].Value = Serial.Get16Bit(ref response, ref index);
+            registerData[(int) Z80Register.bc].Value = Serial.Get16Bit(ref response, ref index);
+            registerData[(int) Z80Register.de].Value = Serial.Get16Bit(ref response, ref index);
+            registerData[(int) Z80Register.hl].Value = Serial.Get16Bit(ref response, ref index);
+            registerData[(int) Z80Register.pc].Value = Serial.Get16Bit(ref response, ref index);
+            registerData[(int) Z80Register.sp].Value = Serial.Get16Bit(ref response, ref index) + 2;  //plus 2 because comms has return address on stack.
 
             for (int i = (int) Z80Register.MACHINE_ID_00; i <= (int) Z80Register.TILEMAP_GFX_ADR_6F; i++)
             {
                 Z80Register reg = (Z80Register) i;
 
-                registerData[(int) reg].Value = Get8Bit(ref response, ref index);
+                registerData[(int) reg].Value = Serial.Get8Bit(ref response, ref index);
 
             }
+            int mode = Serial.Get8Bit(ref response, ref index); 
 
-            stackdata[0] = Get16Bit(ref response, ref index);
-            stackdata[1] = Get16Bit(ref response, ref index);
-            stackdata[2] = Get16Bit(ref response, ref index);
-            stackdata[3] = Get16Bit(ref response, ref index);
+            stackdata[0] = Serial.Get16Bit(ref response, ref index);
+            stackdata[1] = Serial.Get16Bit(ref response, ref index);
+            stackdata[2] = Serial.Get16Bit(ref response, ref index);
+            stackdata[3] = Serial.Get16Bit(ref response, ref index);
 
+
+            //not in step mode be device is! then breakpoint has happened
+            MainForm.mySourceWindow.UpdatePauseStatus(mode);
 
 
 
@@ -309,44 +314,14 @@ namespace RemoteDebugger
             }
 
 
-
-            try
-            {
-                if (InvokeRequired)
-                {
-                    Invoke((MethodInvoker)delegate { UIUpdate(); });
-                }
-                else
-                {
-                    UIUpdate();
-                }
-            }
-            catch
-            {
-
-            }
-
-
-            
-
+            if (InvokeRequired)
+                Invoke((MethodInvoker)delegate { UIUpdate(); });
+            else
+                UIUpdate();
         }
 
 
-        public int Get16Bit(ref byte[] b, ref int index)
-        {
-            int value = b[index] | (b[index + 1] << 8);
-            index += 2;
 
-            return value;
-        }
-
-        public int Get8Bit(ref byte[] b, ref int index)
-        {
-            int value = b[index];
-            index ++;
-
-            return value;
-        }
 
 
         public string GetRegisterValue(string reg)

@@ -19,12 +19,12 @@ namespace RemoteDebugger.Docks
 			InitializeComponent();
 
 			//breakpointwindow
-			Program.myMainForm.myBreakpoints = new Breakpoint();
-			Program.myMainForm.myBreakpoints.TopLevel = false;
-			tabBreakpoints.Controls.Add(Program.myMainForm.myBreakpoints);
-			Program.myMainForm.myBreakpoints.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-			Program.myMainForm.myBreakpoints.Dock = DockStyle.Fill;
-			Program.myMainForm.myBreakpoints.Show();
+            MainForm.myBreakpoints = new Breakpoint();
+            MainForm.myBreakpoints.TopLevel = false;
+			tabBreakpoints.Controls.Add(MainForm.myBreakpoints);
+            MainForm.myBreakpoints.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            MainForm.myBreakpoints.Dock = DockStyle.Fill;
+            MainForm.myBreakpoints.Show();
 
 			MainForm.myMemoryWatch = new RegMemWatch();
 			MainForm.myMemoryWatch.TopLevel = false;
