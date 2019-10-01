@@ -30,7 +30,7 @@ namespace RemoteDebugger.Dialogs
 
 			public string Variable
 			{
-				get { return label.label +" ($"+label.address.ToString("X4")+")"; }
+				get { return label.label +" ($"+label.nextAddress.ToString()+")"; }
 			}
 
 			public string Value
@@ -129,7 +129,7 @@ namespace RemoteDebugger.Dialogs
 					vmd.localcount--;
 				}
 
-                Program.serialport.SendWatch(Callback,vmd.label.address,vmd.label.bank,index);
+                Program.serialport.SendWatch(Callback,vmd.label.nextAddress.GetAddr(),vmd.label.nextAddress.GetBank(),index);
 				//Program.telnetConnection.SendCommand("read-memory "+vmd.label.address.ToString()+" 2", Callback,index);
 				index++;
 

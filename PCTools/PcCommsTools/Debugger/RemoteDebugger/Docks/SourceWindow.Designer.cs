@@ -49,6 +49,8 @@
             this.SourceTab.SelectedIndex = 0;
             this.SourceTab.Size = new System.Drawing.Size(954, 281);
             this.SourceTab.TabIndex = 0;
+            this.SourceTab.SelectedIndexChanged += new System.EventHandler(this.SourceTab_SelectedIndexChanged);
+            this.SourceTab.TabIndexChanged += new System.EventHandler(this.SourceTab_TabIndexChanged);
             // 
             // tableLayoutPanel1
             // 

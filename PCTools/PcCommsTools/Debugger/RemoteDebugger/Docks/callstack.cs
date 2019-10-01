@@ -95,7 +95,7 @@ namespace RemoteDebugger.Docks
 
 
 					string s = "";
-					if (Labels.GetFunctionWithOffsetBanked(addr,out l,out offset))
+					if (Labels.GetFunctionWithOffset(ref MainForm.banks,addr,out l,out offset))
 					{
 						if (offset!=0)
 							s = indent+"┕ $"+addr.ToString("X4")+"   "+l.label+"+"+offset;
@@ -125,7 +125,7 @@ namespace RemoteDebugger.Docks
 
 			int pc = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
 			string pcs = "";
-			if (Labels.GetFunctionWithOffset(pc,out l,out offset))
+			if (Labels.GetFunctionWithOffset(ref MainForm.banks,pc,out l,out offset))
 			{
 				if (offset!=0)
 					pcs = indent+"┕ PC = $"+pc.ToString("X4")+"   "+l.label+"+"+offset;

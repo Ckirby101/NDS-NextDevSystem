@@ -392,9 +392,10 @@ namespace RemoteDebugger
                     if (myNewRegisters != null)
                     {
                         pc = myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
+                        int bank = MainForm.banks[ TraceFile.GetBankIndex(pc) ];
                         if (Program.InStepMode)
                         {
-                            TraceFile.SetPC(pc,true);
+                            TraceFile.SetPC(pc,bank,true);
                         }
                     }
                     myDisassembly.RequestUpdate(pc);

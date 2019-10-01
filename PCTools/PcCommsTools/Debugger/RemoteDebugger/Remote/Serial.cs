@@ -35,6 +35,7 @@ namespace RemoteDebugger.Remote
             Cmd_SetBreakpoint = 188,
             Cmd_SendWatch = 189,
             Cmd_GetBreakpoint = 190,
+            Cmd_RemoveBreakpoint = 191,
             
         }
 
@@ -301,7 +302,7 @@ namespace RemoteDebugger.Remote
             sendbuffer.Clear();
             AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_GetBreakpoint);
 
-            SendCommand(UARTCommand.Cmd_GetBreakpoint, sendbuffer.ToArray(), cb,43, tag,0,0);
+            SendCommand(UARTCommand.Cmd_GetBreakpoint, sendbuffer.ToArray(), cb,53, tag,0,0);
 
         }
 
@@ -336,13 +337,24 @@ namespace RemoteDebugger.Remote
         // \param   cb      The cb.
         // \param   addr    The address.
         // -------------------------------------------------------------------------------------------------
-        public void Step(SerialCallback cb, int addr)
+        public void SetBreakpoint(SerialCallback cb, int addr,int bank)
         {
             sendbuffer.Clear();
             AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_SetBreakpoint);
+            Add8Value(ref sendbuffer,bank);
             Add16Value(ref sendbuffer,addr);
 
             SendCommand(UARTCommand.Cmd_SetBreakpoint, sendbuffer.ToArray(), cb,0, 0,0,0);
+        }
+
+        public void RemoveBreakpoint(SerialCallback cb, int addr,int bank)
+        {
+            sendbuffer.Clear();
+            AddCommand(ref sendbuffer, (int) UARTCommand.Cmd_RemoveBreakpoint);
+            Add8Value(ref sendbuffer,bank);
+            Add16Value(ref sendbuffer,addr);
+
+            SendCommand(UARTCommand.Cmd_RemoveBreakpoint, sendbuffer.ToArray(), cb,0, 0,0,0);
         }
 
 
@@ -405,8 +417,8 @@ namespace RemoteDebugger.Remote
 
 
                         //sc.callback.Invoke(returnbytes, sc.tag);
-
-                        sc.callback(returnbytes, sc.tag);
+                        if (sc.callback!=null)
+                            sc.callback(returnbytes, sc.tag);
                     }
                     else
                     {

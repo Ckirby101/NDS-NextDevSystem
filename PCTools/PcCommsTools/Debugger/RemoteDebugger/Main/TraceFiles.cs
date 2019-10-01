@@ -17,7 +17,10 @@ namespace RemoteDebugger.Main
 		public int lineNumber;	//line number in source file
 		public int address;	//16bit address of data
 		public int bank;		//16bit bank number
-	}
+
+        public NextAddress nextAddress;
+        public TraceFile tf;
+    }
 
 
 
@@ -53,6 +56,8 @@ namespace RemoteDebugger.Main
 			return false;
 		}
 
+
+
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> Gets a line. </summary>
 		///
@@ -84,18 +89,17 @@ namespace RemoteDebugger.Main
 		/// -------------------------------------------------------------------------------------------------
 		public LineData DoesFileHaveAddress(int addr,int bank)
 		{
+            int longaddr = NextAddress.MakeLongAddress(bank, addr);
+
 			LineData best = null;
-			//uint diff = uint.MaxValue;
 
 			if (lines.Count <= 0) return null;
 
 
 			for (int i=0;i<lines.Count-1;i++)
 			{
-				if (lines[i].address == addr && lines[i].bank == bank) // && lines[ i+1 ].address > addr)
+				if (lines[i].nextAddress.GetLongAddress() == longaddr) // && lines[ i+1 ].address > addr)
 					return (lines[i]);
-
-
 			}
 
 
@@ -116,6 +120,9 @@ namespace RemoteDebugger.Main
 		/// -------------------------------------------------------------------------------------------------
 		private LineData _GetCloestValidCodeAddress(int addr,int bank)
 		{
+            int longaddr = NextAddress.MakeLongAddress(bank, addr);
+
+
 			LineData best = null;
 			int bestdiff = int.MaxValue;
 
@@ -125,9 +132,9 @@ namespace RemoteDebugger.Main
 
 			for (int i=0;i<lines.Count-1;i++)
 			{
-				if (lines[i].bank == bank)
-				{
-					int diff = Math.Abs(lines[i].address - addr);
+				//if (lines[i].bank == bank)
+				//{
+					int diff = Math.Abs(lines[i].nextAddress.GetLongAddress() - longaddr);
 					//found exact
 					if (diff == 0) return (lines[i]);
 
@@ -137,7 +144,7 @@ namespace RemoteDebugger.Main
 						best = lines[i];
 
 					}
-				}
+				//}
 			}
 
 
@@ -212,6 +219,7 @@ namespace RemoteDebugger.Main
 			{
 				if (!string.IsNullOrEmpty(s))
 				{
+                    Console.WriteLine(s);
 					var match = registersregex.Match(s);
 					//Console.WriteLine(match.Groups["label"] + " " + match.Groups["address"] + " " + match.Groups["type"] + " " + match.Groups["section"]);
 
@@ -244,7 +252,8 @@ namespace RemoteDebugger.Main
 						ld.address = addr;
 						ld.bank = bank;
 						ld.lineNumber = line-1;
-
+                        ld.nextAddress = new NextAddress(addr,bank);
+                        ld.tf = tracefile;
 
 						tracefile.lines.Add(ld);
 					}
@@ -267,6 +276,18 @@ namespace RemoteDebugger.Main
 		}
 
 
+        
+        public static TraceFile GetByTabPage(TabPage tab)
+        {
+            foreach (TraceFile t in traceFiles)
+            {
+                if (t.codefile.tab == tab)
+                    return t;
+            }
+
+            return null;
+        }
+
 		private static int CurrentExecuteLine = 0;
 		private static TraceFile CurrentExecuteFile = null;
 		/// -------------------------------------------------------------------------------------------------
@@ -276,7 +297,7 @@ namespace RemoteDebugger.Main
 		///
 		/// <param name="pc"> The PC. </param>
 		/// -------------------------------------------------------------------------------------------------
-		public static void SetPC(int pc,bool focus = false)
+		public static void SetPC(int pc,int bank,bool focus = false)
 		{
 
 			if (CurrentExecuteFile != null)
@@ -296,13 +317,14 @@ namespace RemoteDebugger.Main
 			if (traceFiles == null) return;
 
 
-			int bank = MainForm.banks[ GetBankIndex(pc) ];
 
 			foreach (TraceFile t in traceFiles)
 			{
 				LineData ld = t.DoesFileHaveAddress(pc,bank);
 				if (ld != null)
-				{
+                {
+
+                    MainForm.sourceCodeView.UpdateMarginAddress(t);
 
 					CurrentExecuteFile = t;
 					CurrentExecuteLine = ld.lineNumber;
@@ -317,56 +339,56 @@ namespace RemoteDebugger.Main
 			}
 
 
-
-
-/*			if (CurrentExecuteLine>=0)
-			{
-				Section s = FindSection(CurrentExecuteSection);
-				CodeFile cf = GetCodeFileFromSection(CurrentExecuteSection);
-
-				var line = cf.codewindow.Lines[CurrentExecuteLine];
-				line.MarkerDelete(EXECUTE_MARKER);
-
-				CurrentExecuteLine = -1;
-			}
-
-
-
-			foreach (Section s in Sections)
-			{
-				LineData ld = s.DoesSectionHaveAddress(address);
-				if (ld != null)
-				{
-					CodeFile cf = GetCodeFileFromSection(s.section);
-
-					var line = cf.codewindow.Lines[(int)ld.lineNumber];
-					line.MarkerAdd(EXECUTE_MARKER);
-
-					CurrentExecuteLine = (int)ld.lineNumber;
-					CurrentExecuteSection = s.section;
-
-					Console.WriteLine("Focus Line!");
-					Form1.Instance.SourceTab.SelectedTab = cf.tab;
-					cf.codewindow.Lines[(int)ld.lineNumber].EnsureVisible();
-
-					int linesOnScreen = cf.codewindow.LinesOnScreen - 2; // Fudge factor
-
-					int linenum = (int)ld.lineNumber;
-					var start = cf.codewindow.Lines[linenum - (linesOnScreen / 2)].Position;
-					var end = cf.codewindow.Lines[linenum + (linesOnScreen / 2)].Position;
-
-					cf.codewindow.ScrollRange(start, end);
-
-					//Form1.Instance.FocusOnFile(s, ld.lineNumber);
-
-					return;
-				}
-			}*/
-
-
 		}
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Focus address
+        //
+        // \param   addr    The address.
+        // \param   bank    The bank.
+        // -------------------------------------------------------------------------------------------------
+        public static void FocusAddr(int addr,int bank)
+        {
+
+            if (traceFiles == null) return;
+
+            foreach (TraceFile t in traceFiles)
+            {
+                LineData ld = t.DoesFileHaveAddress(addr,bank);
+                if (ld != null)
+                {
+                    MainForm.sourceCodeView.UpdateMarginAddress(t);
+                    MainForm.mySourceWindow.FocusLine(t.codefile, ld.lineNumber); 
+
+                }
+            }
+
+
+        }
+
+
+        // -------------------------------------------------------------------------------------------------
+        // Gets line datafrom address
+        //
+        // \param   na  The na.
+        //
+        // \return  The line datafrom address.
+        // -------------------------------------------------------------------------------------------------
+        public static LineData GetLineDatafromAddr(NextAddress na)
+        {
+            foreach (TraceFile t in traceFiles)
+            {
+                LineData ld = t.DoesFileHaveAddress(na.GetAddr(),na.GetBank());
+                if (ld != null)
+                {
+                    return ld;
+                }
+            }
+
+            return null;
+
+        }
 
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> Gets cloest valid code address. </summary>
@@ -436,10 +458,10 @@ namespace RemoteDebugger.Main
 
 			foreach (TraceFile t in traceFiles)
 			{
-				LineData ld = t.DoesFileHaveAddress(l.address,l.bank);
+				LineData ld = t.DoesFileHaveAddress(l.nextAddress.GetAddr(),l.nextAddress.GetBank());
 				if (ld != null)
 				{
-					var line = t.codefile.codewindow.Lines[CurrentExecuteLine];
+					//var line = t.codefile.codewindow.Lines[CurrentExecuteLine];
 
 					MainForm.mySourceWindow.FocusLine(t.codefile, ld.lineNumber); 
 

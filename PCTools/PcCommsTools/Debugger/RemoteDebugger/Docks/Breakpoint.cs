@@ -44,19 +44,38 @@ namespace RemoteDebugger
 
         public class BreakpointData
         {
-            public bool used = false;
-
+            // -------------------------------------------------------------------------------------------------
+            // Default constructor
+            // -------------------------------------------------------------------------------------------------
+            public BreakpointData()
+            {
+                nextAddress = new NextAddress(0,0);
+            }
+            // -------------------------------------------------------------------------------------------------
+            // Gets the no
+            //
+            // \return  The no.
+            // -------------------------------------------------------------------------------------------------
             public string No
             {
                 get { return (breakpointData.IndexOf(this)+1).ToString(); }
             }
+            // -------------------------------------------------------------------------------------------------
+            // Gets the address
+            //
+            // \return  The address.
+            // -------------------------------------------------------------------------------------------------
             public string Address
             {
-                get { return "$"+address.ToString("X4"); }
+                get
+                {
+                    if (!used) return "";
+                    return nextAddress.ToString("b");
+                }
             }
 
-
-            public int address;
+            public bool used = false;
+            public NextAddress nextAddress;
 
             //for the markers in source code
             public bool markerset = false;
@@ -69,6 +88,9 @@ namespace RemoteDebugger
 
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Default constructor
+        // -------------------------------------------------------------------------------------------------
         public Breakpoint()
         {
             InitializeComponent();
@@ -98,20 +120,58 @@ namespace RemoteDebugger
         // -------------------------------------------------------------------------------------------------
         private void dataGridViewSoftware_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (!breakpointData[e.RowIndex].used) return;
+
             if (e.ColumnIndex == dataGridView1.Columns["Delete"].Index)
             {
+                if (!breakpointData[e.RowIndex].used) return;
+
+                //varWatchData.RemoveAt( e.RowIndex );
+                Update();
+            }
+            if (e.ColumnIndex <= dataGridView1.Columns["BPAddr"].Index)
+            {
+
+                
+                TraceFile.FocusAddr(breakpointData[e.RowIndex].nextAddress.GetAddr(),breakpointData[e.RowIndex].nextAddress.GetBank());
+
+                //if (!breakpointData[e.RowIndex].used) return;
+
                 //varWatchData.RemoveAt( e.RowIndex );
                 Update();
             }
         }
 
+        // -------------------------------------------------------------------------------------------------
         // Request update
+        // -------------------------------------------------------------------------------------------------
         public void RequestUpdate()
         {
-            Program.serialport.GetBreakpoints(Callback,0);
+            Program.serialport.GetBreakpoints(GetBreakpointsCallback,0);
             //Program.telnetConnection.SendCommand("get-breakpoints", Callback);
         }
+        // -------------------------------------------------------------------------------------------------
+        // Callbacks
+        //
+        // \param   response
+        // The response.
+        // \param   tag
+        // The tag.
+        // -------------------------------------------------------------------------------------------------
+        private void GetBreakpointsCallback(byte[] response,int tag)
+        {
+            if (InvokeRequired)
+                Invoke((MethodInvoker)delegate { UIUpdate(response); });
+            else
+                UIUpdate(response);
+        }
 
+
+        // -------------------------------------------------------------------------------------------------
+        // Updates the given items
+        //
+        // \param   items   The items.
+        // -------------------------------------------------------------------------------------------------
         void UIUpdate(byte[] items)
         {
             int index = 3;
@@ -119,35 +179,23 @@ namespace RemoteDebugger
             bool updated = false;
             for (int i=0;i<10;i++)
             {
-                breakpointData[i].used = Serial.Get8Bit(ref items, ref index) ==0;
-                breakpointData[i].address = Serial.Get16Bit(ref items, ref index);
-                index++;
+                breakpointData[i].used = Serial.Get8Bit(ref items, ref index) !=0;
 
-            }
-            //if (updated)
-            //{
-                dataGridView1.Invalidate(true);
-            //}
-        }
 
-        void Callback(byte[] response,int tag)
-        {
-            try
-            {
-                if (InvokeRequired)
-                {
-                    Invoke((MethodInvoker)delegate { UIUpdate(response); });
-                }
-                else
-                {
-                    UIUpdate(response);
-                }
-            }
-            catch
-            {
+
+                int addr = Serial.Get16Bit(ref items, ref index);
+                int bank = Serial.Get8Bit(ref items, ref index);
+                breakpointData[i].nextAddress.SetAddress(addr,bank); 
                 
+                index++;    //skip over opcode
             }
+
+            MainForm.sourceCodeView.UpdateBreakpointView(ref breakpointData);
+
+            dataGridView1.Invalidate(true);
         }
+
+
 
 
 
@@ -245,25 +293,7 @@ namespace RemoteDebugger
 
 		    return c;
 	    }
-	    /// -------------------------------------------------------------------------------------------------
-	    /// <summary> Searches for the first free breakpoint at address. </summary>
-	    ///
-	    /// <remarks> 08/09/2018. </remarks>
-	    ///
-	    /// <param name="addr"> The address. </param>
-	    ///
-	    /// <returns> The found free breakpoint at address. </returns>
-	    /// -------------------------------------------------------------------------------------------------
-	    public static int FindFreeBreakpointAtAddress(int addr)
-	    {
-		    for (int i = 0; i < breakpointData.Count; i++)
-		    {
-			    if (breakpointData[i].used && addr == breakpointData[i].address)
-				    return i;
-		    }
 
-		    return -1;
-	    }
 
 	    /// -------------------------------------------------------------------------------------------------
 	    /// <summary> Sets break point. </summary>
@@ -318,74 +348,7 @@ namespace RemoteDebugger
 		    return true;
 	    }*/
 
-	    /// -------------------------------------------------------------------------------------------------
-	    /// <summary> Removes the break point at address described by addr. </summary>
-	    ///
-	    /// <remarks> 08/09/2018. </remarks>
-	    ///
-	    /// <param name="addr"> The address. </param>
-	    ///
-	    /// <returns> True if it succeeds, false if it fails. </returns>
-	    /// -------------------------------------------------------------------------------------------------
-	    public static bool RemoveBreakPointAtAddress(int addr)
-	    {
-		    int b = FindFreeBreakpointAtAddress(addr);
-		    if (b < 0) return false;
 
-		    if (breakpointData[b].markerset)
-		    {
-			    if (SourceCodeView.SetBreakPointMarker(false, breakpointData[b].markerSourcefilename, breakpointData[b].markerSourceLine))
-			    {
-			    }
-
-
-		    }
-
-		    
-		    breakpointData[b].address = -1;
-		    breakpointData[b].used = false;
-		    //breakpointData[b].IsEnabled = false;
-		    //breakpointData[b].ConditionString = "";
-		    //breakpointData[b].breakpointType = BreakpointType.disabled;
-		    breakpointData[b].markerset = false;
-
-		    //Program.telnetConnection.SendCommand("sb " + (b + 1), null);
-		    //Program.telnetConnection.SendCommand("disable-breakpoint " + (b + 1),Program.myMainForm.myBreakpoints.UpdateCallback);
-
-
-		    MainForm.mySourceWindow.UpdateSourceButtons();
-		    return true;
-	    }
-
-	    /// -------------------------------------------------------------------------------------------------
-	    /// <summary> Updates the callback. </summary>
-	    ///
-	    /// <remarks> 08/09/2018. </remarks>
-	    ///
-	    /// <param name="response"> The response. </param>
-	    /// <param name="tag">	    The tag. </param>
-	    /// -------------------------------------------------------------------------------------------------
-	    public void UpdateCallback(string[] response,int tag)
-	    {
-		    try
-		    {
-			    if (InvokeRequired)
-			    {
-				    Invoke((MethodInvoker) delegate
-				    {
-					    Program.myMainForm.UpdateBreakpoints();
-				    });
-			    }
-			    else
-			    {
-				    Program.myMainForm.UpdateBreakpoints();
-			    }
-		    }
-		    catch
-		    {
-
-		    }
-	    }
 
     }
 

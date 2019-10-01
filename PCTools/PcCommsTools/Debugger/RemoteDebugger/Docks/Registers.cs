@@ -348,13 +348,14 @@ namespace RemoteDebugger
 	    {
 		    return registerData[(int)reg].labelstring;
 	    }
-	    /// -------------------------------------------------------------------------------------------------
-	    /// <summary> Updates the registers described by items. </summary>
-	    ///
-	    /// <remarks> 07/09/2018. </remarks>
-	    ///
-	    /// <param name="items"> The items. </param>
-	    /// -------------------------------------------------------------------------------------------------
+
+        /// -------------------------------------------------------------------------------------------------
+        /// <summary> Updates the registers described by items. </summary>
+        ///
+        /// <remarks> 07/09/2018. </remarks>
+        ///
+        /// <param name="items"> The items. </param>
+        /// -------------------------------------------------------------------------------------------------
 /*	    public void UpdateRegisters(string[] items)
 	    {
             if (items.Count() != 1)
@@ -415,6 +416,13 @@ namespace RemoteDebugger
 	    }*/
 
 
+        // Updates the emulator PC
+        public void UpdateEmulatorPC()
+        {
+            if (MainForm.myDisassembly!=null)
+                nextPC.Text = "$" + MainForm.myDisassembly.GetEmulatorPC().ToString("X4");
+
+        }
         
 
         /// -------------------------------------------------------------------------------------------------
@@ -440,6 +448,8 @@ namespace RemoteDebugger
 
 	        }
 
+
+            UpdateEmulatorPC();
 
 	        BankData.Text = String.Format("${0:X2}  ${1:X2}  ${2:X2}  ${3:X2}  ${4:X2}  ${5:X2}  ${6:X2}  ${7:X2}", MainForm.banks[0],
 		        MainForm.banks[1], MainForm.banks[2], MainForm.banks[3], MainForm.banks[4], MainForm.banks[5],
@@ -656,6 +666,16 @@ namespace RemoteDebugger
 		}
 
         private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label20_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

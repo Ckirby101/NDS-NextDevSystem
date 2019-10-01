@@ -160,7 +160,13 @@ namespace RemoteDebugger
         void memcallback(byte[] response, int tag)
         {
             //we have the memory so we shoudl now update the dissambly and the emulator
-            UIUpdate(tag,response);
+
+            if (InvokeRequired)
+                Invoke((MethodInvoker)delegate { UIUpdate(tag,response); });
+            else
+                UIUpdate(tag,response);
+            
+            
         }
 
 
@@ -190,10 +196,12 @@ namespace RemoteDebugger
 
             SyncEmulator();
             //goto next instruction
+
             StepEmulator();
 
-
             instrs = eZ80Disassembler.Disassemble(disassemblyMemory, start, end, baseAddress, hasBaseAddress, adlMode, z80ClassicMode, addLabels ? "label_" : "", addLabels ? "loc_" : "");
+
+
 
             int index = 0;
             foreach (eZ80Disassembler.DisassembledInstruction di in instrs)
@@ -203,10 +211,10 @@ namespace RemoteDebugger
                 int addr = (baseAddress + di.StartPosition);
                 string addrstr = addr.ToString("X4")+"  ";
 
-                Labels.Label l = Labels.GetLabel(addr);
+                Labels.Label l = Labels.GetLabel(ref MainForm.banks,addr);
                 for (int i = 0; i < di.Length; i++)
                 {
-                    addrstr = addrstr + data[di.StartPosition + i].ToString("X2")+" ";
+                    addrstr = addrstr + data[di.StartPosition + i+5].ToString("X2")+" ";
                 }
 
                 //add address label
@@ -222,11 +230,12 @@ namespace RemoteDebugger
 
                 if (m.Success)
                 {
-                    if (int.TryParse(m.Value, NumberStyles.AllowHexSpecifier, null, out addr))
+                    int jaddr;
+                    if (int.TryParse(m.Value, NumberStyles.AllowHexSpecifier, null, out jaddr))
                     {
                         l = null;
                         int offset;
-                        if (Labels.GetLabelWithOffset(addr,out l, out offset))
+                        if (Labels.GetLabelWithOffset(ref MainForm.banks,jaddr,out l, out offset))
                         {
                             if (Program.InStepMode)
                                 MainForm.myWatches.AddLocalWatch(l);
@@ -248,15 +257,22 @@ namespace RemoteDebugger
                 }
                 disassemblyData[index].Value = dis;
 
+                DissasemblyDataGrid.Rows[index].DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+
+
+                if (addr == GetEmulatorPC())
+                    DissasemblyDataGrid.Rows[index].DefaultCellStyle.ForeColor = System.Drawing.Color.Red;
+                else
+                    DissasemblyDataGrid.Rows[index].DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+
+
                 if (addr == pc)
                 {
                     DissasemblyDataGrid.Rows[index].DefaultCellStyle.BackColor = System.Drawing.Color.LightBlue;
-
                 }
                 else
                 {
                     DissasemblyDataGrid.Rows[index].DefaultCellStyle.BackColor = System.Drawing.Color.White;
-                    
                 }
                 index++;
             }
@@ -439,7 +455,14 @@ namespace RemoteDebugger
 
         private void StepEmulator()
         {
-            Emulatorcpu.Step();
+
+            do
+            {
+                Emulatorcpu.Step();
+                
+            } while (!Emulatorcpu.InstructionDone);
+
+            MainForm.myNewRegisters.UpdateEmulatorPC();
         }
 
 

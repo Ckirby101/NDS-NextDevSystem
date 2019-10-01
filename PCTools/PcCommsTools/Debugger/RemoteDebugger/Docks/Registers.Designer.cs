@@ -66,10 +66,12 @@
             this.label17 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.z80 = new System.Windows.Forms.TabPage();
+            this.label19 = new System.Windows.Forms.Label();
             this.stack = new System.Windows.Forms.TextBox();
             this.HWRegisters = new System.Windows.Forms.TabPage();
             this.hwpanel = new System.Windows.Forms.Panel();
-            this.label19 = new System.Windows.Forms.Label();
+            this.nextPC = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.z80.SuspendLayout();
             this.HWRegisters.SuspendLayout();
@@ -196,7 +198,7 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(4, 176);
+            this.label14.Location = new System.Drawing.Point(167, 179);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(21, 13);
             this.label14.TabIndex = 57;
@@ -217,7 +219,7 @@
             // 
             this.RegSP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RegSP.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RegSP.Location = new System.Drawing.Point(27, 174);
+            this.RegSP.Location = new System.Drawing.Point(190, 177);
             this.RegSP.Name = "RegSP";
             this.RegSP.Size = new System.Drawing.Size(110, 23);
             this.RegSP.TabIndex = 56;
@@ -451,6 +453,8 @@
             // 
             // z80
             // 
+            this.z80.Controls.Add(this.nextPC);
+            this.z80.Controls.Add(this.label20);
             this.z80.Controls.Add(this.label19);
             this.z80.Controls.Add(this.stack);
             this.z80.Controls.Add(this.RegF);
@@ -497,6 +501,16 @@
             this.z80.Text = "Z80";
             this.z80.UseVisualStyleBackColor = true;
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(347, 128);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(33, 13);
+            this.label19.TabIndex = 70;
+            this.label19.Text = "stack";
+            this.label19.Click += new System.EventHandler(this.label19_Click);
+            // 
             // stack
             // 
             this.stack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -527,15 +541,27 @@
             this.hwpanel.Size = new System.Drawing.Size(465, 219);
             this.hwpanel.TabIndex = 0;
             // 
-            // label19
+            // nextPC
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(347, 128);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(33, 13);
-            this.label19.TabIndex = 70;
-            this.label19.Text = "stack";
-            this.label19.Click += new System.EventHandler(this.label19_Click);
+            this.nextPC.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.nextPC.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nextPC.Location = new System.Drawing.Point(27, 177);
+            this.nextPC.Name = "nextPC";
+            this.nextPC.Size = new System.Drawing.Size(110, 23);
+            this.nextPC.TabIndex = 71;
+            this.nextPC.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label20
+            // 
+            this.label20.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(0, 180);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(29, 13);
+            this.label20.TabIndex = 72;
+            this.label20.Text = "NPC";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label20.Click += new System.EventHandler(this.label20_Click);
             // 
             // Registers
             // 
@@ -597,5 +623,7 @@
         private System.Windows.Forms.Panel hwpanel;
         private System.Windows.Forms.TextBox stack;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox nextPC;
+        private System.Windows.Forms.Label label20;
     }
 }

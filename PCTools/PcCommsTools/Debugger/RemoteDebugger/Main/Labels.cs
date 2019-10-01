@@ -14,19 +14,23 @@ namespace RemoteDebugger
 		public class Label
 		{
 			public Label(string l,int a,int b,bool f)
-			{
-				address = a;
-				bank = b;
+            {
+                nextAddress = new NextAddress(a,b);
+
+				//address = a;
+				//bank = b;
 				label = l;
 				function = f;
 			}
 
 
-			public int address;	//16bit address of data
-			public int bank;		//16bit bank number
+			//public int address;	//16bit address of data
+			//public int bank;		//16bit bank number
 			public string label;
 			public bool function;
-		}
+            public NextAddress nextAddress;
+
+        }
 
 
 
@@ -70,12 +74,16 @@ namespace RemoteDebugger
 		///
 		/// <returns> The label. </returns>
 		/// -------------------------------------------------------------------------------------------------
-		public static Label GetLabel(int addr)
-		{
+		public static Label GetLabel(ref int[] bankmap,int addr)
+        {
+            int bank = NextAddress.GetBankFromAddress(ref bankmap,addr);
+            int longaddr = NextAddress.MakeLongAddress(bank, addr);
+
 
 			foreach (Label l in labels)
 			{
-				if (addr == l.address)
+
+				if (longaddr == l.nextAddress.GetLongAddress())
 				{
 					return l;
 				}
@@ -84,40 +92,7 @@ namespace RemoteDebugger
 			return null;
 		}
 
-		/// -------------------------------------------------------------------------------------------------
-		/// <summary> Gets label close. </summary>
-		///
-		/// <remarks> 18/09/2018. </remarks>
-		///
-		/// <param name="addr"> The address. </param>
-		///
-		/// <returns> The label close. </returns>
-		/// -------------------------------------------------------------------------------------------------
-		public static Label GetLabelClose(int addr)
-		{
-			Label best = null;
-			int bestdist = Int32.MaxValue;
 
-			foreach (Label l in labels)
-			{
-				if (addr == l.address)
-				{
-					//cannot get any closer
-					return l;
-				}
-
-				int diff = Math.Abs(addr - l.address);
-				if (bestdist > diff)
-				{
-					bestdist = diff;
-					best = l;
-				}
-
-
-			}
-
-			return best;
-		}
 
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> Gets label with offset. </summary>
@@ -130,8 +105,12 @@ namespace RemoteDebugger
 		///
 		/// <returns> True if it succeeds, false if it fails. </returns>
 		/// -------------------------------------------------------------------------------------------------
-		public static bool GetLabelWithOffset(int addr,out Label lab,out int offset)
+		public static bool GetLabelWithOffset(ref int[] bankmap,int addr,out Label lab,out int offset)
 		{
+
+            int bank = NextAddress.GetBankFromAddress(ref bankmap,addr);
+            int longaddr = NextAddress.MakeLongAddress(bank, addr);
+
 			lab = null;
 			offset = 0;
 
@@ -139,10 +118,14 @@ namespace RemoteDebugger
 			int bestindex = -1;
 			int index = 0;
 			foreach (Label l in labels)
-			{
-				if (addr >= l.address)
+            {
+
+
+
+                int laddr = l.nextAddress.GetLongAddress();
+				if (longaddr >= laddr)
 				{
-					int off = addr - l.address;
+					int off = addr - laddr;
 					if (off < best)
 					{
 						best = off;
@@ -174,8 +157,13 @@ namespace RemoteDebugger
 		///
 		/// <returns> True if it succeeds, false if it fails. </returns>
 		/// -------------------------------------------------------------------------------------------------
-		public static bool GetFunctionWithOffset(int addr,out Label lab,out int offset)
+		public static bool GetFunctionWithOffset(ref int[] bankmap,int addr,out Label lab,out int offset)
 		{
+            int bank = NextAddress.GetBankFromAddress(ref bankmap,addr);
+            int longaddr = NextAddress.MakeLongAddress(bank, addr);
+
+
+
 			lab = null;
 			offset = 0;
 
@@ -184,9 +172,9 @@ namespace RemoteDebugger
 			int index = 0;
 			foreach (Label l in labels)
 			{
-				if (addr >= l.address && l.function)
+				if (longaddr >= l.nextAddress.GetLongAddress() && l.function)
 				{
-					int off = addr - l.address;
+					int off = longaddr - l.nextAddress.GetLongAddress();
 					if (off < best)
 					{
 						best = off;
@@ -207,53 +195,7 @@ namespace RemoteDebugger
 			return true;
 		}
 
-		/// -------------------------------------------------------------------------------------------------
-		/// <summary> Gets function with offset banked. </summary>
-		///
-		/// <remarks> 18/09/2018. </remarks>
-		///
-		/// <param name="addr">   The address. </param>
-		/// <param name="lab">    [out] The lab. </param>
-		/// <param name="offset"> [out] The offset. </param>
-		///
-		/// <returns> True if it succeeds, false if it fails. </returns>
-		/// -------------------------------------------------------------------------------------------------
-		public static bool GetFunctionWithOffsetBanked(int addr,out Label lab,out int offset)
-		{
-			lab = null;
-			offset = 0;
 
-			int best = int.MaxValue;
-			int bestindex = -1;
-			int index = 0;
-			foreach (Label l in labels)
-			{
-				if (l.bank == MainForm.banks[TraceFile.GetBankIndex(l.address)])
-				{
-					if (addr >= l.address && l.function)
-					{
-						int off = addr - l.address;
-						if (off < best)
-						{
-							best = off;
-							bestindex = index;
-						}
-
-					}
-				}
-
-
-				index++;
-			}
-
-
-			if (bestindex < 0) return false;
-
-			lab = labels[bestindex];
-			offset = best;
-
-			return true;
-		}
 
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> Searches for the first label. </summary>

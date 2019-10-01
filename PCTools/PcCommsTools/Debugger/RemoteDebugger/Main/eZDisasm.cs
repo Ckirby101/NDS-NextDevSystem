@@ -683,7 +683,7 @@ namespace eZDisasm
                 case 0:
                     if (Z80PlainMode)
                     {
-                        CurrentInstruction.InstructionName = "NONI \\ NOP";
+                        CurrentInstruction.InstructionName = "NONI1 \\ NOP";
                         return;
                     }
                     switch (GetField(Field.z, b))
@@ -957,7 +957,7 @@ namespace eZDisasm
                                 case 6:
                                 case 7:
                                     if (Z80PlainMode)
-                                        CurrentInstruction.InstructionName = "NONI \\ NOP";
+                                        CurrentInstruction.InstructionName = "NONI2 \\ NOP";
                                     else
                                         CurrentInstruction.InstructionName = "OPCODETRAP";
                                     break;
@@ -1131,7 +1131,7 @@ namespace eZDisasm
                             break;
                         default:
                             if (Z80PlainMode)
-                                CurrentInstruction.InstructionName = "NONI \\ NOP";
+                                CurrentInstruction.InstructionName = "NONI3 \\ NOP";
                             else
                                 CurrentInstruction.InstructionName = "OPCODETRAP";
                             break;

@@ -50,7 +50,6 @@ namespace RemoteDebugger
 			int linesOnScreen = cf.codewindow.LinesOnScreen - 2; // Fudge factor
 
 			//line += (linesOnScreen / 2);
-			cf.codewindow.Lines[line].EnsureVisible();
 
 
 			//cf.codewindow.Size = Size;
@@ -58,17 +57,23 @@ namespace RemoteDebugger
 
 
 
+            cf.codewindow.Lines[line].EnsureVisible();
+            var start = cf.codewindow.Lines[line - (linesOnScreen / 3)].Position;
+            var end = cf.codewindow.Lines[line + (linesOnScreen / 3)].Position;
 
-			var start = cf.codewindow.Lines[line - (linesOnScreen / 2)].Position;
-			var end = cf.codewindow.Lines[line + (linesOnScreen / 2)].Position;
+            cf.codewindow.ScrollRange(start, end);
 
+
+            cf.codewindow.Lines[line + (linesOnScreen / 3)].EnsureVisible();
+            cf.codewindow.Lines[line - (linesOnScreen / 3)].EnsureVisible();
+
+            cf.codewindow.Lines[line].EnsureVisible();
 
 			//if (end>cf.codewindow.)
 
 			//Console.WriteLine(cf.codewindow.Size.Height+"  "+Size.Height+"  "+linesOnScreen+"     "+start+"-"+end);
 
 			//cf.codewindow.ScrollRange(cf.codewindow.Lines.Count, cf.codewindow.Lines.Count);
-			cf.codewindow.ScrollRange(cf.codewindow.Lines[line-1].Position, cf.codewindow.Lines[line+1].Position);
 
 			//Form1.Instance.FocusOnFile(s, ld.lineNumber);
 
@@ -89,9 +94,9 @@ namespace RemoteDebugger
 			FunctionComboBox.Items.Clear();
 			int index = 0;
 			foreach (Labels.Label l in Labels.labels )
-			{
+            {
 
-				string s = l.label + "  $" + l.address.ToString("X4") + " : " + l.bank;
+                string s = l.label + "  $" + l.nextAddress.ToString();
 				FunctionComboBox.Items.Add(s);
 
 
@@ -100,31 +105,7 @@ namespace RemoteDebugger
 
 		}
 
-        // -------------------------------------------------------------------------------------------------
-        // Updates the PC
-        //
-        // \param   pc      The PC.
-        // \param   focus   True to focus.
-        // -------------------------------------------------------------------------------------------------
-		public void UpdatePC(int pc,bool focus)
-		{
-			TraceFile.SetPC(pc,focus);
-		}
 
-		//private void toolStripButton1_Click(object sender, EventArgs e)
-		//{
-
-		//}
-
-		//private void fillpanel_Paint(object sender, PaintEventArgs e)
-		//{
-
-		//}
-
-		//private void button1_Click(object sender, EventArgs e)
-		//{
-
-		//}
 
         // -------------------------------------------------------------------------------------------------
         // Event handler. Called by breakbutton for click events
@@ -178,6 +159,11 @@ namespace RemoteDebugger
 		}
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Updates the pause status described by mode
+        //
+        // \param   mode    The mode.
+        // -------------------------------------------------------------------------------------------------
         public void UpdatePauseStatus(int mode)
         {
             if (mode == 1 && !Program.InStepMode)
@@ -210,45 +196,41 @@ namespace RemoteDebugger
                 Program.myMainForm.UpdateAllWindows(true);
         }
 
+        // -------------------------------------------------------------------------------------------------
+        // Callback, called when the step
+        //
+        // \param   response    The response.
+        // \param   tag         The tag.
+        // -------------------------------------------------------------------------------------------------
         private void StepCallback(byte[] response, int tag)
         {
             if (Program.InStepMode)
             {
-
-                try
+                if (InvokeRequired)
                 {
-                    if (InvokeRequired)
-                    {
-                        Invoke((MethodInvoker)delegate { Program.myMainForm.UpdateAllWindows(true); });
-                    }
-                    else
-                    {
-                        Program.myMainForm.UpdateAllWindows(true);
-                    }
+                    Invoke((MethodInvoker)delegate { ContinueExecution(); });
                 }
-                catch
+                else
                 {
-                
+                    ContinueExecution();
                 }
-
             }
 
         }
 
+        // -------------------------------------------------------------------------------------------------
+        // Continue execution
+        // -------------------------------------------------------------------------------------------------
+        private void ContinueExecution()
+        {
+            Program.serialport.PauseExecution(null,false);
+            Program.myMainForm.UpdateAllWindows(true);
+        }
 
 
         // -------------------------------------------------------------------------------------------------
-        // Command response
-        //
-        // \param   s   A string[] to process.
-        // \param   tag The tag.
-        // -------------------------------------------------------------------------------------------------
-		void commandResponse(string[] s,int tag)
-		{
-			Console.WriteLine(s[0]);
-		}
-
         // Updates the source buttons
+        // -------------------------------------------------------------------------------------------------
 		public void UpdateSourceButtons()
 		{
 
@@ -278,35 +260,6 @@ namespace RemoteDebugger
 		}
 
 
-        // -------------------------------------------------------------------------------------------------
-        // Command response step update
-        //
-        // \param   s   A string[] to process.
-        // \param   tag The tag.
-        // -------------------------------------------------------------------------------------------------
-		void commandResponseStepUpdate(string[] s,int tag)
-		{
-			try
-			{
-				if (InvokeRequired)
-				{
-					Invoke((MethodInvoker)delegate { Program.myMainForm.UpdateAllWindows(true); });
-				}
-				else
-				{
-					Program.myMainForm.UpdateAllWindows(true);
-				}
-			}
-			catch
-			{
-                
-			}
-
-
-
-			
-		}
-
 
         // -------------------------------------------------------------------------------------------------
         // Event handler. Called by stepbutton for click events
@@ -321,8 +274,10 @@ namespace RemoteDebugger
             //get the address of where to run to
             int breakpointAddress = MainForm.myDisassembly.GetStepAddress();
 
+            int bank = NextAddress.GetBankFromAddress(ref MainForm.banks, breakpointAddress);
 
-            Program.serialport.Step(StepCallback,breakpointAddress);
+
+            Program.serialport.SetBreakpoint(StepCallback,breakpointAddress,bank);
 
 
         }
@@ -337,9 +292,10 @@ namespace RemoteDebugger
 		{
 
             int breakpointAddress = MainForm.myDisassembly.GetStepOverAddress();
+            int bank = NextAddress.GetBankFromAddress(ref MainForm.banks, breakpointAddress);
 
 
-            Program.serialport.Step(StepCallback,breakpointAddress);
+            Program.serialport.SetBreakpoint(StepCallback,breakpointAddress,bank);
 /*			string line = MainForm.myDisassembly.GetCurrentLineCode().ToLower().TrimStart();
 
 			if (line.StartsWith("jp") || line.StartsWith("jr") || line.StartsWith("ret") || line.StartsWith("reti"))
@@ -348,17 +304,6 @@ namespace RemoteDebugger
 				Program.telnetConnection.SendCommand("cpu-step-over", commandResponseStepUpdate);*/
 		}
 
-        // -------------------------------------------------------------------------------------------------
-        // Event handler. Called by button1 for click events
-        //
-        // \param   sender  Source of the event.
-        // \param   e       Event information.
-        // -------------------------------------------------------------------------------------------------
-		private void button1_Click(object sender, EventArgs e)
-		{
-			//Program.telnetConnection.SendCommand("run", commandResponseStepUpdate);
-
-		}
 
         // -------------------------------------------------------------------------------------------------
         // Event handler. Called by FunctionComboBox for selected index changed events
@@ -372,5 +317,19 @@ namespace RemoteDebugger
 
 			TraceFile.GotoLabel(Labels.labels[ FunctionComboBox.SelectedIndex ]);
 		}
-	}
+
+        private void SourceTab_TabIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void SourceTab_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TabPage current = (sender as TabControl).SelectedTab;
+
+            TraceFile tf = TraceFile.GetByTabPage(current);
+            if (tf == null) return;
+
+            MainForm.sourceCodeView.UpdateMarginAddress(tf);
+        }
+    }
 }

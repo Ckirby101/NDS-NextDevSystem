@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -14,6 +15,20 @@ namespace RemoteDebugger.Main
 {
 	public class SourceCodeView
 	{
+
+        public class BreakpointDisplay
+        {
+            public BreakpointDisplay()
+            {
+                nextAddress = new NextAddress(0,0);
+            }
+
+            public NextAddress nextAddress;
+            public LineData lineData;
+
+
+        }
+
 
 		public class CustomMenuItem : MenuItem
 		{
@@ -43,6 +58,8 @@ namespace RemoteDebugger.Main
 		public Scintilla HoverTipScintilla;
 		public int Hoverpos;
 		public Labels.Label HoverLabel;
+
+        private List<BreakpointDisplay> BreakpointDisplayList = new List<BreakpointDisplay>();
 
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> A code file. </summary>
@@ -111,7 +128,8 @@ namespace RemoteDebugger.Main
 						cf.codewindow.Tag = (object)s.filename;
 						page.Controls.Add(cf.codewindow);
 						tab.TabPages.Add(page);
-						//string text = File.ReadAllText("C:\\Users\\chris kirby\\Documents\\Spectrum Next\\bombjack\\game.c");
+
+                        //string text = File.ReadAllText("C:\\Users\\chris kirby\\Documents\\Spectrum Next\\bombjack\\game.c");
 						cf.codewindow.Text = text;// LoadFile("C:\\Users\\chris kirby\\Documents\\Spectrum Next\\bombjack\\game.c",RichTextBoxStreamType.PlainText);
 						page.Select();
 
@@ -164,7 +182,7 @@ namespace RemoteDebugger.Main
 						cf.codewindow.Styles[Style.Asm.Directive].ForeColor = IntToColor(0x8ca4dc);
 
 
-						cf.codewindow.SetKeywords(0, "nop inc dec ex exx djnz rrca rla jr jp call cpl scf mul halt ld add sub nextreg adc sbc and or xor cp test ret rst out in push pop swapnib ldir ldirx lddrx lddrx ldpirx ldirscale ldws mirror pixeldn pixelad setae outinb");
+						cf.codewindow.SetKeywords(0, "nop inc dec ex exx djnz rrca rla jr jp call cpl scf mul halt ld add sub nextreg adc sbc and or xor cp test ret rst out in push pop swapnib ldir ldirx lddrx lddrx ldpirx ldirscale ldws mirror pixeldn pixelad setae outinb nextreg");
 						cf.codewindow.Styles[Style.Asm.CpuInstruction].ForeColor = IntToColor(0xc15c95);
 
 
@@ -186,11 +204,12 @@ namespace RemoteDebugger.Main
 
 						//addr space
 						var cmargin = cf.codewindow.Margins[CODE_MARGIN];
-						cmargin.Width = 60;
+						cmargin.Width = 90;
 						cmargin.BackColor = Color.Black;
 						cmargin.Sensitive = true;
 						cmargin.Type = MarginType.Text;
 						cmargin.Mask = (1 << CODE_MARKER);
+//                        cmargin.BackColor = IntToColor(0xFF003B);
 
 
 						//breakpoint space
@@ -265,25 +284,13 @@ namespace RemoteDebugger.Main
 						ecmarker.SetAlpha(100);
 
 
-						
 
 
-						foreach (LineData ld in s.lines)
-						{
-							var line = cf.codewindow.Lines[ld.lineNumber];
-							line.MarginText = ld.bank+" $"+ld.address.ToString("x4");
 
-							//line.MarkerAdd(CODE_MARKER);
-							//line.MarkerAdd(BREAKPOINT_MARKER);
-
-
-							//current line marke works great
-							//line.MarkerAdd(EXECUTE_MARKER);
-
-						}
 
 						s.codefile = cf;
 
+                        UpdateMarginAddress(s);
 						//codefiles.Add(cf);
 
 					}
@@ -295,6 +302,32 @@ namespace RemoteDebugger.Main
 
 
 		}
+
+
+        // -------------------------------------------------------------------------------------------------
+        // Updates the margin address described by tf
+        //
+        // \param   tf  The tf.
+        // -------------------------------------------------------------------------------------------------
+        public void UpdateMarginAddress(TraceFile tf)
+        {
+            foreach (LineData ld in tf.lines)
+            {
+                var line = tf.codefile.codewindow.Lines[ld.lineNumber];
+                line.MarginText = ld.nextAddress.ToString("b");
+
+                //line.MarkerAdd(CODE_MARKER);
+                //line.MarkerAdd(BREAKPOINT_MARKER);
+
+
+                //current line marke works great
+                //line.MarkerAdd(EXECUTE_MARKER);
+
+            }
+
+
+        }
+
 
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> Event handler. Called by Codewindow for mouse down events. </summary>
@@ -478,7 +511,7 @@ namespace RemoteDebugger.Main
 				if (HoverLabel.function)
 				{
 					//its a function label
-					HoverTipScintilla.CallTipShow(Hoverpos,"Function :"+HoverLabel.label+" @ $"+HoverLabel.address.ToString("X4"));
+					HoverTipScintilla.CallTipShow(Hoverpos,"Function :"+HoverLabel.label+" @ $"+HoverLabel.nextAddress.ToString());
 
 
 				}
@@ -524,7 +557,7 @@ namespace RemoteDebugger.Main
 					int val16 = (value & 0xffff);
 				
 
-					HoverTipScintilla.CallTipShow(Hoverpos,"Var :"+HoverLabel.label+" @ $"+HoverLabel.address.ToString("X4")+"  mem:"+response[0]+"  8:$"+val8.ToString("X2")+" / "+val8+"    16:$"+val16.ToString("X4")+" / "+val16);
+					HoverTipScintilla.CallTipShow(Hoverpos,"Var :"+HoverLabel.label+" @ $"+HoverLabel.nextAddress.ToString()+"  mem:"+response[0]+"  8:$"+val8.ToString("X2")+" / "+val8+"    16:$"+val16.ToString("X4")+" / "+val16);
 
 
 				}
@@ -599,10 +632,14 @@ namespace RemoteDebugger.Main
 						// Remove existing breakpoint
 						//line.MarkerDelete(BOOKMARK_MARKER);
 						//line.MarkerDelete(BREAKPOINT_MARKER);
-						if (Breakpoint.RemoveBreakPointAtAddress(ld.address))
-						{
+                        Program.serialport.RemoveBreakpoint(null,ld.nextAddress.GetAddr(),ld.nextAddress.GetBank());
+                        MainForm.myBreakpoints.RequestUpdate();
 
-						}
+
+						//if (Breakpoint.RemoveBreakPointAtAddress(ld.nextAddress.GetAddr(),ld.nextAddress.GetBank()))
+						//{
+
+						//}
 
 
 						//Form1.commsthread.AddCommand(Command.direct, 76, "disable-breakpoint 1");
@@ -612,6 +649,11 @@ namespace RemoteDebugger.Main
 					else
 					{
 						// Add breakpoint
+                        Program.serialport.SetBreakpoint(null,ld.nextAddress.GetAddr(),ld.nextAddress.GetBank());
+                        MainForm.myBreakpoints.RequestUpdate();
+                        //line.MarkerAdd(BREAKPOINT_MARKER);
+                        // 
+                        Console.WriteLine("Add breakpoint "+ld.nextAddress.GetAddr().ToString("X4")+" "+ld.nextAddress.GetBank());
 						//if (Breakpoint.SetBreakPoint(ld.address, Breakpoint.BreakpointType.PC,
 						//	"PC=" + ld.address.ToString("X4") + "H", tf.filename, linenum))
 						{
@@ -622,7 +664,6 @@ namespace RemoteDebugger.Main
 						// 
 						//if (Program.AddBreakpoint(ld.address))
 						//{
-						//	line.MarkerAdd(BREAKPOINT_MARKER);
 
 						//}
 						// 
@@ -753,6 +794,113 @@ namespace RemoteDebugger.Main
 
 
 
+
+
+
+
+
+
+
+
+        // -------------------------------------------------------------------------------------------------
+        // Searches for the first breakpoint display
+        //
+        // \param   longaddr    The longaddr.
+        //
+        // \return  The found breakpoint display.
+        // -------------------------------------------------------------------------------------------------
+        private BreakpointDisplay FindBreakpointDisplay(int longaddr)
+        {
+            foreach (BreakpointDisplay pd in BreakpointDisplayList)
+            {
+                if (pd.nextAddress.GetLongAddress() == longaddr) return pd;
+
+            }
+            return null;
+        }
+
+        // -------------------------------------------------------------------------------------------------
+        // Adds a break point display
+        //
+        // \param   longaddr    The longaddr.
+        //
+        // \return  A BreakpointDisplay.
+        // -------------------------------------------------------------------------------------------------
+        private BreakpointDisplay AddBreakPointDisplay(int longaddr)
+        {
+            BreakpointDisplay pd= new BreakpointDisplay();
+            pd.nextAddress.SetAddressLong(longaddr);
+
+
+            pd.lineData = TraceFile.GetLineDatafromAddr(pd.nextAddress);
+            if (pd.lineData != null)
+            {
+                pd.lineData.tf.codefile.codewindow.Lines[pd.lineData.lineNumber].MarkerAdd(BREAKPOINT_MARKER);
+
+            }
+
+            BreakpointDisplayList.Add(pd);
+
+            return pd;
+        }
+
+        // -------------------------------------------------------------------------------------------------
+        // Removes the break point display described by bd
+        //
+        // \param   bd  The bd.
+        // -------------------------------------------------------------------------------------------------
+        private void RemoveBreakPointDisplay(BreakpointDisplay bd)
+        {
+
+            LineData lineData = TraceFile.GetLineDatafromAddr(bd.nextAddress);
+            if (lineData != null)
+            {
+                lineData.tf.codefile.codewindow.Lines[lineData.lineNumber].MarkerDelete(BREAKPOINT_MARKER);
+            }
+
+            BreakpointDisplayList.Remove(bd);
+        }
+
+
+        // -------------------------------------------------------------------------------------------------
+        // Updates the breakpoint view described by breakpointData
+        //
+        // \param [in,out]  breakpointData  Information describing the breakpoint.
+        // -------------------------------------------------------------------------------------------------
+        public void UpdateBreakpointView(ref BindingList<Breakpoint.BreakpointData> breakpointData)
+        {
+
+            List<BreakpointDisplay> used = new List<BreakpointDisplay>();
+
+            //add new ones
+            foreach (Breakpoint.BreakpointData bp in breakpointData)
+            {
+                if (bp.used)
+                {
+                    BreakpointDisplay pd = FindBreakpointDisplay(bp.nextAddress.GetLongAddress());
+                    if (pd == null)
+                    {
+                        pd = AddBreakPointDisplay(bp.nextAddress.GetLongAddress());
+                    }
+
+                    used.Add(pd);
+
+                }
+
+
+            }
+
+            //remove those that are no longer in list
+            for (int i = BreakpointDisplayList.Count - 1; i >= 0; i--)
+            {
+                if (!used.Contains(BreakpointDisplayList[i]))
+                {
+                    RemoveBreakPointDisplay(BreakpointDisplayList[i]);
+                }
+            }
+
+
+        }
 
 
 	}
