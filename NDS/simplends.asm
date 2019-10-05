@@ -31,6 +31,7 @@ count:	db 0
 StartAddress:
 	di
 
+	; we want 14mhz z80's only!
 	nextreg 0x7,2
 
 	nextreg 0x50,NDS_MMUBankStore
@@ -49,12 +50,14 @@ MainLoop
 	ld a,(count)
 	inc a
 	ld (count),a
-
 	and %11111000
 	nextreg 0x32,a
 
+
+	;poll the debugger system
 	nextreg 0x50,NDS_MMUBank
 	call NDS_POLL
+
 
 
 	jp MainLoop

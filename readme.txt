@@ -11,18 +11,18 @@ You can use SendMemeory command line too to put data into Nex memeory as require
 
 RemoteDebugger allows you to debug the target hardware real time.  If you compile with my Special version of SJASMPLUS or my version of PASMO you can even source level debug.
 
-RemoteDebugger supports
+RemoteDebugger supports:
 
-Disassmbly
+Disassembly
 reg view and edit
-Next Regsiters view
+Next Registers view
 Breakpoints
 Watch windows
 memory View
 Future PC (using built in z80 emulator)
 callstack
-Singel stepping
-Transmitting of nex files
+Single stepping
+Transmitting of nex file
 
 
 System has been tested at 2mpbs and is stable.
