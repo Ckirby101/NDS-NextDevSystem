@@ -73,93 +73,82 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dialogs\Watches.cs">
+    <Compile Include="Forms\Watches.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\Watches.Designer.cs">
+    <Compile Include="Forms\Watches.Designer.cs">
       <DependentUpon>Watches.cs</DependentUpon>
     </Compile>
-    <Compile Include="Docks\Breakpoint.cs">
+    <Compile Include="Forms\Breakpoint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Docks\Breakpoint.Designer.cs">
+    <Compile Include="Forms\Breakpoint.Designer.cs">
       <DependentUpon>Breakpoint.cs</DependentUpon>
     </Compile>
-    <Compile Include="Docks\callstack.cs">
+    <Compile Include="Forms\callstack.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Docks\callstack.Designer.cs">
+    <Compile Include="Forms\callstack.Designer.cs">
       <DependentUpon>callstack.cs</DependentUpon>
     </Compile>
-    <Compile Include="Docks\Disassembly.cs">
+    <Compile Include="Forms\Disassembly.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Docks\Disassembly.Designer.cs">
+    <Compile Include="Forms\Disassembly.Designer.cs">
       <DependentUpon>Disassembly.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\LoadCode.cs">
+    <Compile Include="Main\Options.cs" />
+    <Compile Include="NexReader.cs" />
+    <Compile Include="popups\LoadCode.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\LoadCode.Designer.cs">
+    <Compile Include="popups\LoadCode.Designer.cs">
       <DependentUpon>LoadCode.cs</DependentUpon>
     </Compile>
-    <Compile Include="Docks\MemWatch.cs">
+    <Compile Include="Forms\MemWatch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Docks\MemWatch.Designer.cs">
+    <Compile Include="Forms\MemWatch.Designer.cs">
       <DependentUpon>MemWatch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Docks\RegMemWatch.cs">
+    <Compile Include="Forms\RegMemWatch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Docks\RegMemWatch.Designer.cs">
+    <Compile Include="Forms\RegMemWatch.Designer.cs">
       <DependentUpon>RegMemWatch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Docks\SourceWindow.cs">
+    <Compile Include="Forms\SourceWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Docks\SourceWindow.Designer.cs">
+    <Compile Include="Forms\SourceWindow.Designer.cs">
       <DependentUpon>SourceWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Docks\Watch.cs">
+    <Compile Include="Forms\Watch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Docks\Watch.Designer.cs">
+    <Compile Include="Forms\Watch.Designer.cs">
       <DependentUpon>Watch.cs</DependentUpon>
     </Compile>
     <Compile Include="Main\Address.cs" />
     <Compile Include="Main\eZDisasm.cs" />
     <Compile Include="Main\Labels.cs" />
-    <Compile Include="Main\MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main\MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Main\Program.cs" />
     <Compile Include="Main\SourceCodeView.cs" />
     <Compile Include="Main\TraceFiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Docks\Registers.cs">
+    <Compile Include="Forms\Registers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Docks\Registers.Designer.cs">
+    <Compile Include="Forms\Registers.Designer.cs">
       <DependentUpon>Registers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Docks\SpectrumScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Docks\SpectrumScreen.Designer.cs">
-      <DependentUpon>SpectrumScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Remote\Serial.cs" />
-    <Compile Include="Remote\TelNetSpec.cs" />
-    <Compile Include="Dialogs\Settings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings.Designer.cs">
-      <DependentUpon>Settings.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Remote Comms\Serial.cs" />
     <Compile Include="z80Emulator\IIRQRead.cs" />
     <Compile Include="z80Emulator\IMemory.cs" />
     <Compile Include="z80Emulator\IPort.cs" />
@@ -174,37 +163,34 @@
     <Compile Include="z80Emulator\Z80OpcodesFDCB.cs" />
     <Compile Include="z80Emulator\Z80Registers.cs" />
     <Compile Include="z80Emulator\Z80Tables.cs" />
-    <EmbeddedResource Include="Dialogs\Watches.resx">
+    <EmbeddedResource Include="Forms\Watches.resx">
       <DependentUpon>Watches.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Docks\Breakpoint.resx">
+    <EmbeddedResource Include="Forms\Breakpoint.resx">
       <DependentUpon>Breakpoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\Settings.resx">
-      <DependentUpon>Settings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Docks\callstack.resx">
+    <EmbeddedResource Include="Forms\callstack.resx">
       <DependentUpon>callstack.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Docks\Disassembly.resx">
+    <EmbeddedResource Include="Forms\Disassembly.resx">
       <DependentUpon>Disassembly.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\LoadCode.resx">
+    <EmbeddedResource Include="popups\LoadCode.resx">
       <DependentUpon>LoadCode.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Docks\MemWatch.resx">
+    <EmbeddedResource Include="Forms\MemWatch.resx">
       <DependentUpon>MemWatch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Docks\RegMemWatch.resx">
+    <EmbeddedResource Include="Forms\RegMemWatch.resx">
       <DependentUpon>RegMemWatch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Docks\SourceWindow.resx">
+    <EmbeddedResource Include="Forms\SourceWindow.resx">
       <DependentUpon>SourceWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Docks\Watch.resx">
+    <EmbeddedResource Include="Forms\Watch.resx">
       <DependentUpon>Watch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main\MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -216,11 +202,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Docks\Registers.resx">
+    <EmbeddedResource Include="Forms\Registers.resx">
       <DependentUpon>Registers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Docks\SpectrumScreen.resx">
-      <DependentUpon>SpectrumScreen.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />

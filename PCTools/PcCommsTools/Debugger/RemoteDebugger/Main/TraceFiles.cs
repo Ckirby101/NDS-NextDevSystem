@@ -28,6 +28,12 @@ namespace RemoteDebugger.Main
 	// One Tracefile per source code file
 	public class TraceFile
 	{
+        // -------------------------------------------------------------------------------------------------
+        // Constructor
+        //
+        // \param   _fn
+        // The function.
+        // -------------------------------------------------------------------------------------------------
 		public TraceFile(string _fn)
 		{
 			filename = _fn;
@@ -91,18 +97,13 @@ namespace RemoteDebugger.Main
 		{
             int longaddr = NextAddress.MakeLongAddress(bank, addr);
 
-			LineData best = null;
-
-			if (lines.Count <= 0) return null;
-
+            if (lines.Count <= 0) return null;
 
 			for (int i=0;i<lines.Count-1;i++)
 			{
 				if (lines[i].nextAddress.GetLongAddress() == longaddr) // && lines[ i+1 ].address > addr)
 					return (lines[i]);
 			}
-
-
 
 			return null;
 		}
@@ -132,20 +133,17 @@ namespace RemoteDebugger.Main
 
 			for (int i=0;i<lines.Count-1;i++)
 			{
-				//if (lines[i].bank == bank)
-				//{
-					int diff = Math.Abs(lines[i].nextAddress.GetLongAddress() - longaddr);
-					//found exact
-					if (diff == 0) return (lines[i]);
+                int diff = Math.Abs(lines[i].nextAddress.GetLongAddress() - longaddr);
+                //found exact
+                if (diff == 0) return (lines[i]);
 
-					if (diff < bestdiff && diff < 4)
-					{
-						bestdiff = diff;
-						best = lines[i];
+                if (diff < bestdiff && diff < 4)
+                {
+                    bestdiff = diff;
+                    best = lines[i];
 
-					}
-				//}
-			}
+                }
+            }
 
 
 			return best;
@@ -211,12 +209,18 @@ namespace RemoteDebugger.Main
 			traceFiles = new List<TraceFile>();
 
 
-			Regex registersregex = new Regex(@"^(?<filename>[_a-zA-Z0-9\\. :-]*)\|(?<line>[0-9]*)\|(?<bank>[0-9]*)\|(?<addr>[0-9]*)\|(?<type>[LFT])");
+			Regex registersregex = new Regex(@"^(?<filename>[_a-zA-Z0-9\\. :-]*)\|(?<line>[0-9]*)\|(?<bank>[-0-9]*)\|(?<addr>[0-9]*)\|(?<type>[LFTD])");
 
+
+            int index = 0;
 			string[] lines = File.ReadAllLines(filename);
 
 			foreach (string s in lines)
-			{
+            {
+                if (index == 223)
+                    Console.WriteLine("Hello");
+
+                index++;
 				if (!string.IsNullOrEmpty(s))
 				{
                     Console.WriteLine(s);
@@ -224,7 +228,6 @@ namespace RemoteDebugger.Main
 					//Console.WriteLine(match.Groups["label"] + " " + match.Groups["address"] + " " + match.Groups["type"] + " " + match.Groups["section"]);
 
 					string fn = match.Groups["filename"].ToString();
-                    fn = Path.GetFileName(fn);
 
 					int bank = 0;
 					int.TryParse(match.Groups["bank"].ToString(), NumberStyles.Integer, null, out bank);
@@ -233,8 +236,17 @@ namespace RemoteDebugger.Main
 					int addr = 0;
 					int.TryParse(match.Groups["addr"].ToString(), NumberStyles.Integer, null, out addr);
 
-					if (match.Groups["type"].ToString() == "T")
+
+                    if (fn.StartsWith("audio_"))
+                    {
+                        Console.WriteLine("Hello");
+                    }
+
+
+					if (match.Groups["type"].ToString() == "T")     //Trace Data
 					{
+                        fn = Path.GetFileName(fn);
+
 						TraceFile tracefile = TraceFile.FindTraceFile(fn);
 						if (tracefile==null)
 						{
@@ -257,11 +269,12 @@ namespace RemoteDebugger.Main
 
 						tracefile.lines.Add(ld);
 					}
-					else if (match.Groups["type"].ToString() == "L")
+					else if (match.Groups["type"].ToString() == "L" || match.Groups["type"].ToString() == "D")        //Label
 					{
+
 						Labels.AddLabel(fn,addr,bank,false);
 					}
-					else if (match.Groups["type"].ToString() == "F")
+					else if (match.Groups["type"].ToString() == "F")        //Function
 					{
 						Labels.AddLabel(fn,addr,bank,true);
 					}
@@ -277,6 +290,14 @@ namespace RemoteDebugger.Main
 
 
         
+        // -------------------------------------------------------------------------------------------------
+        // Gets by tab page
+        //
+        // \param   tab
+        // The tab.
+        //
+        // \return  The by tab page.
+        // -------------------------------------------------------------------------------------------------
         public static TraceFile GetByTabPage(TabPage tab)
         {
             foreach (TraceFile t in traceFiles)
@@ -424,6 +445,12 @@ namespace RemoteDebugger.Main
 
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Goto line
+        //
+        // \param   pc
+        // The PC.
+        // -------------------------------------------------------------------------------------------------
 		public static void GotoLine(int pc)
 		{
 			if (traceFiles == null) return;
@@ -451,6 +478,12 @@ namespace RemoteDebugger.Main
 		}
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Goto label
+        //
+        // \param   l
+        // The l control.
+        // -------------------------------------------------------------------------------------------------
 		public static void GotoLabel(Labels.Label l)
 		{
 			if (traceFiles == null) return;
@@ -463,9 +496,10 @@ namespace RemoteDebugger.Main
 				{
 					//var line = t.codefile.codewindow.Lines[CurrentExecuteLine];
 
-					MainForm.mySourceWindow.FocusLine(t.codefile, ld.lineNumber); 
+					MainForm.mySourceWindow.FocusLine(t.codefile, ld.lineNumber);
+                    return;
 
-				}
+                }
 			}
 
 
@@ -473,6 +507,14 @@ namespace RemoteDebugger.Main
 		}
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Gets bank index
+        //
+        // \param   addr
+        // The address.
+        //
+        // \return  The bank index.
+        // -------------------------------------------------------------------------------------------------
 		public static int GetBankIndex(int addr)
 		{
 			return ((addr >> 13) & 7);

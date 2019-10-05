@@ -17,28 +17,20 @@ namespace RemoteDebugger
             {
                 nextAddress = new NextAddress(a,b);
 
-				//address = a;
-				//bank = b;
 				label = l;
 				function = f;
 			}
 
-
-			//public int address;	//16bit address of data
-			//public int bank;		//16bit bank number
 			public string label;
 			public bool function;
             public NextAddress nextAddress;
 
+            public override string ToString()
+            {
+                return label + "  $" + nextAddress.ToString();
+            }
+
         }
-
-
-
-
-
-
-
-
 
 
 

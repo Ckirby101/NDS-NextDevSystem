@@ -180,6 +180,7 @@ namespace SendNex
 
                 AddCommand(ref b,186);
                 SendData(mySerialPort,ref b);
+
                 Thread.Sleep(50);
 
                 for (int i = 0; i < header.Banks.Length; i++)
@@ -292,7 +293,7 @@ namespace SendNex
         // \param [in,out]  b   A List&lt;byte&gt; to process.
         // \param           num Number of.
         // -------------------------------------------------------------------------------------------------
-        private static void AddCommand(ref List<byte> b, int num)
+        public static void AddCommand(ref List<byte> b, int num)
         {
             b.Add((byte)'C');
             b.Add((byte)'M');
@@ -307,7 +308,7 @@ namespace SendNex
         // \param [in,out]  b       A List&lt;byte&gt; to process.
         // \param           value   The value.
         // -------------------------------------------------------------------------------------------------
-        private static void Add16Value(ref List<byte> b, int value)
+        public static void Add16Value(ref List<byte> b, int value)
         {
             b.Add((byte)(value&0xff));          //lo
             b.Add((byte)((value&0xff00)>>8) );     //hi
@@ -318,7 +319,7 @@ namespace SendNex
         // \param [in,out]  b       A List&lt;byte&gt; to process.
         // \param           value   The value.
         // -------------------------------------------------------------------------------------------------
-        private static void Add8Value(ref List<byte> b, int value)
+        public static void Add8Value(ref List<byte> b, int value)
         {
             b.Add((byte)value);          //lo
         }
@@ -328,7 +329,7 @@ namespace SendNex
         //
         // \param [in,out]  b   A List&lt;byte&gt; to process.
         // -------------------------------------------------------------------------------------------------
-        private static void SendData(SerialPort port,ref List<byte> b)
+        public static void SendData(SerialPort port,ref List<byte> b)
         {
             int buffersize = 256;
 
@@ -364,7 +365,7 @@ namespace SendNex
         }
 
 
-        private static byte ReadByteData(SerialPort port)
+        public static byte ReadByteData(SerialPort port)
         {
             while (port.BytesToRead <=0)
                 Thread.Sleep(10);

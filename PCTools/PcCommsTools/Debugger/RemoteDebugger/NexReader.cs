@@ -180,6 +180,7 @@ namespace SendNex
 
                 AddCommand(ref b,186);
                 SendData(mySerialPort,ref b);
+
                 Thread.Sleep(50);
 
                 for (int i = 0; i < header.Banks.Length; i++)

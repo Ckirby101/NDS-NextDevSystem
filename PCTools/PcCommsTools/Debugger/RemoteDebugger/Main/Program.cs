@@ -27,6 +27,7 @@ using System;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using NDesk.Options;
 using RemoteDebugger.Remote;
 
 namespace RemoteDebugger
@@ -35,7 +36,10 @@ namespace RemoteDebugger
 
     static class Program
     {
-
+        public static bool show_help = false;
+        public static string tracefile = "";
+        public static int SerialSpeed = 1958400;
+        public static string SerialPort = "COM4";
 
         //public static TelNetSpec telnetConnection=new TelNetSpec();
         public static bool InStepMode = false;
@@ -51,19 +55,61 @@ namespace RemoteDebugger
         static void Main(string[] args)
         {
 
-	        if (args.Length == 1)
+            Console.WriteLine("SendMemory by C.Kirby 0.1");
+
+
+            
+
+            OptionSet p = new OptionSet
+            {
+
+                {
+                    "t|trace=", "trace file from assembler",
+                    v => tracefile = v
+                },
+                {
+                    "s|speed=", "Serial Speed e.g 115200,1958400 etc Defaults to 1958400",
+                    v => SerialSpeed = int.Parse(v)
+                },
+                {
+                    "p|port=", "Com port e.g COM1 COM2 etc Defaults to COM4",
+                    v => SerialPort = v
+                },
+                {
+                    "h|help", "show this message and exit",
+                    v => show_help = v != null
+                }
+            };
+
+
+            try
+            {
+                p.Parse(args);
+            }
+            catch (OptionException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Try `NDS (Next Development System) Remote Debugger --help' for more information.");
+                return;
+            }
+
+            if (show_help)
+            {
+                ShowHelp(p);
+                return;
+            }
+
+
+	        if (!string.IsNullOrEmpty(tracefile))
 	        {
-		        MainForm.TraceDataPath = args[0];
+		        MainForm.TraceDataPath = tracefile;
 	        }
 
             
-            serialport = new Serial(1958400,"COM4");
-//            serialport = new Serial(1958400,"COM4");
-//            serialport = new Serial(921600,"COM4");
-//            serialport = new Serial(1843200,"COM4");
+            serialport = new Serial(SerialSpeed,SerialPort);
+
 
 			Breakpoint.InitBreakpointData();
-            //telnetConnection.UpdateSettings(Properties.Settings.Default.remoteAddress, Properties.Settings.Default.remotePort);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -76,5 +122,16 @@ namespace RemoteDebugger
 
 
         }
+        private static void ShowHelp(OptionSet p)
+        {
+            Console.WriteLine("Usage: RemoteDebugger [OPTIONS]+");
+
+            Console.WriteLine();
+            Console.WriteLine("Options:");
+            p.WriteOptionDescriptions(Console.Out);
+        }
     }
+
+
+
 }

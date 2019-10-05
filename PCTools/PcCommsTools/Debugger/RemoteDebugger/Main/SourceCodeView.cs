@@ -74,6 +74,14 @@ namespace RemoteDebugger.Main
 			public TabPage tab;
 
 
+            // -------------------------------------------------------------------------------------------------
+            // Query if 'line' is line legal
+            //
+            // \param   line
+            // The line.
+            //
+            // \return  True if line legal, false if not.
+            // -------------------------------------------------------------------------------------------------
 			public bool IsLineLegal(int line)
 			{
 				TraceFile s = TraceFile.FindTraceFile(TraceFileName);
@@ -81,6 +89,14 @@ namespace RemoteDebugger.Main
 				return s.IsLineLegal(line);
 			}
 
+            // -------------------------------------------------------------------------------------------------
+            // Gets a line
+            //
+            // \param   line
+            // The line.
+            //
+            // \return  The line.
+            // -------------------------------------------------------------------------------------------------
 			public LineData GetLine(int line)
 			{
 				TraceFile s = TraceFile.FindTraceFile(TraceFileName);
@@ -129,8 +145,7 @@ namespace RemoteDebugger.Main
 						page.Controls.Add(cf.codewindow);
 						tab.TabPages.Add(page);
 
-                        //string text = File.ReadAllText("C:\\Users\\chris kirby\\Documents\\Spectrum Next\\bombjack\\game.c");
-						cf.codewindow.Text = text;// LoadFile("C:\\Users\\chris kirby\\Documents\\Spectrum Next\\bombjack\\game.c",RichTextBoxStreamType.PlainText);
+						cf.codewindow.Text = text;
 						page.Select();
 
 						cf.codewindow.SetSelectionBackColor(true, IntToColor(0x114D9C));
@@ -143,9 +158,7 @@ namespace RemoteDebugger.Main
 						cf.codewindow.Styles[Style.Default].ForeColor = IntToColor(0xFFFFFF);
 						cf.codewindow.StyleClearAll();
 
-						// Configure the CPP (C#) lexer styles
-
-
+						// Configure lexer styles
 
 
 						cf.codewindow.Styles[Style.Asm.Operator].ForeColor = IntToColor(0x48A8EE);
@@ -239,45 +252,6 @@ namespace RemoteDebugger.Main
 						cf.codewindow.MouseDown += Codewindow_MouseDown;
 
 
-
-
-						//
-						//var margin = cf.codewindow.Margins[BOOKMARK_MARGIN];
-						//margin.Width = 10;
-						//margin.Sensitive = true;
-						//margin.Type = MarginType.Symbol;
-						//margin.Mask = (1 << BOOKMARK_MARKER);
-						//margin.Cursor = MarginCursor.Arrow;
-
-
-
-
-
-						//var marker = cf.codewindow.Markers[BOOKMARK_MARKER];
-						//marker.Symbol = MarkerSymbol.Circle;
-						//marker.SetBackColor(IntToColor(0xFF003B));
-						//marker.SetForeColor(IntToColor(0x000000));
-						//marker.SetAlpha(100);
-
-
-
-
-
-						//margin.Cursor = MarginCursor.Arrow;
-
-						//var cmarker = cf.codewindow.Markers[CODE_MARKER];
-						//cmarker.Symbol = MarkerSymbol.n;
-						//cmarker.SetBackColor(IntToColor(0xa06000));
-						//cmarker.SetForeColor(IntToColor(0x000000));
-						//cmarker.SetAlpha(100);
-
-
-
-
-
-						//bpmarker.Symbol = MarkerSymbol.Background;
-						//bpmarker.SetBackColor(Color.DarkRed);
-
 						var ecmarker = cf.codewindow.Markers[EXECUTE_MARKER];
 						ecmarker.Symbol = MarkerSymbol.RoundRect;
 						ecmarker.SetBackColor(Color.DarkBlue);
@@ -285,23 +259,15 @@ namespace RemoteDebugger.Main
 
 
 
-
-
-
 						s.codefile = cf;
 
                         UpdateMarginAddress(s);
-						//codefiles.Add(cf);
+
 
 					}
-
-
-				}
-
-			}
-
-
-		}
+                }
+            }
+        }
 
 
         // -------------------------------------------------------------------------------------------------
@@ -315,17 +281,7 @@ namespace RemoteDebugger.Main
             {
                 var line = tf.codefile.codewindow.Lines[ld.lineNumber];
                 line.MarginText = ld.nextAddress.ToString("b");
-
-                //line.MarkerAdd(CODE_MARKER);
-                //line.MarkerAdd(BREAKPOINT_MARKER);
-
-
-                //current line marke works great
-                //line.MarkerAdd(EXECUTE_MARKER);
-
             }
-
-
         }
 
 
@@ -361,7 +317,20 @@ namespace RemoteDebugger.Main
 					//step mode and on valid line add a set pc option
 					if (tf.IsLineLegal(linenum) && Program.InStepMode)
 					{
-						cm.MenuItems.Add(new CustomMenuItem( "Set PC to $"+ld.address.ToString("X4"),new EventHandler(ContextSetPC),(object)ld.address ) );
+						//cm.MenuItems.Add(new CustomMenuItem( "Set PC to $"+ld.address.ToString("X4"),new EventHandler(ContextSetPC),(object)ld.address ) );
+
+                        const uint mask = (1 << BREAKPOINT_MARKER);
+                        if ((line.MarkerGet() & mask) > 0)
+                        {
+                            cm.MenuItems.Add(new CustomMenuItem( "Clear breakpoint",new EventHandler(ContextClearBreakpoint),(object)ld.nextAddress.GetLongAddress() ) );
+                        }
+                        else
+                        {
+                            cm.MenuItems.Add(new CustomMenuItem( "Set breakpoint",new EventHandler(ContextSetBreakpoint),(object)ld.nextAddress.GetLongAddress() ) );
+                        }                        
+                        
+
+
 					}
 
 					if (!string.IsNullOrEmpty(word))
@@ -369,16 +338,17 @@ namespace RemoteDebugger.Main
 						Labels.Label l = Labels.FindLabel(word);
 						if (l != null)
 						{
-							if (!l.function)
-							{
-								cm.MenuItems.Add(new CustomMenuItem( "Add Variable "+l.label+" to Watch",new EventHandler(ContextAddToWatch),(object)l ) );
-							}
+							//if (!l.function)
+							//{
+								cm.MenuItems.Add(new CustomMenuItem( "ADD TO WATCH: "+l.label+" "+l.nextAddress.ToString("b")+"",new EventHandler(ContextAddToWatch),(object)l ) );
+                                cm.MenuItems.Add(new CustomMenuItem( "JUMP TO: "+l.label+" "+l.nextAddress.ToString("b"),new EventHandler(ContextGotoAddress),(object)l ) );
+							//}
 						}
 
 					}
 
 
-					cm.MenuItems.Add("item2");
+					//cm.MenuItems.Add("item3");
 					//ContextMenu cm = new ContextMenu();
 					//{
 					//	MenuItem mi = new MenuItem("coming soon2 "+word);//  ,   (s, ea) => this.UndoRedo.Undo());
@@ -387,12 +357,8 @@ namespace RemoteDebugger.Main
 					tf.codefile.codewindow.ContextMenu = cm;
 
 				}
-
-
-			}
-
-			Console.WriteLine("hello");
-		}
+            }
+        }
 
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> Context add to watch. </summary>
@@ -411,15 +377,22 @@ namespace RemoteDebugger.Main
 			if (l != null)
 			{
 				MainForm.myWatches.AddWatchLabel(l);
+            }
+        }
 
-			}
+        
+        private void ContextGotoAddress(object sender, EventArgs e)
+        {
+            CustomMenuItem customMenuItem = sender as CustomMenuItem;
 
-			//CustomMenuItem customMenuItem = sender as CustomMenuItem;
-			//int pc = (int) customMenuItem.value;
+            Labels.Label l = (Labels.Label) customMenuItem.value;
 
-			//Console.WriteLine("hello "+pc.ToString("X4"));
+            if (l != null)
+            {
+                TraceFile.FocusAddr(l.nextAddress.GetAddr(),l.nextAddress.GetBank());
+            }
+        }
 
-		}
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> Context set PC. </summary>
 		///
@@ -433,13 +406,54 @@ namespace RemoteDebugger.Main
 			CustomMenuItem customMenuItem = sender as CustomMenuItem;
 			int pc = (int) customMenuItem.value;
 
+			//MainForm.myNewRegisters.SetRegister(pc,Registers.Z80Register.pc);
 
-			MainForm.myNewRegisters.SetRegister(pc,Registers.Z80Register.pc);
-
-
-			Console.WriteLine("hello "+pc.ToString("X4"));
+			//Console.WriteLine("hello "+pc.ToString("X4"));
 
 		}
+
+        // -------------------------------------------------------------------------------------------------
+        // Context set breakpoint
+        //
+        // \param   sender
+        // Source of the event.
+        // \param   e
+        // Event information.
+        // -------------------------------------------------------------------------------------------------
+        private void ContextSetBreakpoint(object sender, EventArgs e)
+        {
+            CustomMenuItem customMenuItem = sender as CustomMenuItem;
+            int longaddr = (int) customMenuItem.value;
+
+
+            NextAddress na = new NextAddress(longaddr);
+
+            Program.serialport.SetBreakpoint(null,na.GetAddr(),na.GetBank());
+            MainForm.myBreakpoints.RequestUpdate();
+        }
+
+        // -------------------------------------------------------------------------------------------------
+        // Context clear breakpoint
+        //
+        // \param   sender
+        // Source of the event.
+        // \param   e
+        // Event information.
+        // -------------------------------------------------------------------------------------------------
+        private void ContextClearBreakpoint(object sender, EventArgs e)
+        {
+            CustomMenuItem customMenuItem = sender as CustomMenuItem;
+            int longaddr = (int) customMenuItem.value;
+
+
+            NextAddress na = new NextAddress(longaddr);
+
+            Program.serialport.RemoveBreakpoint(null,na.GetAddr(),na.GetBank());
+            MainForm.myBreakpoints.RequestUpdate();
+        }
+
+        
+
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> Event handler. Called by Codewindow for dwell end events. </summary>
 		///
@@ -517,6 +531,7 @@ namespace RemoteDebugger.Main
 				}
 				else
 				{
+                    HoverTipScintilla.CallTipShow(Hoverpos,"Label :"+HoverLabel.label+" = $"+HoverLabel.nextAddress.ToString());
 					//Program.telnetConnection.SendCommand("read-memory "+HoverLabel.address.ToString()+" 2", HoverCallback);
 				}
 
@@ -621,113 +636,27 @@ namespace RemoteDebugger.Main
 					//Console.WriteLine("Line Ok");
 					LineData ld = tf.GetLine(linenum);
 
-					//Form1.commsthread.AddCommand(Command.disassmblememory, 50, " " + ld.Addess.ToString("X4") + "H 256");
-
-
-					//now request memory and display is asm window
-
-
-					if ((line.MarkerGet() & mask) > 0)
+                    if ((line.MarkerGet() & mask) > 0)
 					{
 						// Remove existing breakpoint
-						//line.MarkerDelete(BOOKMARK_MARKER);
-						//line.MarkerDelete(BREAKPOINT_MARKER);
+
                         Program.serialport.RemoveBreakpoint(null,ld.nextAddress.GetAddr(),ld.nextAddress.GetBank());
                         MainForm.myBreakpoints.RequestUpdate();
-
-
-						//if (Breakpoint.RemoveBreakPointAtAddress(ld.nextAddress.GetAddr(),ld.nextAddress.GetBank()))
-						//{
-
-						//}
-
-
-						//Form1.commsthread.AddCommand(Command.direct, 76, "disable-breakpoint 1");
-
-
-					}
+                    }
 					else
 					{
 						// Add breakpoint
                         Program.serialport.SetBreakpoint(null,ld.nextAddress.GetAddr(),ld.nextAddress.GetBank());
                         MainForm.myBreakpoints.RequestUpdate();
-                        //line.MarkerAdd(BREAKPOINT_MARKER);
-                        // 
+
                         Console.WriteLine("Add breakpoint "+ld.nextAddress.GetAddr().ToString("X4")+" "+ld.nextAddress.GetBank());
-						//if (Breakpoint.SetBreakPoint(ld.address, Breakpoint.BreakpointType.PC,
-						//	"PC=" + ld.address.ToString("X4") + "H", tf.filename, linenum))
-						{
-
-						}
-						// 
-						// 
-						// 
-						//if (Program.AddBreakpoint(ld.address))
-						//{
-
-						//}
-						// 
-						//line.MarkerAdd(BOOKMARK_MARKER);
-
-						//LineData ld = cf.GetLine(linenum);
-
-						//Form1.commsthread.AddCommand(Command.setbreakpointaction, 76, " 1 break");
-						//Form1.commsthread.AddCommand(Command.setbreakpoint, 75, " 1 PC="+ld.Addess.ToString("x4")+"H");
-						//Form1.commsthread.AddCommand(Command.direct, 74, "enable-breakpoint 1");
-
-					}
+                    }
 
 
 				}
 
 			}
 
-
-/*			if (e.Margin == BOOKMARK_MARGIN)
-			{
-
-				CodeFile cf = GetCodeFileFromSection((string)s.Tag);
-
-
-
-				// Do we have a marker for this line?
-				const uint mask = (1 << BOOKMARK_MARKER);
-				int linenum = s.LineFromPosition(e.Position);
-				var line = s.Lines[linenum];
-
-
-				if (cf.IsLineLegal(linenum))
-				{
-					if ((line.MarkerGet() & mask) > 0)
-					{
-						// Remove existing breakpoint
-						line.MarkerDelete(BOOKMARK_MARKER);
-						line.MarkerDelete(BREAKPOINT_MARKER);
-
-
-						//Form1.commsthread.AddCommand(Command.direct, 76, "disable-breakpoint 1");
-
-
-					}
-					else
-					{
-						// Add breakpoint
-						line.MarkerAdd(BOOKMARK_MARKER);
-						line.MarkerAdd(BREAKPOINT_MARKER);
-
-						LineData ld = cf.GetLine(linenum);
-
-						//Form1.commsthread.AddCommand(Command.setbreakpointaction, 76, " 1 break");
-						Form1.commsthread.AddCommand(Command.setbreakpoint, 75, " 1 PC="+ld.Addess.ToString("x4")+"H");
-						//Form1.commsthread.AddCommand(Command.direct, 74, "enable-breakpoint 1");
-
-					}
-
-				}
-
-
-
-			}*/
 		}
 
 
@@ -744,60 +673,6 @@ namespace RemoteDebugger.Main
 		{
 			return System.Drawing.Color.FromArgb(255, (byte)(rgb >> 16), (byte)(rgb >> 8), (byte)rgb);
 		}
-
-		/// -------------------------------------------------------------------------------------------------
-		/// <summary> Sets break point marker. </summary>
-		///
-		/// <remarks> 08/09/2018. </remarks>
-		///
-		/// <param name="active">   True to active. </param>
-		/// <param name="filename"> Filename of the file. </param>
-		/// <param name="linenum">  The linenum. </param>
-		///
-		/// <returns> True if it succeeds, false if it fails. </returns>
-		/// -------------------------------------------------------------------------------------------------
-		public static bool SetBreakPointMarker(bool active, string filename, int linenum)
-		{
-			TraceFile tf = TraceFile.FindTraceFile(filename);
-			const uint mask = (1 << BREAKPOINT_MARKER);
-
-			if (tf.IsLineLegal(linenum))
-			{
-				var line = tf.codefile.codewindow.Lines[linenum];
-
-				if (active)
-				{
-					if ((line.MarkerGet() & mask) == 0)
-					{
-						line.MarkerAdd(BREAKPOINT_MARKER);
-						return true;
-					}
-				}
-				else
-				{
-					if ((line.MarkerGet() & mask) != 0)
-					{
-						line.MarkerDelete(BREAKPOINT_MARKER);
-						return true;
-					}
-								
-				}
-
-
-			}
-
-
-
-			return false;
-
-		}
-
-
-
-
-
-
-
 
 
 
