@@ -107,10 +107,11 @@ namespace RemoteDebugger.Docks
                 int.TryParse(m[1].Groups[1].Value, style, null, out memaddress);
             }
             else
-            if (m.Count == 2)
+            if (m.Count == 1)
             {
+                //use it as address and get data from current paged in memory ($fe bank)
                 int.TryParse(m[0].Groups[1].Value, style, null, out memaddress);
-                bankNum = -1;
+                bankNum = 0xfe;
             }
 
 			//MainForm.ParseExpression(s,ref memaddress);

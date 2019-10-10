@@ -1,767 +1,824 @@
-NDS_MMUBankStore|22|-1|221|D
-NDS_MMUBank|23|-1|222|D
+NDS_MMUBank|22|-1|222|D
+NDS_SLOT|23|-1|2|D
 NDS_BaudRate|24|-1|1958400|D
-NDS_Cmd_SetBank|94|-1|180|D
-NDS_Cmd_PutData|95|-1|181|D
-NDS_Cmd_Execute|96|-1|182|D
-NDS_Cmd_SendRegs|97|-1|183|D
-NDS_Cmd_SetRegs|98|-1|184|D
-NDS_Cmd_SendMem|99|-1|185|D
-NDS_Cmd_Break|100|-1|186|D
-NDS_Cmd_Continue|101|-1|187|D
-NDS_Cmd_SetBreakpoint|102|-1|188|D
-NDS_Cmd_SendWatch|103|-1|189|D
-NDS_Cmd_GetBreakpoints|104|-1|190|D
-NDS_Cmd_DeleteBreakpoints|105|-1|191|D
-NDS_RX|107|-1|5179|D
-NDS_TX|108|-1|4923|D
-NDS_Mode_Running|110|-1|0|D
-NDS_Mode_Paused|111|-1|1|D
-NDS_Mode_Error|112|-1|2|D
-RST00|118|221|0|F
-RST08|120|221|8|F
-RST10|122|221|16|F
-RST18|124|221|24|F
-RST20|126|221|32|F
-RST28|128|221|40|F
-RST30|130|221|48|F
-RST38|132|221|56|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|133|221|56|T
-NDS_BaudRateTable|139|221|59|F
-NDS_STACK|142|221|75|F
-NDS_REGISTERS|143|221|95|F
-NDS_ZHL|144|221|115|F
-NDS_ZPC|145|221|117|F
-NDS_ZSP|146|221|119|F
-NDS_HWREGS|147|221|121|F
-NDS_mode|148|221|176|F
-NDS_REGISTERS_LEN|149|-1|82|D
-NDS_BreakpointData|153|221|177|F
-NDS_BreakpointDataLength|154|-1|50|D
-NDS_temp|156|221|227|F
-NDS_INIT|162|221|231|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|163|221|231|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|164|221|234|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|165|221|236|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|166|221|238|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|167|221|239|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|168|221|241|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|170|221|243|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|171|221|246|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|172|221|248|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|173|221|249|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|174|221|250|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|176|221|251|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|177|221|254|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|178|221|255|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|179|221|257|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|181|221|259|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|182|221|260|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|183|221|262|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|184|221|263|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|185|221|264|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|186|221|266|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|190|221|268|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|191|221|271|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|192|221|274|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|193|221|277|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|194|221|278|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|195|221|279|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|198|221|281|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|201|221|285|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|202|221|288|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|203|221|291|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|204|221|294|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|208|221|296|T
-NDS_FindFreeBreakpoint|215|221|297|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|216|221|297|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|218|221|298|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|219|221|301|T
-NDS_FindFreeBreakpoint.loop|220|221|303|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|221|221|303|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|222|221|304|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|223|221|306|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|224|221|308|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|225|221|312|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|228|221|314|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|229|221|315|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|230|221|316|T
-NDS_FindFreeBreakpoint.foundfree|231|221|317|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|232|221|317|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|233|221|318|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|234|221|319|T
-NDS_FindBreakpoint|244|221|320|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|245|221|320|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|247|221|321|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|248|221|325|T
-NDS_FindBreakpoint.loop|249|221|327|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|250|221|327|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|251|221|330|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|252|221|332|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|254|221|334|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|255|221|337|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|256|221|338|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|258|221|340|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|259|221|343|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|260|221|344|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|262|221|346|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|263|221|349|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|264|221|350|T
-NDS_FindBreakpoint.notused|267|221|352|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|268|221|352|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|268|221|354|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|268|221|356|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|268|221|358|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|268|221|360|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|269|221|362|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|271|221|364|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|272|221|365|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|273|221|366|T
-NDS_FindBreakpoint.found|274|221|367|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|275|221|367|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|276|221|369|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|277|221|370|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|278|221|371|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|279|221|372|T
-NDS_BreakpointHit|286|221|373|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|287|221|373|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|289|221|374|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|290|221|377|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|292|221|381|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|294|221|382|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|295|221|383|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|296|221|384|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|298|221|387|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|300|221|390|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|301|221|391|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|302|221|392|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|303|221|393|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|304|221|394|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|305|221|395|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|306|221|396|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|307|221|398|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|308|221|400|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|309|221|401|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|310|221|403|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|311|221|404|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|312|221|406|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|313|221|407|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|314|221|408|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|315|221|409|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|319|221|410|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|320|221|413|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|321|221|415|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|322|221|417|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|323|221|418|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|324|221|420|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|326|221|421|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|327|221|425|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|328|221|428|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|329|221|429|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|331|221|432|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|332|221|433|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|333|221|435|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|338|221|436|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|339|221|439|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|342|221|441|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|343|221|442|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|344|221|443|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|345|221|447|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|347|221|448|T
-NDS_BreakpointHit.notfound|353|221|449|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|354|221|449|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|355|221|451|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|358|221|454|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|359|221|455|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|363|221|458|T
-NDS_COLOR|370|221|461|F
-NDS_POLL|374|221|462|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|375|221|462|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|377|221|463|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|378|221|466|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|380|221|470|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|381|221|471|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|383|221|474|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|385|221|477|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|386|221|478|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|387|221|479|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|388|221|480|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|389|221|481|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|390|221|482|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|391|221|483|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|392|221|485|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|393|221|487|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|394|221|488|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|395|221|490|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|396|221|491|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|397|221|493|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|398|221|494|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|399|221|495|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|400|221|496|T
-NDS_checkCommandLoop|404|221|497|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|405|221|497|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|408|221|500|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|409|221|503|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|410|221|504|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|411|221|507|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|413|221|509|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|414|221|512|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|415|221|514|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|418|221|516|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|419|221|517|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|422|221|519|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|423|221|520|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|424|221|521|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|425|221|522|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|426|221|523|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|427|221|525|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|428|221|526|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|429|221|528|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|430|221|529|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|431|221|531|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|432|221|533|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|433|221|534|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|434|221|535|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|435|221|536|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|436|221|537|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|437|221|538|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|438|221|539|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|439|221|540|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|440|221|544|T
-NDS_checkCommand|446|221|545|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|451|221|545|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|452|221|548|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|454|221|549|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|455|221|552|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|456|221|554|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|458|221|556|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|459|221|559|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|460|221|561|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|462|221|563|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|463|221|566|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|464|221|568|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|467|221|570|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|468|221|573|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|469|221|575|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|470|221|578|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|471|221|580|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|472|221|583|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|473|221|585|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|474|221|588|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|475|221|590|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|476|221|593|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|477|221|595|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|478|221|598|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|479|221|600|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|480|221|603|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|481|221|605|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|482|221|608|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|483|221|610|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|484|221|613|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|485|221|615|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|486|221|618|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|487|221|620|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|489|221|623|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|490|221|625|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|492|221|628|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|493|221|630|T
-NDS_checkCommand.flush|496|221|633|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|498|221|633|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|500|221|636|T
-NDS_dataready|505|221|637|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|506|221|637|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|507|221|640|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|508|221|642|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|509|221|644|T
-NDS_flush|515|221|645|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|516|221|645|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|517|221|648|T
-NDS_flush.fifo|519|221|650|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|520|221|650|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|521|221|652|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|522|221|654|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|523|221|655|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|524|221|657|T
-NDS_GetByte|534|221|658|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|535|221|658|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|536|221|659|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|538|221|660|T
-NDS_GetByte.loop|539|221|662|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|540|221|662|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|541|221|663|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|543|221|665|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|544|221|668|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|545|221|670|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|546|221|673|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|549|221|675|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|550|221|678|T
-NDS_GetByte.exit|553|221|680|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|554|221|680|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|555|221|681|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|556|221|682|T
-NDS_SendByte|565|221|683|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|566|221|683|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|567|221|684|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|569|221|685|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|571|221|686|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|572|221|688|T
-NDS_SendByte.loop|573|221|691|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|574|221|691|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|575|221|692|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|577|221|694|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|578|221|696|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|579|221|699|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|582|221|701|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|583|221|702|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|584|221|704|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|585|221|706|T
-NDS_SendByte.exit|587|221|708|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|589|221|708|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|590|221|709|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|592|221|710|T
-delay|599|221|711|F
-delay.loop|600|221|711|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|602|221|711|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|603|221|712|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|604|221|713|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|605|221|714|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|606|221|716|T
-NDS_regstoread|612|221|717|F
-NDS_NumRegs|616|-1|55|D
-NDS_Command_SendRegs|621|221|772|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|625|221|772|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|626|221|775|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|627|221|778|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|628|221|780|T
-NDS_Command_SendRegs.regloop|630|221|782|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|631|221|782|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|635|221|783|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|636|221|785|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|637|221|786|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|638|221|787|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|640|221|789|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|641|221|791|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|642|221|793|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|643|221|794|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|645|221|795|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|646|221|796|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|652|221|798|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|653|221|800|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|654|221|803|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|655|221|805|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|656|221|808|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|657|221|810|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|663|221|813|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|664|221|816|T
-NDS_Command_SendRegs.loop|666|221|818|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|667|221|818|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|669|221|819|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|670|221|820|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|671|221|821|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|673|221|824|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|674|221|825|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|678|221|827|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|679|221|830|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|680|221|831|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|682|221|832|T
-NDS_Command_SendRegs.loop2|683|221|834|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|684|221|834|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|685|221|835|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|686|221|838|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|688|221|839|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|689|221|840|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|690|221|843|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|693|221|844|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|701|221|846|T
-NDS_Command_SetRegs|706|221|849|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|708|221|849|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|709|221|852|T
-NDS_Command_SetRegs.loop|711|221|854|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|712|221|854|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|714|221|855|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|715|221|858|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|716|221|859|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|718|221|860|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|719|221|861|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|722|221|863|T
-NDS_Command_SetBreakpoint|727|221|866|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|732|221|866|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|733|221|869|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|734|221|871|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|735|221|873|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|736|221|874|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|737|221|876|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|743|221|877|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|744|221|880|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|745|221|881|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|751|221|884|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|752|221|887|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|753|221|888|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|754|221|891|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|755|221|893|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|761|221|894|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|762|221|897|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|765|221|899|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|766|221|902|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|772|221|905|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|773|221|907|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|774|221|908|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|777|221|909|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|778|221|910|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|779|221|911|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|780|221|912|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|782|221|913|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|783|221|914|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|786|221|915|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|787|221|916|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|791|221|917|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|792|221|919|T
-NDS_Command_SetBreakpoint.exit|795|221|920|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|797|221|920|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|798|221|921|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|800|221|924|T
-NDS_Command_DeleteBreakpoints|806|221|927|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|808|221|927|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|809|221|930|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|810|221|932|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|811|221|934|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|812|221|935|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|813|221|937|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|817|221|938|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|818|221|941|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|819|221|942|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|822|221|945|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|823|221|948|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|824|221|949|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|825|221|952|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|826|221|954|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|830|221|955|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|831|221|958|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|835|221|960|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|836|221|961|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|837|221|962|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|840|221|966|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|841|221|967|T
-NDS_Command_DeleteBreakpoints.exit|844|221|968|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|846|221|968|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|847|221|969|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|849|221|972|T
-NDS_Command_SendMem|856|221|975|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|859|221|975|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|860|221|978|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|861|221|980|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|862|221|982|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|863|221|983|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|864|221|985|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|868|221|986|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|869|221|989|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|872|221|992|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|873|221|995|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|874|221|996|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|875|221|999|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|876|221|1001|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|877|221|1002|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|878|221|1005|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|879|221|1006|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|880|221|1009|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|883|221|1010|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|884|221|1012|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|885|221|1015|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|886|221|1017|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|887|221|1020|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|888|221|1022|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|890|221|1025|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|891|221|1026|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|892|221|1029|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|893|221|1030|T
-NDS_Command_SendMem.loop|896|221|1033|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|899|221|1033|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|900|221|1034|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|901|221|1035|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|904|221|1038|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|905|221|1039|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|906|221|1040|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|907|221|1041|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|912|221|1043|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|913|221|1044|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|915|221|1047|T
-NDS_Command_SendWatch|921|221|1050|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|924|221|1050|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|925|221|1053|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|926|221|1055|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|927|221|1057|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|928|221|1058|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|929|221|1060|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|934|221|1061|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|935|221|1064|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|939|221|1067|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|940|221|1070|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|942|221|1071|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|943|221|1074|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|944|221|1076|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|946|221|1077|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|947|221|1078|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|948|221|1079|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|951|221|1080|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|952|221|1082|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|953|221|1085|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|954|221|1087|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|955|221|1090|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|956|221|1092|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|958|221|1095|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|959|221|1096|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|960|221|1099|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|961|221|1100|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|965|221|1103|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|966|221|1104|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|969|221|1107|T
-NDS_Command_GetBreakpoints|974|221|1110|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|976|221|1110|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|977|221|1112|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|978|221|1115|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|979|221|1117|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|980|221|1120|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|981|221|1122|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|987|221|1125|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|988|221|1128|T
-NDS_Command_GetBreakpoints.loop|990|221|1130|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|991|221|1130|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|993|221|1131|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|994|221|1132|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|995|221|1133|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|997|221|1136|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|998|221|1137|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1001|221|1139|T
-NDS_Command_SetBank|1008|221|1142|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1013|221|1142|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1014|221|1145|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1015|221|1147|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1016|221|1149|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1018|221|1150|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1019|221|1153|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1020|221|1156|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1021|221|1158|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1022|221|1159|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1024|221|1161|T
-NDS_Command_PutData|1030|221|1164|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1033|221|1164|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1034|221|1167|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1035|221|1169|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1036|221|1171|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1037|221|1172|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1038|221|1174|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1045|221|1175|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1046|221|1178|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1049|221|1181|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1050|221|1184|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1053|221|1187|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1054|221|1190|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1055|221|1191|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1056|221|1194|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1057|221|1196|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1059|221|1197|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1060|221|1200|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1061|221|1201|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1062|221|1204|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1064|221|1205|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1065|221|1208|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1066|221|1210|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1067|221|1211|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1069|221|1214|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1070|221|1215|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1071|221|1218|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1072|221|1219|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1079|221|1222|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1080|221|1223|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1082|221|1226|T
-NDS_Command_PutData.SendError|1084|221|1229|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1085|221|1229|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1086|221|1230|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1087|221|1233|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1088|221|1234|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1091|221|1237|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1092|221|1240|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1093|221|1242|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1096|221|1245|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1097|221|1246|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1099|221|1249|T
-NDS_readfixed|1109|221|1252|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1110|221|1252|T
-NDS_readfixed.nextbyteloop|1112|221|1253|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1114|221|1253|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1115|221|1254|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1116|221|1257|T
-NDS_readfixed.loop|1118|221|1258|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1120|221|1258|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1121|221|1261|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1122|221|1263|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1123|221|1266|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1127|221|1268|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1128|221|1269|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1129|221|1270|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1130|221|1271|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1131|221|1272|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1132|221|1274|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1135|221|1275|T
-NDS_readfixed.dataready|1137|221|1277|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1141|221|1277|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1142|221|1280|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1143|221|1282|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1144|221|1283|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1147|221|1284|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1148|221|1286|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1151|221|1288|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1152|221|1289|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1153|221|1290|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1154|221|1291|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1157|221|1293|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1158|221|1294|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1159|221|1295|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1160|221|1296|T
-NDS_readfixed.timeout|1162|221|1297|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1163|221|1297|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1164|221|1298|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1165|221|1299|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1166|221|1300|T
-Sleep|1171|221|1301|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1172|221|1301|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1173|221|1302|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1175|221|1303|T
-Sleep.loop|1176|221|1306|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1177|221|1306|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1178|221|1307|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1179|221|1308|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1180|221|1309|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1182|221|1311|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1183|221|1312|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1184|221|1313|T
-NDS_Command_Break|1191|221|1314|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1193|221|1314|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1194|221|1316|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1197|221|1319|T
-NDS_Command_Continue|1202|221|1322|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1203|221|1322|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1204|221|1324|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1207|221|1327|T
-NDS_Command_Execute|1212|221|1330|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1215|221|1330|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1219|221|1333|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1220|221|1337|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1223|221|1341|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1224|221|1344|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1225|221|1345|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1226|221|1348|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1227|221|1349|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1229|221|1352|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1230|221|1355|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1231|221|1356|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1232|221|1359|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1233|221|1360|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1235|221|1363|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1236|221|1366|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1237|221|1369|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1238|221|1372|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1240|221|1374|T
-NDS_GetBankFromAddr|1250|221|1377|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1251|221|1377|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1252|221|1378|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1253|221|1379|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1254|221|1381|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1255|221|1383|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1259|221|1385|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1263|221|1387|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1264|221|1390|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1265|221|1392|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1266|221|1393|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1271|221|1395|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1272|221|1396|T
-NDS_DebugFlash|1277|221|1397|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1278|221|1397|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1279|221|1398|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1280|221|1399|T
-NDS_DebugFlash.loop|1281|221|1402|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1283|221|1402|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1284|221|1404|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1285|221|1406|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1286|221|1408|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1288|221|1410|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1289|221|1411|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1290|221|1412|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1291|221|1413|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1294|221|1415|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1295|221|1416|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1296|221|1417|T
-NDS_PrintHex|1306|221|1418|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1309|221|1418|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1310|221|1419|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1313|221|1420|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1315|221|1421|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1316|221|1422|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1317|221|1424|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1320|221|1425|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1321|221|1428|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1322|221|1430|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1323|221|1432|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1324|221|1433|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1325|221|1435|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1328|221|1436|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1330|221|1440|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1331|221|1441|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1333|221|1442|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1335|221|1445|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1336|221|1447|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1337|221|1449|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1338|221|1451|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1339|221|1453|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1341|221|1456|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1342|221|1457|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1343|221|1459|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1346|221|1462|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1347|221|1465|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1348|221|1468|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1349|221|1471|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1350|221|1473|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1351|221|1474|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1354|221|1476|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1355|221|1477|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1359|221|1480|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1360|221|1481|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1361|221|1482|T
-NDS_DrawHexCharacter|1367|221|1483|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1368|221|1483|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1369|221|1485|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1370|221|1486|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1371|221|1487|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1372|221|1488|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1373|221|1489|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1375|221|1490|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1376|221|1491|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1377|221|1492|T
-NDS_DrawHexCharacter.lp1|1378|221|1494|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1379|221|1494|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1380|221|1495|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1381|221|1496|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1382|221|1497|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1383|221|1498|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1384|221|1500|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1385|221|1501|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1386|221|1502|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1387|221|1503|T
-NDS_HexCharset|1390|221|1504|F
-NDS_BootStrap|1525|221|1632|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1526|221|1632|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1527|221|1636|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1528|221|1640|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1529|221|1644|T
-NDS_stack_addr|1532|221|1648|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1533|221|1648|T
-NDS_pc_addr|1535|221|1651|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDS.asm|1536|221|1651|T
-NDS_BootStrapSize|1538|-1|22|D
-NDS_CodeSize|1547|-1|1654|D
-Screen|14|10|16384|F
-StackEnd|18|10|23296|F
-StackStart|20|10|23300|F
+NDS_Cmd_SetBank|104|-1|180|D
+NDS_Cmd_PutData|105|-1|181|D
+NDS_Cmd_Execute|106|-1|182|D
+NDS_Cmd_SendRegs|107|-1|183|D
+NDS_Cmd_SetRegs|108|-1|184|D
+NDS_Cmd_SendMem|109|-1|185|D
+NDS_Cmd_Break|110|-1|186|D
+NDS_Cmd_Continue|111|-1|187|D
+NDS_Cmd_SetBreakpoint|112|-1|188|D
+NDS_Cmd_SendWatch|113|-1|189|D
+NDS_Cmd_GetBreakpoints|114|-1|190|D
+NDS_Cmd_DeleteBreakpoints|115|-1|191|D
+NDS_RX|117|-1|5179|D
+NDS_TX|118|-1|4923|D
+NDS_Mode_Running|120|-1|0|D
+NDS_Mode_Paused|121|-1|1|D
+NDS_Mode_Error|122|-1|2|D
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|135|222|0|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|136|222|1|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|142|222|8|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|144|222|9|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|145|222|12|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|146|222|13|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|148|222|16|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|149|222|19|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|150|222|20|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|152|222|23|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|153|222|24|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|154|222|26|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|155|222|29|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|156|222|30|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|162|222|56|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|163|222|57|T
+RST66|169|222|102|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|170|222|102|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|171|222|103|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|172|222|105|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|173|222|108|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|174|222|109|T
+NDS_RST00|179|222|112|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|180|222|112|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|181|222|113|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|182|222|115|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|183|222|118|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|184|222|119|T
+NDS_IM1|186|222|122|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|187|222|122|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|188|222|124|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|189|222|127|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|190|222|128|T
+NDS_RAM_START_COPY|199|222|131|F
+NDS_RAM_START|203|15|8192|F
+NDS_STACK|204|15|8192|F
+NDS_REGISTERS|205|15|8212|F
+NDS_ZHL|206|15|8232|F
+NDS_ZPC|207|15|8234|F
+NDS_ZSP|208|15|8236|F
+NDS_HWREGS|209|15|8238|F
+NDS_mode|210|15|8293|F
+NDS_REGISTERS_LEN|211|-1|82|D
+NDS_BreakpointData|216|15|8294|F
+NDS_BreakpointDataLength|217|-1|50|D
+NDS_temp|219|15|8344|F
+NDS_COLOR|221|15|8348|F
+NDS_DEBUG1|223|15|8349|F
+NDS_DEBUG2|224|15|8351|F
+NDS_DEBUG3|225|15|8353|F
+NDS_DEBUG4|226|15|8355|F
+NDS_EXIT|229|15|8357|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|229|15|8357|T
+NDS_RAMLENGTH|233|-1|168|D
+NDS_BaudRateTable|244|10|16683|F
+NDS_INIT|246|10|16699|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|260|10|16699|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|261|10|16703|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|264|10|16707|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|265|10|16709|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|266|10|16712|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|268|10|16714|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|269|10|16717|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|270|10|16720|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|271|10|16723|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|275|10|16725|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|276|10|16727|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|277|10|16730|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|279|10|16732|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|280|10|16735|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|281|10|16738|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|282|10|16741|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|283|10|16742|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|284|10|16743|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|286|10|16745|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|287|10|16748|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|288|10|16751|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|289|10|16754|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|294|10|16756|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|295|10|16758|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|296|10|16761|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|303|10|16763|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|304|10|16766|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|305|10|16768|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|306|10|16770|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|307|10|16771|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|308|10|16773|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|310|10|16775|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|311|10|16778|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|312|10|16780|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|313|10|16781|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|314|10|16782|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|316|10|16783|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|317|10|16786|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|318|10|16787|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|319|10|16789|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|321|10|16791|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|322|10|16792|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|323|10|16794|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|324|10|16795|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|325|10|16796|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|326|10|16798|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|328|10|16800|T
+NDS_FindFreeBreakpoint|344|222|417|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|345|222|417|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|347|222|418|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|348|222|421|T
+NDS_FindFreeBreakpoint.loop|349|222|423|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|350|222|423|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|351|222|424|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|352|222|426|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|353|222|428|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|354|222|432|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|357|222|434|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|358|222|435|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|359|222|436|T
+NDS_FindFreeBreakpoint.foundfree|360|222|437|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|361|222|437|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|362|222|438|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|363|222|439|T
+NDS_FindBreakpoint|373|222|440|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|374|222|440|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|376|222|441|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|377|222|445|T
+NDS_FindBreakpoint.loop|378|222|447|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|379|222|447|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|380|222|450|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|381|222|452|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|383|222|454|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|384|222|457|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|385|222|458|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|387|222|460|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|388|222|463|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|389|222|464|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|391|222|466|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|392|222|469|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|393|222|470|T
+NDS_FindBreakpoint.notused|398|222|472|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|399|222|472|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|399|222|474|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|399|222|476|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|399|222|478|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|399|222|480|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|400|222|482|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|402|222|484|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|403|222|485|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|404|222|486|T
+NDS_FindBreakpoint.found|405|222|487|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|406|222|487|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|407|222|489|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|408|222|490|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|409|222|491|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|410|222|492|T
+NDS_BREAKPOINT|417|222|493|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|418|222|493|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|420|222|494|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|421|222|497|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|423|222|501|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|426|222|502|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|427|222|505|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|429|222|508|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|430|222|509|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|431|222|510|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|432|222|511|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|433|222|512|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|434|222|513|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|435|222|514|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|436|222|516|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|437|222|518|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|438|222|519|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|439|222|521|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|440|222|522|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|441|222|524|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|442|222|525|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|443|222|526|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|444|222|527|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|448|222|528|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|449|222|531|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|450|222|533|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|451|222|535|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|452|222|536|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|453|222|538|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|457|222|539|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|458|222|543|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|459|222|544|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|460|222|547|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|461|222|548|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|463|222|551|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|464|222|552|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|465|222|554|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|468|222|555|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|469|222|558|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|472|222|560|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|473|222|561|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|474|222|562|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|475|222|566|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|476|222|567|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|479|222|568|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|480|222|571|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|481|222|572|T
+NDS_BREAKPOINT.notfound|484|222|575|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|485|222|575|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|486|222|577|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|489|222|580|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|490|222|581|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|493|222|584|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|494|222|587|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|495|222|590|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|497|222|593|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|498|222|596|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|499|222|599|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|502|222|602|T
+NDS_POLL|512|222|605|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|513|222|605|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|515|222|606|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|516|222|609|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|518|222|613|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|519|222|614|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|521|222|617|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|523|222|620|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|524|222|621|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|525|222|622|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|526|222|623|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|527|222|624|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|528|222|625|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|529|222|626|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|530|222|628|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|531|222|630|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|532|222|631|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|533|222|633|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|534|222|634|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|535|222|636|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|536|222|637|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|537|222|638|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|538|222|639|T
+NDS_checkCommandLoop|541|222|640|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|542|222|640|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|545|222|643|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|546|222|646|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|547|222|647|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|548|222|650|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|549|222|652|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|551|222|654|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|552|222|657|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|553|222|659|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|557|222|661|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|558|222|662|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|560|222|664|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|561|222|665|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|562|222|666|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|563|222|667|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|564|222|668|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|565|222|670|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|566|222|671|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|567|222|673|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|568|222|674|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|569|222|676|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|570|222|678|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|571|222|679|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|572|222|680|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|573|222|681|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|574|222|682|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|575|222|683|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|576|222|684|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|577|222|685|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|578|222|689|T
+NDS_checkCommand|585|222|692|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|590|222|692|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|591|222|695|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|593|222|696|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|594|222|699|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|595|222|701|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|597|222|703|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|598|222|706|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|599|222|708|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|601|222|710|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|602|222|713|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|603|222|715|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|606|222|717|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|607|222|720|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|608|222|722|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|609|222|725|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|610|222|727|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|611|222|730|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|612|222|732|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|613|222|735|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|614|222|737|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|615|222|740|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|616|222|742|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|617|222|745|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|618|222|747|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|619|222|750|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|620|222|752|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|621|222|755|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|622|222|757|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|623|222|760|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|624|222|762|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|625|222|765|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|626|222|767|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|628|222|770|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|629|222|772|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|631|222|775|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|632|222|777|T
+NDS_checkCommand.flush|635|222|780|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|637|222|780|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|639|222|783|T
+NDS_dataready|644|222|784|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|645|222|784|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|646|222|787|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|647|222|789|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|648|222|791|T
+NDS_flush|654|222|792|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|655|222|792|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|656|222|795|T
+NDS_flush.fifo|658|222|797|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|659|222|797|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|660|222|799|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|661|222|801|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|662|222|802|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|663|222|804|T
+NDS_GetByte|673|222|805|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|674|222|805|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|675|222|806|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|677|222|807|T
+NDS_GetByte.loop|678|222|809|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|679|222|809|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|680|222|810|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|682|222|812|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|683|222|815|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|684|222|817|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|685|222|820|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|688|222|822|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|689|222|825|T
+NDS_GetByte.exit|692|222|827|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|693|222|827|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|694|222|828|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|695|222|829|T
+NDS_SendByte|704|222|830|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|705|222|830|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|706|222|831|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|708|222|832|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|710|222|833|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|711|222|835|T
+NDS_SendByte.loop|712|222|838|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|713|222|838|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|714|222|839|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|716|222|841|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|717|222|843|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|718|222|846|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|721|222|848|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|722|222|849|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|723|222|851|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|724|222|853|T
+NDS_SendByte.exit|726|222|855|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|728|222|855|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|729|222|856|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|731|222|857|T
+delay|738|222|858|F
+delay.loop|739|222|858|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|741|222|858|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|742|222|859|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|743|222|860|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|744|222|861|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|745|222|863|T
+NDS_regstoread|751|222|864|F
+NDS_NumRegs|755|-1|55|D
+NDS_Command_SendRegs|760|222|919|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|764|222|919|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|765|222|922|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|766|222|925|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|767|222|927|T
+NDS_Command_SendRegs.regloop|769|222|929|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|770|222|929|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|774|222|930|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|775|222|932|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|776|222|933|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|777|222|934|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|779|222|936|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|780|222|938|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|781|222|940|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|782|222|941|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|784|222|942|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|785|222|943|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|791|222|945|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|792|222|947|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|793|222|950|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|794|222|952|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|795|222|955|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|796|222|957|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|802|222|960|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|803|222|963|T
+NDS_Command_SendRegs.loop|805|222|965|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|806|222|965|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|808|222|966|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|809|222|967|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|810|222|968|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|812|222|971|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|813|222|972|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|817|222|974|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|818|222|977|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|819|222|978|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|821|222|979|T
+NDS_Command_SendRegs.loop2|822|222|981|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|823|222|981|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|824|222|982|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|825|222|985|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|827|222|986|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|828|222|987|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|829|222|990|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|832|222|991|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|840|222|993|T
+NDS_Command_SetRegs|845|222|996|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|847|222|996|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|848|222|999|T
+NDS_Command_SetRegs.loop|850|222|1001|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|851|222|1001|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|853|222|1002|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|854|222|1005|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|855|222|1006|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|857|222|1007|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|858|222|1008|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|861|222|1010|T
+NDS_Command_SetBreakpoint|866|222|1013|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|871|222|1013|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|872|222|1016|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|873|222|1018|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|874|222|1020|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|875|222|1021|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|876|222|1023|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|882|222|1024|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|883|222|1027|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|884|222|1028|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|890|222|1031|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|891|222|1034|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|892|222|1035|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|893|222|1038|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|894|222|1040|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|900|222|1041|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|901|222|1044|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|904|222|1046|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|905|222|1049|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|911|222|1052|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|912|222|1054|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|913|222|1055|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|916|222|1056|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|917|222|1057|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|918|222|1058|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|919|222|1059|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|921|222|1060|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|922|222|1061|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|925|222|1062|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|926|222|1063|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|930|222|1064|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|931|222|1066|T
+NDS_Command_SetBreakpoint.exit|934|222|1067|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|936|222|1067|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|937|222|1068|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|939|222|1071|T
+NDS_Command_DeleteBreakpoints|945|222|1074|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|947|222|1074|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|948|222|1077|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|949|222|1079|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|950|222|1081|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|951|222|1082|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|952|222|1084|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|956|222|1085|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|957|222|1088|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|958|222|1089|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|961|222|1092|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|962|222|1095|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|963|222|1096|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|964|222|1099|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|965|222|1101|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|969|222|1102|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|970|222|1105|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|974|222|1107|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|975|222|1108|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|976|222|1109|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|979|222|1113|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|980|222|1114|T
+NDS_Command_DeleteBreakpoints.exit|983|222|1115|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|985|222|1115|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|986|222|1116|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|988|222|1119|T
+NDS_Command_SendMem|995|222|1122|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|998|222|1122|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|999|222|1125|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1000|222|1127|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1001|222|1129|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1002|222|1130|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1003|222|1132|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1007|222|1133|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1008|222|1136|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1009|222|1138|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1010|222|1140|T
+NDS_Command_SendMem.dontsetbank|1011|222|1143|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1014|222|1143|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1015|222|1146|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1016|222|1147|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1018|222|1150|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1019|222|1151|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1020|222|1154|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1021|222|1155|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1022|222|1158|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1025|222|1159|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1026|222|1161|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1027|222|1164|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1028|222|1166|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1029|222|1169|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1030|222|1171|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1032|222|1174|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1033|222|1175|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1034|222|1178|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1035|222|1179|T
+NDS_Command_SendMem.loop|1038|222|1182|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1041|222|1182|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1042|222|1183|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1043|222|1184|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1046|222|1187|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1047|222|1188|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1048|222|1189|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1049|222|1190|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1054|222|1192|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1055|222|1193|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1057|222|1196|T
+NDS_Command_SendWatch|1063|222|1199|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1066|222|1199|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1067|222|1202|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1068|222|1204|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1069|222|1206|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1070|222|1207|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1071|222|1209|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1076|222|1210|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1077|222|1213|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1081|222|1216|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1082|222|1219|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1084|222|1220|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1085|222|1223|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1086|222|1225|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1088|222|1226|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1089|222|1227|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1090|222|1228|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1093|222|1229|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1094|222|1231|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1095|222|1234|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1096|222|1236|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1097|222|1239|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1098|222|1241|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1100|222|1244|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1101|222|1245|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1102|222|1248|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1103|222|1249|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1107|222|1252|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1108|222|1253|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1111|222|1256|T
+NDS_Command_GetBreakpoints|1116|222|1259|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1118|222|1259|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1119|222|1261|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1120|222|1264|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1121|222|1266|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1122|222|1269|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1123|222|1271|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1129|222|1274|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1130|222|1277|T
+NDS_Command_GetBreakpoints.loop|1132|222|1279|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1133|222|1279|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1135|222|1280|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1136|222|1281|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1137|222|1282|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1139|222|1285|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1140|222|1286|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1143|222|1288|T
+NDS_Command_SetBank|1150|222|1291|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1155|222|1291|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1156|222|1294|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1157|222|1296|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1158|222|1298|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1160|222|1299|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1161|222|1302|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1162|222|1305|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1163|222|1307|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1164|222|1308|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1166|222|1310|T
+NDS_Command_PutData|1172|222|1313|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1175|222|1313|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1176|222|1316|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1177|222|1318|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1178|222|1320|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1179|222|1321|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1180|222|1323|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1187|222|1324|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1188|222|1327|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1191|222|1330|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1192|222|1333|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1195|222|1336|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1196|222|1339|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1197|222|1340|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1198|222|1343|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1199|222|1345|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1201|222|1346|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1202|222|1349|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1203|222|1350|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1204|222|1353|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1206|222|1354|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1207|222|1357|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1208|222|1359|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1209|222|1360|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1211|222|1363|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1212|222|1364|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1213|222|1367|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1214|222|1368|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1221|222|1371|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1222|222|1372|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1224|222|1375|T
+NDS_Command_PutData.SendError|1226|222|1378|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1227|222|1378|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1228|222|1379|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1229|222|1382|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1230|222|1383|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1233|222|1386|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1234|222|1389|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1235|222|1391|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1238|222|1394|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1239|222|1395|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1241|222|1398|T
+NDS_readfixed|1251|222|1401|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1252|222|1401|T
+NDS_readfixed.nextbyteloop|1254|222|1402|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1256|222|1402|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1257|222|1403|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1258|222|1406|T
+NDS_readfixed.loop|1260|222|1407|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1262|222|1407|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1263|222|1410|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1264|222|1412|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1265|222|1415|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1269|222|1417|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1270|222|1418|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1271|222|1419|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1272|222|1420|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1273|222|1421|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1274|222|1423|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1277|222|1424|T
+NDS_readfixed.dataready|1279|222|1426|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1283|222|1426|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1284|222|1429|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1285|222|1431|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1286|222|1432|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1289|222|1433|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1290|222|1435|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1293|222|1437|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1294|222|1438|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1295|222|1439|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1296|222|1440|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1299|222|1442|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1300|222|1443|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1301|222|1444|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1302|222|1445|T
+NDS_readfixed.timeout|1304|222|1446|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1305|222|1446|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1306|222|1447|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1307|222|1448|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1308|222|1449|T
+Sleep|1313|222|1450|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1314|222|1450|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1315|222|1451|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1317|222|1452|T
+Sleep.loop|1318|222|1455|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1319|222|1455|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1320|222|1456|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1321|222|1457|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1322|222|1458|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1324|222|1460|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1325|222|1461|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1326|222|1462|T
+NDS_Command_Break|1333|222|1463|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1335|222|1463|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1336|222|1465|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1339|222|1468|T
+NDS_Command_Continue|1344|222|1471|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1345|222|1471|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1346|222|1473|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1349|222|1476|T
+NDS_Command_Execute|1354|222|1479|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1361|222|1479|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1362|222|1483|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1364|222|1487|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1365|222|1490|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1366|222|1493|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1367|222|1496|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1370|222|1498|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1371|222|1501|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1372|222|1502|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1373|222|1505|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1374|222|1506|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1376|222|1509|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1377|222|1512|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1378|222|1513|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1379|222|1516|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1380|222|1517|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1383|222|1520|T
+NDS_BootStrap|1388|222|1523|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1389|222|1523|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1390|222|1527|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1391|222|1531|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1392|222|1535|T
+NDS_stack_addr|1393|222|1539|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1394|222|1539|T
+NDS_pc_addr|1396|222|1542|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1397|222|1542|T
+NDS_BootStrapSize|1399|-1|22|D
+NDS_GetBankFromAddr|1411|222|1545|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1412|222|1545|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1413|222|1546|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1414|222|1547|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1415|222|1549|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1416|222|1551|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1420|222|1553|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1424|222|1555|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1425|222|1558|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1426|222|1560|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1427|222|1561|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1432|222|1563|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1433|222|1564|T
+NDS_DebugFlash|1441|222|1565|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1442|222|1565|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1443|222|1566|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1444|222|1567|T
+NDS_DebugFlash.loop|1445|222|1570|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1447|222|1570|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1448|222|1572|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1449|222|1574|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1450|222|1576|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1452|222|1578|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1453|222|1579|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1454|222|1580|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1455|222|1581|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1459|222|1583|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1460|222|1584|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1463|222|1585|T
+NDS_PrintHex|1471|222|1586|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1474|222|1586|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1475|222|1587|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1478|222|1588|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1480|222|1589|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1481|222|1590|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1482|222|1592|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1485|222|1593|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1486|222|1596|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1487|222|1598|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1488|222|1600|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1489|222|1601|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1490|222|1603|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1493|222|1604|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1495|222|1608|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1496|222|1609|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1498|222|1610|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1500|222|1613|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1501|222|1615|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1502|222|1617|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1503|222|1619|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1504|222|1621|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1506|222|1624|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1507|222|1625|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1508|222|1627|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1519|222|1630|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1520|222|1631|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1524|222|1634|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1525|222|1635|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1526|222|1636|T
+NDS_DrawHexCharacter|1533|222|1637|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1534|222|1637|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1535|222|1639|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1536|222|1640|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1537|222|1641|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1538|222|1642|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1539|222|1643|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1541|222|1644|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1542|222|1645|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1543|222|1646|T
+NDS_DrawHexCharacter.lp1|1544|222|1648|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1545|222|1648|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1546|222|1649|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1547|222|1650|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1548|222|1651|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1549|222|1652|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1550|222|1654|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1551|222|1655|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1552|222|1656|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1553|222|1657|T
+NDS_HexCharset|1556|222|1658|F
+NDS_CodeSize|1564|-1|1786|D
+NDS_EXIT_RET|1572|222|8184|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1573|222|8184|T
+NDS_EXIT_RETI|1574|222|8185|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1575|222|8185|T
+NDS_EXIT_RETN|1576|222|8187|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\NDSFull.asm|1577|222|8187|T
+Screen|16|10|16384|F
+StackEnd|21|11|24576|F
+StackStart|23|11|24596|F
 BLACK|3|-1|0|D
 BLUE|4|-1|1|D
 RED|5|-1|2|D
@@ -961,31 +1018,48 @@ MMU4_ADDR|86|-1|32768|D
 MMU5_ADDR|87|-1|40960|D
 MMU6_ADDR|88|-1|49152|D
 MMU7_ADDR|89|-1|57344|D
-count|27|10|23301|F
-StartAddress|31|10|23302|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|32|10|23302|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|35|10|23303|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|37|10|23307|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|38|10|23311|T
-MainLoop|45|10|23314|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|47|10|23314|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|48|10|23316|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|50|10|23319|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|51|10|23322|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|52|10|23323|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|53|10|23326|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|54|10|23328|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|58|10|23331|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|59|10|23335|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|63|10|23338|T
-WaitForLine|69|10|23341|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|70|10|23341|T
-WaitForLine.Loop|72|10|23342|F
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|73|10|23342|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|74|10|23345|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|75|10|23347|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|76|10|23349|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|77|10|23352|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|78|10|23354|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|79|10|23355|T
-C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|80|10|23357|T
+count|31|11|24597|F
+sptemp|32|11|24598|F
+StartAddress|35|11|24600|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|36|11|24600|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|38|11|24601|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|40|11|24603|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|43|11|24607|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|44|11|24609|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|45|11|24612|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|47|11|24613|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|48|11|24617|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|50|11|24620|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|51|11|24621|T
+MainLoop|100|11|24624|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|102|11|24624|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|103|11|24626|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|105|11|24629|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|106|11|24632|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|107|11|24633|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|109|11|24636|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|110|11|24639|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|117|11|24641|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|117|11|24642|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|121|11|24643|T
+WaitForLine|127|11|24646|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|128|11|24646|T
+WaitForLine.Loop|130|11|24647|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|131|11|24647|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|132|11|24650|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|133|11|24652|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|134|11|24654|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|135|11|24657|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|136|11|24659|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|137|11|24660|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|138|11|24662|T
+GetMmuBank|147|11|24663|F
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|148|11|24663|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|149|11|24664|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|150|11|24666|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|151|11|24669|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|152|11|24671|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|153|11|24672|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|154|11|24674|T
+C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\simplends.asm|155|11|24675|T
+Count|160|11|24676|F

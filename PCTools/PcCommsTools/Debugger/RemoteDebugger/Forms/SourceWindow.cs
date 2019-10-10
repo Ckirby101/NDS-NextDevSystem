@@ -293,6 +293,8 @@ namespace RemoteDebugger
         private void button1_Click(object sender, EventArgs e)
         {
             Program.myMainForm.FocusPC();
+            Program.myMainForm.UpdateAllWindows(true);
+
         }
     }
 }
