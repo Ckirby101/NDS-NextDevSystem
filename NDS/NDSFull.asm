@@ -23,6 +23,7 @@ NDS_MMUBank 	equ 222			;bank where NDS code will be compiled before copy to divm
 NDS_SLOT		equ 2			; (2-7) slot that i should use to init code (2=$4000)
 NDS_BaudRate	equ 1958400		;baud rate for communication, set the same value for debugger
 
+NDS_INTERUPTSON	equ 1			;set to 1 for NDS to turn interupt back on after its finished working
 
 ; --------------------------------------------------------------------------
 ;Protocol
@@ -141,6 +142,7 @@ NDS_Mode_Error				equ	2
 	org $0008			;rst 8 POLLING!
 	pop hl				;E1 the origional rom has this so this might run from normal rom
 						; hl now has pc return address
+	di
 	ld (NDS_ZPC),hl
 	pop hl				; hl now has real hl again!
 	ld (NDS_ZHL),hl
@@ -151,7 +153,7 @@ NDS_Mode_Error				equ	2
 
 	push af
 	ld a,LOW NDS_EXIT_RET
-	ld (NDS_EXIT+1),a
+	ld (NDS_EXIT_SMC+1),a
 	pop af
 	jp NDS_POLL
 
@@ -160,16 +162,17 @@ NDS_Mode_Error				equ	2
 	ASSERT $<$38
 	org $0038			;halt interupt routine
 	push af				;this is whats in origional rom
+	di
 	jp NDS_IM1
 
 
 ;RST66
 	ASSERT $<66
 	org $0066			;nmi
-RST66:
 	push af				;this is whats in origional rom
+	di
 	ld a,LOW NDS_EXIT_RETN
-	ld (NDS_EXIT+1),a
+	ld (NDS_EXIT_SMC+1),a
 	pop af	
 	JP NDS_BREAKPOINT
 
@@ -179,13 +182,13 @@ RST66:
 NDS_RST00:
 	push af
 	ld a,LOW NDS_EXIT_RET
-	ld (NDS_EXIT+1),a
+	ld (NDS_EXIT_SMC+1),a
 	pop af
 	jp NDS_BREAKPOINT
 ; ************************************************************************************************
 NDS_IM1:
 	ld a,LOW NDS_EXIT_RETI
-	ld (NDS_EXIT+1),a
+	ld (NDS_EXIT_SMC+1),a
 	pop af
 	jp NDS_POLL
 
@@ -226,7 +229,13 @@ NDS_DEBUG3					dw 0
 NDS_DEBUG4					dw 0
 
 ; this is so we can exit from rst and nmi and interupts correctly using SMC
-NDS_EXIT:					JP NDS_EXIT_RET
+NDS_EXIT:
+	if NDS_INTERUPTSON==1
+	ei
+	endif
+
+NDS_EXIT_SMC
+							JP NDS_EXIT_RET
 
 
 
@@ -542,10 +551,7 @@ NDS_checkCommandLoop
 	call NDS_checkCommand
 
 
-	ld a,(NDS_COLOR)
-	inc a
-	ld (NDS_COLOR),a
-	swapnib
+	ld a,1
 	out ($fe),a
 
 	ld a,(NDS_mode)	;ok

@@ -32,7 +32,6 @@ using RemoteDebugger.Remote;
 
 //-trace="C:\Users\ckirb\Documents\Spectrum Next\tetris\tracedata.txt"
 // -trace="C:\Users\ckirb\Documents\Spectrum Next\UART\UARTCOMMS\NDS\tracedata.txt"
-
 namespace RemoteDebugger
 {
 

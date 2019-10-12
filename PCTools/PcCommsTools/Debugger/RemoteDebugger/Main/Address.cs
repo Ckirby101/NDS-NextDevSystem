@@ -73,7 +73,7 @@ namespace RemoteDebugger.Main
                 return;
             }
 
-            if (_bank > 223)
+            if (_bank > 223 && _bank !=255)
             {
                 throw new Exception("SetAddress Bank out of Range");
             }

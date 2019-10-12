@@ -50,6 +50,7 @@ namespace RemoteDebugger
 
         private byte[] disassemblyMemory;
         private int dissassemblyBaseAddress;
+        private int disasmline;
 
         private TestMemory EmulatorMemory;
         private TestPorts EmulatorPorts;
@@ -59,8 +60,8 @@ namespace RemoteDebugger
 
         /// <summary> The dis RegEx. </summary>
         //Regex disRegex;
-	    /// <summary> The address RegEx. </summary>
-	    Regex addrRegex;
+        /// <summary> The address RegEx. </summary>
+        Regex addrRegex;
 
 
         private eZ80Disassembler.DisassembledInstruction[] instrs;
@@ -79,10 +80,10 @@ namespace RemoteDebugger
             InitializeComponent();
             disassemblyData = new BindingList<DisassemblyData>();
             //disRegex = new Regex(@"([0-9a-fA-F]{4})\s([0-9a-fA-F]*)\s*(.*)");   //gets the address and opcode hex
-	        addrRegex = new Regex(@"([0-9a-fA-F]{4})");
-            for (int a=0;a<30;a++)
+            addrRegex = new Regex(@"([0-9a-fA-F]{4})");
+            for (int a = 0; a < 30; a++)
             {
-                disassemblyData.Add(new DisassemblyData() { Address = "0000", Value = "" });
+                disassemblyData.Add(new DisassemblyData() {Address = "0000", Value = ""});
             }
 
             DissasemblyDataGrid.DataSource = disassemblyData;
@@ -116,6 +117,7 @@ namespace RemoteDebugger
             //just gets the pc upon next step!
             return GetEmulatorPC();
         }
+
         // -------------------------------------------------------------------------------------------------
         // Gets step over address
         //
@@ -131,6 +133,8 @@ namespace RemoteDebugger
         }
 
 
+
+
         /// -------------------------------------------------------------------------------------------------
         /// <summary> Request update. </summary>
         ///
@@ -140,19 +144,52 @@ namespace RemoteDebugger
         /// -------------------------------------------------------------------------------------------------
         public void RequestUpdate(int pc)
         {
-            int addr = pc;
+            int addr = Math.Max(0,pc-64);
 
             int bank = NextAddress.GetBankFromAddress(ref MainForm.banks, addr);
 
 
             Program.serialport.GetMemory(
-                delegate(byte[] response, int tag)
-                { 
-                    Invoke((MethodInvoker)delegate { UIUpdate(tag,response); });
-                }
-                , addr,64,bank,addr);
+                delegate(byte[] response, int tag) { Invoke((MethodInvoker) delegate { UIUpdate(tag, response); }); }
+                , addr, 128, bank, addr);
         }
 
+
+
+        private int DisasmWithOffset(ref byte[] data, int disaddr,int pc, int offset)
+        {
+            dissassemblyBaseAddress = disaddr+offset;
+            disassemblyMemory = new byte[(data.Length - 5)+offset];
+            Array.Copy(data, 5+offset, disassemblyMemory, 0, (data.Length - 5)-offset);
+
+            int start = 0;
+            int end = disassemblyMemory.Length - 1;
+            int baseAddress = dissassemblyBaseAddress;
+            bool hasBaseAddress = true;
+            bool adlMode = false;
+            bool z80ClassicMode = true;
+            bool addLabels = false;
+
+
+            instrs = eZ80Disassembler.Disassemble(disassemblyMemory, start, end, baseAddress, hasBaseAddress, adlMode,
+                z80ClassicMode, addLabels ? "label_" : "", addLabels ? "loc_" : "");
+
+            int foundline = -1;
+            int index=0;
+            foreach (eZ80Disassembler.DisassembledInstruction di in instrs)
+            {  
+                int addr = (baseAddress + di.StartPosition);
+                if (addr == pc)
+                {
+                    foundline = index;
+                    break;
+                }
+
+                index++;
+            }
+
+            return foundline;
+        }
 
 
         /// -------------------------------------------------------------------------------------------------
@@ -162,56 +199,46 @@ namespace RemoteDebugger
         ///
         /// <param name="items"> The items. </param>
         /// -------------------------------------------------------------------------------------------------
-        void UIUpdate(int pc,byte[] data)
+        void UIUpdate(int disaddr, byte[] data)
         {
+            int pc = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
 
-            dissassemblyBaseAddress = pc;
+            int offset=-1;
+            int foundline = -1;
+            do
+            {
+                offset++;
+            } while ( (foundline = DisasmWithOffset(ref data, disaddr,pc, offset)) < 0 );
+            disasmline = foundline;
 
-            disassemblyMemory = new byte[data.Length-5];
-            Array.Copy(data,5,disassemblyMemory,0,data.Length-5);
-
-            int start = 0;
-            int end = disassemblyMemory.Length-1;
-            int baseAddress = dissassemblyBaseAddress;
-            bool hasBaseAddress = true;
-            bool adlMode = false;
-            bool z80ClassicMode = true;
-            bool addLabels = false;
-
-
-            SyncEmulator();
             //goto next instruction
-
+            SyncEmulator();
             StepEmulator();
 
-            instrs = eZ80Disassembler.Disassemble(disassemblyMemory, start, end, baseAddress, hasBaseAddress, adlMode, z80ClassicMode, addLabels ? "label_" : "", addLabels ? "loc_" : "");
-
-
-
-            int index = 0;
-            foreach (eZ80Disassembler.DisassembledInstruction di in instrs)
+            int instructionOffset = Math.Max(0,disasmline - 15);
+            for (int index = 0; index < 30; index++)
             {
-                if (index >= 30) break;
+                eZ80Disassembler.DisassembledInstruction di = instrs[index + instructionOffset];
+                
+                int addr = (dissassemblyBaseAddress + di.StartPosition);
+                string addrstr = addr.ToString("X4") + "  ";
 
-                int addr = (baseAddress + di.StartPosition);
-                string addrstr = addr.ToString("X4")+"  ";
-
-                Labels.Label l = Labels.GetLabel(ref MainForm.banks,addr);
+                Labels.Label l = Labels.GetLabel(ref MainForm.banks, addr);
                 for (int i = 0; i < di.Length; i++)
                 {
-                    addrstr = addrstr + data[di.StartPosition + i+5].ToString("X2")+" ";
+                    addrstr = addrstr + data[di.StartPosition + i + 5].ToString("X2") + " ";
                 }
 
                 //add address label
                 if (l != null)
                     addrstr = addrstr + l.label;
-                disassemblyData[index].Address = addrstr ;
+                disassemblyData[index].Address = addrstr;
 
 
                 // do value
 
                 string dis = di.ToString();
-                Match  m = addrRegex.Match(dis);
+                Match m = addrRegex.Match(dis);
 
                 if (m.Success)
                 {
@@ -219,16 +246,16 @@ namespace RemoteDebugger
                     if (int.TryParse(m.Value, NumberStyles.AllowHexSpecifier, null, out jaddr))
                     {
                         l = null;
-                        int offset;
-                        if (Labels.GetLabelWithOffset(ref MainForm.banks,jaddr,out l, out offset))
+                        int voffset;
+                        if (Labels.GetLabelWithOffset(ref MainForm.banks, jaddr, out l, out voffset))
                         {
                             if (Program.InStepMode)
                                 MainForm.myWatches.AddLocalWatch(l);
 
 
-                            if (offset == 0)
+                            if (voffset == 0)
                             {
-                                dis = dis.Replace(m.Value, l.label) + "  ;"+m.Value;
+                                dis = dis.Replace(m.Value, l.label) + "  ;" + m.Value;
                             }
                             else
                             {
@@ -240,31 +267,34 @@ namespace RemoteDebugger
 
 
                 }
+
                 disassemblyData[index].Value = dis;
 
                 DissasemblyDataGrid.Rows[index].DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
 
-
+                // mark the next instruction to run
                 if (addr == GetEmulatorPC())
                     DissasemblyDataGrid.Rows[index].DefaultCellStyle.ForeColor = System.Drawing.Color.Red;
                 else
                     DissasemblyDataGrid.Rows[index].DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
 
-
+                //mark the current z80 pc instruction
                 if (addr == pc)
-                {
                     DissasemblyDataGrid.Rows[index].DefaultCellStyle.BackColor = System.Drawing.Color.LightBlue;
-                }
                 else
-                {
                     DissasemblyDataGrid.Rows[index].DefaultCellStyle.BackColor = System.Drawing.Color.White;
-                }
-                index++;
+
+
             }
+
+
 
             DissasemblyDataGrid.Invalidate();
 
             Invalidate();
+
+
+            MainForm.sourceCodeView.UpdateDismWindow();
 
 /*
             //bool updated = false;
@@ -350,18 +380,18 @@ namespace RemoteDebugger
         }
 
 
-	    /// -------------------------------------------------------------------------------------------------
-	    /// <summary> Gets current line code. </summary>
-	    ///
-	    /// <remarks> 12/09/2018. </remarks>
-	    ///
-	    /// <returns> The current line code. </returns>
-	    /// -------------------------------------------------------------------------------------------------
-	    public string GetCurrentLineCode()
-	    {
-		    return disassemblyData[0].Value;
+        /// -------------------------------------------------------------------------------------------------
+        /// <summary> Gets current line code. </summary>
+        ///
+        /// <remarks> 12/09/2018. </remarks>
+        ///
+        /// <returns> The current line code. </returns>
+        /// -------------------------------------------------------------------------------------------------
+        public string GetCurrentLineCode()
+        {
+            return disassemblyData[0].Value;
 
-	    }
+        }
 
         /// -------------------------------------------------------------------------------------------------
         /// <summary> Event handler. Called by dataGridView1 for cell double click events. </summary>
@@ -417,28 +447,28 @@ namespace RemoteDebugger
                 EmulatorMemory[dissassemblyBaseAddress + i] = disassemblyMemory[i];
             }
 
-            Emulatorcpu.Registers.A = (byte)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.a);
-            Emulatorcpu.Registers.HL = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.hl);
-            Emulatorcpu.Registers.BC = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.bc);
-            Emulatorcpu.Registers.DE = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.de);
+            Emulatorcpu.Registers.A = (byte) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.a);
+            Emulatorcpu.Registers.HL = (ushort) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.hl);
+            Emulatorcpu.Registers.BC = (ushort) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.bc);
+            Emulatorcpu.Registers.DE = (ushort) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.de);
 
-            Emulatorcpu.Registers.A_ = (byte)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.a_e);
-            Emulatorcpu.Registers.HL = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.hl_e);
-            Emulatorcpu.Registers.BC = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.bc_e);
-            Emulatorcpu.Registers.DE = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.de_e);
+            Emulatorcpu.Registers.A_ = (byte) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.a_e);
+            Emulatorcpu.Registers.HL = (ushort) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.hl_e);
+            Emulatorcpu.Registers.BC = (ushort) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.bc_e);
+            Emulatorcpu.Registers.DE = (ushort) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.de_e);
 
 
-            Emulatorcpu.Registers.IX = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.ix);
-            Emulatorcpu.Registers.IY = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.iy);
+            Emulatorcpu.Registers.IX = (ushort) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.ix);
+            Emulatorcpu.Registers.IY = (ushort) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.iy);
 
-            Emulatorcpu.Registers.SP = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.sp);
-            Emulatorcpu.Registers.PC = (ushort)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
+            Emulatorcpu.Registers.SP = (ushort) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.sp);
+            Emulatorcpu.Registers.PC = (ushort) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
 
-            Emulatorcpu.Registers.I = (byte)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.i);
-            Emulatorcpu.Registers.R = (byte)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.r);
+            Emulatorcpu.Registers.I = (byte) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.i);
+            Emulatorcpu.Registers.R = (byte) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.r);
 
-            Emulatorcpu.Registers.F = (byte)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.f);
-            Emulatorcpu.Registers.F_ = (byte)MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.f_e);
+            Emulatorcpu.Registers.F = (byte) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.f);
+            Emulatorcpu.Registers.F_ = (byte) MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.f_e);
         }
 
 
@@ -451,7 +481,7 @@ namespace RemoteDebugger
             do
             {
                 Emulatorcpu.Step();
-                
+
             } while (!Emulatorcpu.InstructionDone);
 
             MainForm.myNewRegisters.UpdateEmulatorPC();
@@ -469,7 +499,144 @@ namespace RemoteDebugger
         }
 
 
+
+        // -------------------------------------------------------------------------------------------------
+        // Gets dissasembly source
+        //
+        // \return  The dissasembly source.
+        // -------------------------------------------------------------------------------------------------
+        public string GetDissasemblySource(ref TraceFile tf,int maxlines)
+        {
+            string textfile = "";
+            tf.lines.Clear();
+
+            if (instrs == null) return "";
+
+
+
+            int instructionOffset = 0;//Math.Max(0,disasmline - (maxlines/2) );
+            int lineNumber = 0;
+            for (int index = 0; index < instrs.Length; index++)
+            {
+                eZ80Disassembler.DisassembledInstruction di = instrs[index + instructionOffset];
+                
+                int addr = (dissassemblyBaseAddress + di.StartPosition);
+
+                
+                //if (lineNumber >= maxlines)
+                //    break;
+                
+                //int addr = (dissassemblyBaseAddress + di.StartPosition);
+
+
+                Labels.Label l = Labels.GetLabel(ref MainForm.banks, addr);
+
+                if (l != null)
+                {
+                    if (!l.label.Contains("."))
+                    {
+                        textfile = textfile +"\n; **************************************************************************\n";
+                        textfile = textfile + "; "+l.label + "\n";
+                        textfile = textfile +"; **************************************************************************\n";
+                        lineNumber += 4;
+
+                    }
+                    textfile = textfile + l.label + ":\n";
+                    lineNumber++;
+                }
+
+
+                bool useComment = true;
+                string Comment = "; ";
+                for (int i = 0; i < di.Length; i++)
+                {
+                    Comment = Comment + disassemblyMemory[di.StartPosition +i].ToString("X2") + " ";
+                }
+
+
+
+                /*
+                string addrstr = addr.ToString("X4") + "  ";
+                for (int i = 0; i < di.Length; i++)
+                {
+                    addrstr = addrstr + disassemblyMemory[di.StartPosition + 5].ToString("X2") + " ";
+                }
+                */
+                //add address label
+                //if (l != null)
+                //    addrstr = addrstr + l.label;
+                //disassemblyData[index].Address = addrstr;
+
+
+                // do value
+
+                LineData ld = new LineData();
+                //ld.address = addr;
+                ld.lineNumber = lineNumber;
+                ld.nextAddress = new NextAddress(addr,NextAddress.GetBankFromAddress(ref MainForm.banks,addr));
+                ld.tf = tf;
+                tf.lines.Add(ld);
+
+
+
+
+                string dis = di.ToString();
+                Match m = addrRegex.Match(dis);
+
+                if (m.Success)
+                {
+                    int jaddr;
+                    if (int.TryParse(m.Value, NumberStyles.AllowHexSpecifier, null, out jaddr))
+                    {
+                        l = null;
+                        int offset;
+                        if (Labels.GetLabelWithOffset(ref MainForm.banks, jaddr, out l, out offset))
+                        {
+                            if (Program.InStepMode)
+                                MainForm.myWatches.AddLocalWatch(l);
+
+
+                            if (offset == 0)
+                            {
+                                dis = dis.Replace(m.Value, l.label) + "  ;" + m.Value;
+                            }
+                            else
+                            {
+                                //dis = dis.Replace(m.Value, l.label+"+"+offset)+ "  ;"+m.Value;
+                            }
+                        }
+
+                    }
+
+
+                }
+
+                string line = "          " + dis;
+                if (useComment)
+                {
+                    while (line.Length < 40)
+                    {
+                        line = line + " ";
+                    }
+
+                    line = line + Comment;
+
+                }
+                textfile = textfile + line + "\n";
+                lineNumber++;
+
+
+
+            }
+
+
+            return textfile;
+        }
+
     }
+
+
+
 
     /// -------------------------------------------------------------------------------------------------
     /// <summary> A disassembly data. </summary>

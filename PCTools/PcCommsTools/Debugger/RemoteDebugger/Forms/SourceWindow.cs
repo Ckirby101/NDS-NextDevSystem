@@ -71,6 +71,9 @@ namespace RemoteDebugger
         // -------------------------------------------------------------------------------------------------
 		public void InitSourceWindow(string path)
 		{
+
+
+
 			MainForm.sourceCodeView.initSourceFiles(TraceFile.traceFiles.ToArray(), SourceTab, path);
 
 

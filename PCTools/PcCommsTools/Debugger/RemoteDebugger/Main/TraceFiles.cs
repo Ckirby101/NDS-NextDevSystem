@@ -15,8 +15,8 @@ namespace RemoteDebugger.Main
 	public class LineData
 	{
 		public int lineNumber;	//line number in source file
-		public int address;	//16bit address of data
-		public int bank;		//16bit bank number
+		//public int address;	//16bit address of data
+		//public int bank;		//16bit bank number
 
         public NextAddress nextAddress;
         public TraceFile tf;
@@ -261,8 +261,8 @@ namespace RemoteDebugger.Main
 						//found source level debug symbol
 						LineData ld = new LineData();
 
-						ld.address = addr;
-						ld.bank = bank;
+						//ld.address = addr;
+						//ld.bank = bank;
 						ld.lineNumber = line-1;
                         ld.nextAddress = new NextAddress(addr,bank);
                         ld.tf = tracefile;
@@ -319,9 +319,9 @@ namespace RemoteDebugger.Main
 		/// <param name="pc"> The PC. </param>
 		/// -------------------------------------------------------------------------------------------------
 		public static void SetPC(int pc,int bank,bool focus = false)
-		{
-
-			if (CurrentExecuteFile != null)
+        {
+		
+            if (CurrentExecuteFile != null)
 			{
 				if (CurrentExecuteFile.codefile != null && CurrentExecuteFile.codefile.codewindow!=null)
 				{
@@ -359,8 +359,10 @@ namespace RemoteDebugger.Main
 				}
 			}
 
-
 		}
+
+
+
 
 
         // -------------------------------------------------------------------------------------------------
@@ -431,7 +433,7 @@ namespace RemoteDebugger.Main
 
 				LineData l = t._GetCloestValidCodeAddress(address,bank);
 				if (l != null)
-					return l.address;
+					return l.nextAddress.GetAddr();
 
 
 			}

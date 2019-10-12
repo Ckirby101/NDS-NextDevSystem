@@ -61,6 +61,8 @@ namespace RemoteDebugger.Main
 
         private List<BreakpointDisplay> BreakpointDisplayList = new List<BreakpointDisplay>();
 
+        public TraceFile  DisasmCodeFile;
+
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> A code file. </summary>
 		///
@@ -108,6 +110,185 @@ namespace RemoteDebugger.Main
 		}
 
 
+
+        public void SetDismPC(int pc, int bank)
+        {
+            LineData ld = DisasmCodeFile.DoesFileHaveAddress(pc,bank);
+            if (ld != null)
+            {
+                //CurrentExecuteFile = t;
+                //CurrentExecuteLine = ld.lineNumber;
+                Line line = DisasmCodeFile.codefile.codewindow.Lines[ld.lineNumber];
+                line.MarkerAdd(SourceCodeView.EXECUTE_MARKER);
+
+
+                //if (focus)
+                //    MainForm.mySourceWindow.FocusLine(DisasmCodeFile.codefile, ld.lineNumber); 
+
+            }
+        }
+
+        // -------------------------------------------------------------------------------------------------
+        // Updates the dism window
+        // -------------------------------------------------------------------------------------------------
+        public void UpdateDismWindow()
+        {
+            int maxlines = DisasmCodeFile.codefile.codewindow.LinesOnScreen;
+            Console.WriteLine("vis"+maxlines);
+
+            int currentline = DisasmCodeFile.codefile.codewindow.FirstVisibleLine;
+
+
+            string codetext = MainForm.myDisassembly.GetDissasemblySource(ref DisasmCodeFile,maxlines);
+
+            if (DisasmCodeFile.codefile.codewindow.Text == codetext) return;
+
+            DisasmCodeFile.codefile.codewindow.Text = codetext;
+
+            UpdateMarginAddress(DisasmCodeFile);
+
+            //update disassembly
+            int pc = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
+            int bank = MainForm.banks[ TraceFile.GetBankIndex(pc) ]; 
+
+            SetDismPC(pc, bank);
+
+
+//            var start = DisasmCodeFile.codefile.codewindow.Lines[currentline].Position;
+//            var end = DisasmCodeFile.codefile.codewindow.Lines[currentline+ DisasmCodeFile.codefile.codewindow.LinesOnScreen].Position;
+//            DisasmCodeFile.codefile.codewindow.ScrollRange(start, end);
+
+            DisasmCodeFile.codefile.codewindow.FirstVisibleLine = currentline;
+            //DisasmCodeFile.codefile.codewindow.
+
+            //currentline
+
+
+
+
+        }
+
+        // -------------------------------------------------------------------------------------------------
+        // Initialises the disassembly file
+        //
+        // \param   tab
+        // The tab.
+        // -------------------------------------------------------------------------------------------------
+        public void initDisassemblyFile(TabControl tab)
+        {
+            DisasmCodeFile = new TraceFile( "Disassembly" );
+
+
+            CodeFile cf = new CodeFile();
+            DisasmCodeFile.codefile = cf;
+            cf.TraceFileName = "Dissassembly";
+
+
+            var page = new TabPage("Dissassembly");
+            cf.tab = page;
+            cf.codewindow = new ScintillaNET.Scintilla(); //new RichTextBox();
+            cf.codewindow.Dock = DockStyle.Fill;
+            cf.codewindow.Tag = (object)"Dissassembly";
+            page.Controls.Add(cf.codewindow);
+            tab.TabPages.Add(page);
+            page.Select();
+
+            //cf.codewindow.VScrollBar = false;
+            //cf.codewindow.HScrollBar = false;
+
+            cf.codewindow.SetSelectionBackColor(true, IntToColor(0x114D9C));
+            cf.codewindow.TabWidth = 8;
+            // Configure the default style
+            cf.codewindow.StyleResetDefault();
+			cf.codewindow.Styles[Style.Default].Font = "Consolas";
+			cf.codewindow.Styles[Style.Default].Size = 14;
+			cf.codewindow.Styles[Style.Default].BackColor = IntToColor(0x272822);
+			cf.codewindow.Styles[Style.Default].ForeColor = IntToColor(0xFFFFFF);
+			cf.codewindow.StyleClearAll();
+
+			// Configure lexer styles
+			cf.codewindow.Styles[Style.Asm.Operator].ForeColor = IntToColor(0x48A8EE);
+			cf.codewindow.Styles[Style.Asm.Identifier].ForeColor = IntToColor(0x67d9ff);
+
+			cf.codewindow.Styles[Style.Asm.Comment].ForeColor = Color.ForestGreen;
+			cf.codewindow.Styles[Style.Asm.CommentDirective].ForeColor = Color.ForestGreen;
+
+			cf.codewindow.Styles[Style.Asm.Number].ForeColor = IntToColor(0x60b48a);
+			cf.codewindow.Styles[Style.Asm.String].ForeColor = Color.AliceBlue;
+			cf.codewindow.Styles[Style.Asm.Character].ForeColor = Color.Aqua;
+
+
+			cf.codewindow.Lexer = Lexer.Asm;
+
+			cf.codewindow.SetKeywords(2, "hl de bc a b c h l d e hl' de' bc' af af' sp ix iy ixl ixh iyl iyh");
+			cf.codewindow.Styles[Style.Asm.Register].ForeColor = IntToColor(0xdfaf8f);
+
+			cf.codewindow.SetKeywords(3, "macro endm setbank ord pcorg equ include incbin savebin message stack end defl pc align rb rw db dw defb defw hex");
+			cf.codewindow.Styles[Style.Asm.Directive].ForeColor = IntToColor(0x8ca4dc);
+
+
+			cf.codewindow.SetKeywords(0, "nop inc dec ex exx djnz rrca rla jr jp call cpl scf mul halt ld add sub adc sbc and or xor cp test ret rst out in push pop swapnib ldir ldirx lddrx lddrx ldpirx ldirscale ldws mirror pixeldn pixelad setae outinb nextreg");
+			cf.codewindow.Styles[Style.Asm.CpuInstruction].ForeColor = IntToColor(0xc15c95);
+
+
+			cf.codewindow.Styles[Style.LineNumber].BackColor = IntToColor(BACK_COLOR);
+			cf.codewindow.Styles[Style.LineNumber].ForeColor = IntToColor(FORE_COLOR);
+			cf.codewindow.Styles[Style.IndentGuide].ForeColor = IntToColor(FORE_COLOR);
+			cf.codewindow.Styles[Style.IndentGuide].BackColor = IntToColor(BACK_COLOR);
+
+
+
+			//line number space
+			var nums = cf.codewindow.Margins[NUMBER_MARGIN];
+			nums.BackColor = Color.Black;
+			nums.Width = 30;
+			nums.Type = MarginType.Number;
+			nums.Sensitive = true;
+			nums.Mask = 0;
+
+
+			//addr space
+			var cmargin = cf.codewindow.Margins[CODE_MARGIN];
+			cmargin.Width = 90;
+			cmargin.BackColor = Color.Black;
+			cmargin.Sensitive = true;
+			cmargin.Type = MarginType.Text;
+			cmargin.Mask = (1 << CODE_MARKER);
+//            cmargin.BackColor = IntToColor(0xFF003B);
+
+
+			//breakpoint space
+			var cpmargin = cf.codewindow.Margins[BREAKPOINT_MARGIN];
+			cpmargin.BackColor = Color.Black;
+			cpmargin.Width = 10;
+			cpmargin.Sensitive = true;
+			cpmargin.Type = MarginType.Symbol;
+			cpmargin.Mask = (1 << BREAKPOINT_MARKER);
+
+
+			var bpmarker = cf.codewindow.Markers[BREAKPOINT_MARKER];
+			bpmarker.Symbol = MarkerSymbol.Circle;
+			bpmarker.SetBackColor(IntToColor(0xFF003B));
+			bpmarker.SetForeColor(IntToColor(0x000000));
+			bpmarker.SetAlpha(100);
+
+			cf.codewindow.MarginClick += TextArea_MarginClick;
+			cf.codewindow.Click += Codewindow_Click;
+			cf.codewindow.DwellStart += Codewindow_Dwell;
+			cf.codewindow.DwellEnd += Codewindow_DwellEnd;
+			cf.codewindow.MouseDwellTime = 1000;
+
+			cf.codewindow.MouseDown += Codewindow_MouseDown;
+			var ecmarker = cf.codewindow.Markers[EXECUTE_MARKER];
+			ecmarker.Symbol = MarkerSymbol.RoundRect;
+			ecmarker.SetBackColor(Color.DarkBlue);
+			ecmarker.SetAlpha(100);
+
+
+
+        }
+
+
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> Initializes the source files. </summary>
 		///
@@ -121,10 +302,9 @@ namespace RemoteDebugger.Main
 		/// <param name="path">		  Full pathname of the file. </param>
 		/// -------------------------------------------------------------------------------------------------
 		public void initSourceFiles(TraceFile[] traceFiles,TabControl tab ,string path)
-		{
-
-
-			foreach (TraceFile s in traceFiles)
+        {
+            initDisassemblyFile(tab);
+            foreach (TraceFile s in traceFiles)
 			{
 				//if (s.lines.Count>0)
 				{

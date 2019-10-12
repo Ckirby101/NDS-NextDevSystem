@@ -95,26 +95,27 @@ StartAddress:
 	;NDS_BREAK
 
 
+	ei
 ; --------------------------------------------------------------------------
 ; --------------------------------------------------------------------------
 MainLoop
 
-	ld a,191
-	call WaitForLine
+	halt
+	;ld a,191
+	;call WaitForLine
 
 	ld a,(count)
 	inc a
 	ld (count),a
 	;and %11111000
 	nextreg 0x26,a
-	out ($fe),a
 
 
 	;poll the debugger system
 	;nextreg 0x50,NDS_MMUBank
 	;call NDS_POLL
 
-	NDS_UPDATE
+;	NDS_UPDATE
 
 
 

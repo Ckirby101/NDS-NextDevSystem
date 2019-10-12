@@ -36,12 +36,15 @@
             // 
             this.DissasemblyDataGrid.AllowUserToAddRows = false;
             this.DissasemblyDataGrid.AllowUserToDeleteRows = false;
+            this.DissasemblyDataGrid.AllowUserToResizeColumns = false;
             this.DissasemblyDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DissasemblyDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DissasemblyDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DissasemblyDataGrid.Location = new System.Drawing.Point(0, 0);
+            this.DissasemblyDataGrid.MultiSelect = false;
             this.DissasemblyDataGrid.Name = "DissasemblyDataGrid";
             this.DissasemblyDataGrid.ReadOnly = true;
+            this.DissasemblyDataGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.DissasemblyDataGrid.Size = new System.Drawing.Size(284, 244);
             this.DissasemblyDataGrid.TabIndex = 0;
             this.DissasemblyDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DissasemblyDataGrid_CellContentClick);
