@@ -51,6 +51,7 @@ namespace RemoteDebugger.Main
 		public const int CODE_MARKER = 4;
 		public const int BREAKPOINT_MARKER = 5;
 		public const int EXECUTE_MARKER = 6;
+        public const int NEXT_PC_MARKER = 7;
 		public const int BACK_COLOR = 0x2A211C;
 		public const int FORE_COLOR = 0xB7B7B7;
 
@@ -62,6 +63,7 @@ namespace RemoteDebugger.Main
         private List<BreakpointDisplay> BreakpointDisplayList = new List<BreakpointDisplay>();
 
         public TraceFile  DisasmCodeFile;
+        public int DisOffset = 0;
 
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> A code file. </summary>
@@ -111,7 +113,15 @@ namespace RemoteDebugger.Main
 
 
 
-        public void SetDismPC(int pc, int bank)
+        // -------------------------------------------------------------------------------------------------
+        // Sets dism PC
+        //
+        // \param   pc
+        // The PC.
+        // \param   bank
+        // The bank.
+        // -------------------------------------------------------------------------------------------------
+        public void SetDismPC(int nextpc,int pc, int bank)
         {
             LineData ld = DisasmCodeFile.DoesFileHaveAddress(pc,bank);
             if (ld != null)
@@ -126,6 +136,23 @@ namespace RemoteDebugger.Main
                 //    MainForm.mySourceWindow.FocusLine(DisasmCodeFile.codefile, ld.lineNumber); 
 
             }
+
+            ld = DisasmCodeFile.DoesFileHaveAddress(nextpc,bank);
+            if (ld != null)
+            {
+                //CurrentExecuteFile = t;
+                //CurrentExecuteLine = ld.lineNumber;
+                Line line = DisasmCodeFile.codefile.codewindow.Lines[ld.lineNumber];
+                line.MarkerAdd(SourceCodeView.NEXT_PC_MARKER);
+
+
+                //if (focus)
+                //    MainForm.mySourceWindow.FocusLine(DisasmCodeFile.codefile, ld.lineNumber); 
+
+            }
+
+
+
         }
 
         // -------------------------------------------------------------------------------------------------
@@ -138,30 +165,51 @@ namespace RemoteDebugger.Main
 
             int currentline = DisasmCodeFile.codefile.codewindow.FirstVisibleLine;
 
+            //stop scroll off top
+            int fl = (MainForm.myDisassembly.DissasemblyLinesPC - (maxlines / 2) + DisOffset);
+            if (fl < 0)
+            {
+                DisOffset -= fl;
+                fl = 0;
+            }
 
-            string codetext = MainForm.myDisassembly.GetDissasemblySource(ref DisasmCodeFile,maxlines);
+            if ((fl + maxlines) >= MainForm.myDisassembly.DissasemblyLines.Count)
+            {
+                DisOffset -= ((fl + maxlines) - MainForm.myDisassembly.DissasemblyLines.Count);
+            }
+
+
+            int FirstLine = Math.Max(0, MainForm.myDisassembly.DissasemblyLinesPC - (maxlines / 2) + DisOffset);
+
+            string codetext = MainForm.myDisassembly.GetDissasemblySource(ref DisasmCodeFile,maxlines,FirstLine);
 
             if (DisasmCodeFile.codefile.codewindow.Text == codetext) return;
 
+            DisasmCodeFile.codefile.codewindow.ReadOnly = false;
             DisasmCodeFile.codefile.codewindow.Text = codetext;
+            DisasmCodeFile.codefile.codewindow.ReadOnly = true;
 
             UpdateMarginAddress(DisasmCodeFile);
 
             //update disassembly
             int pc = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
+            int nextpc = MainForm.myDisassembly.GetStepAddress();
             int bank = MainForm.banks[ TraceFile.GetBankIndex(pc) ]; 
 
-            SetDismPC(pc, bank);
-
-
-//            var start = DisasmCodeFile.codefile.codewindow.Lines[currentline].Position;
-//            var end = DisasmCodeFile.codefile.codewindow.Lines[currentline+ DisasmCodeFile.codefile.codewindow.LinesOnScreen].Position;
-//            DisasmCodeFile.codefile.codewindow.ScrollRange(start, end);
-
+            SetDismPC(nextpc,pc, bank);
             DisasmCodeFile.codefile.codewindow.FirstVisibleLine = currentline;
-            //DisasmCodeFile.codefile.codewindow.
 
-            //currentline
+
+            //Update Breakpoints
+            foreach (BreakpointDisplay bp in BreakpointDisplayList)
+            {
+                LineData ld = DisasmCodeFile.DoesFileHaveAddress(bp.nextAddress.GetAddr(), bp.nextAddress.GetBank());
+
+                DisasmCodeFile.codefile.codewindow.Lines[ld.lineNumber].MarkerAdd(BREAKPOINT_MARKER);
+
+            }
+
+
 
 
 
@@ -176,7 +224,7 @@ namespace RemoteDebugger.Main
         // -------------------------------------------------------------------------------------------------
         public void initDisassemblyFile(TabControl tab)
         {
-            DisasmCodeFile = new TraceFile( "Disassembly" );
+            DisasmCodeFile = new TraceFile( "Dissassembly" );
 
 
             CodeFile cf = new CodeFile();
@@ -193,8 +241,8 @@ namespace RemoteDebugger.Main
             tab.TabPages.Add(page);
             page.Select();
 
-            //cf.codewindow.VScrollBar = false;
-            //cf.codewindow.HScrollBar = false;
+            cf.codewindow.VScrollBar = false;
+            cf.codewindow.HScrollBar = false;
 
             cf.codewindow.SetSelectionBackColor(true, IntToColor(0x114D9C));
             cf.codewindow.TabWidth = 8;
@@ -219,18 +267,12 @@ namespace RemoteDebugger.Main
 
 
 			cf.codewindow.Lexer = Lexer.Asm;
-
 			cf.codewindow.SetKeywords(2, "hl de bc a b c h l d e hl' de' bc' af af' sp ix iy ixl ixh iyl iyh");
 			cf.codewindow.Styles[Style.Asm.Register].ForeColor = IntToColor(0xdfaf8f);
-
 			cf.codewindow.SetKeywords(3, "macro endm setbank ord pcorg equ include incbin savebin message stack end defl pc align rb rw db dw defb defw hex");
 			cf.codewindow.Styles[Style.Asm.Directive].ForeColor = IntToColor(0x8ca4dc);
-
-
 			cf.codewindow.SetKeywords(0, "nop inc dec ex exx djnz rrca rla jr jp call cpl scf mul halt ld add sub adc sbc and or xor cp test ret rst out in push pop swapnib ldir ldirx lddrx lddrx ldpirx ldirscale ldws mirror pixeldn pixelad setae outinb nextreg");
 			cf.codewindow.Styles[Style.Asm.CpuInstruction].ForeColor = IntToColor(0xc15c95);
-
-
 			cf.codewindow.Styles[Style.LineNumber].BackColor = IntToColor(BACK_COLOR);
 			cf.codewindow.Styles[Style.LineNumber].ForeColor = IntToColor(FORE_COLOR);
 			cf.codewindow.Styles[Style.IndentGuide].ForeColor = IntToColor(FORE_COLOR);
@@ -272,19 +314,84 @@ namespace RemoteDebugger.Main
 			bpmarker.SetForeColor(IntToColor(0x000000));
 			bpmarker.SetAlpha(100);
 
-			cf.codewindow.MarginClick += TextArea_MarginClick;
+            cf.codewindow.MarginClick += TextArea_MarginClick;
 			cf.codewindow.Click += Codewindow_Click;
-			cf.codewindow.DwellStart += Codewindow_Dwell;
-			cf.codewindow.DwellEnd += Codewindow_DwellEnd;
-			cf.codewindow.MouseDwellTime = 1000;
+			//cf.codewindow.DwellStart += Codewindow_Dwell;
+			//cf.codewindow.DwellEnd += Codewindow_DwellEnd;
+			//cf.codewindow.MouseDwellTime = 1000;
+			//cf.codewindow.MouseDown += Codewindow_MouseDown;
+            cf.codewindow.KeyDown += Disasm_KeyDown;
+            cf.codewindow.MouseWheel += Disasm_MouseWheel;
 
-			cf.codewindow.MouseDown += Codewindow_MouseDown;
 			var ecmarker = cf.codewindow.Markers[EXECUTE_MARKER];
 			ecmarker.Symbol = MarkerSymbol.RoundRect;
 			ecmarker.SetBackColor(Color.DarkBlue);
 			ecmarker.SetAlpha(100);
 
+            var npmarker = cf.codewindow.Markers[NEXT_PC_MARKER];
+            npmarker.Symbol = MarkerSymbol.RoundRect;
+            npmarker.SetBackColor(Color.Red);
+            npmarker.SetAlpha(30);
 
+
+
+
+        }
+
+
+        // -------------------------------------------------------------------------------------------------
+        // Event handler. Called by Disasm for mouse wheel events
+        //
+        // \param   sender
+        // Source of the event.
+        // \param   e
+        // Mouse event information.
+        // -------------------------------------------------------------------------------------------------
+        private void Disasm_MouseWheel(object sender, MouseEventArgs e)
+        {
+            int numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120;
+
+            DisOffset-=numberOfTextLinesToMove;
+
+            UpdateDismWindow();
+
+        }
+
+        // -------------------------------------------------------------------------------------------------
+        // Event handler. Called by Disasm for key down events
+        //
+        // \param   sender
+        // Source of the event.
+        // \param   e
+        // Key event information.
+        // -------------------------------------------------------------------------------------------------
+        private void Disasm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                DisOffset--;
+            }
+            else
+            if (e.KeyCode == Keys.Down)
+            {
+                DisOffset++;
+
+            }
+            else
+            if (e.KeyCode == Keys.PageUp)
+            {
+                DisOffset-=5;
+            }
+            else
+            if (e.KeyCode == Keys.PageDown)
+            {
+                DisOffset+=5;
+
+            }
+
+
+
+            UpdateDismWindow();
 
         }
 
@@ -303,7 +410,9 @@ namespace RemoteDebugger.Main
 		/// -------------------------------------------------------------------------------------------------
 		public void initSourceFiles(TraceFile[] traceFiles,TabControl tab ,string path)
         {
+
             initDisassemblyFile(tab);
+
             foreach (TraceFile s in traceFiles)
 			{
 				//if (s.lines.Count>0)
@@ -326,6 +435,8 @@ namespace RemoteDebugger.Main
 						tab.TabPages.Add(page);
 
 						cf.codewindow.Text = text;
+                        cf.codewindow.ReadOnly = true;
+
 						page.Select();
 
 						cf.codewindow.SetSelectionBackColor(true, IntToColor(0x114D9C));
@@ -447,6 +558,8 @@ namespace RemoteDebugger.Main
 					}
                 }
             }
+
+
         }
 
 
@@ -809,6 +922,10 @@ namespace RemoteDebugger.Main
 				var line = s.Lines[linenum];
 
 				TraceFile tf = TraceFile.FindTraceFile((string)s.Tag);
+
+                if ((string) s.Tag == "Dissassembly")
+                    tf = DisasmCodeFile;
+
 				//Section sec = FindSection((string)s.Tag);
 
 				if (tf !=null && tf.IsLineLegal(linenum))
@@ -891,7 +1008,6 @@ namespace RemoteDebugger.Main
             if (pd.lineData != null)
             {
                 pd.lineData.tf.codefile.codewindow.Lines[pd.lineData.lineNumber].MarkerAdd(BREAKPOINT_MARKER);
-
             }
 
             BreakpointDisplayList.Add(pd);
@@ -924,7 +1040,7 @@ namespace RemoteDebugger.Main
         // -------------------------------------------------------------------------------------------------
         public void UpdateBreakpointView(ref BindingList<Breakpoint.BreakpointData> breakpointData)
         {
-
+            bool changed = false;
             List<BreakpointDisplay> used = new List<BreakpointDisplay>();
 
             //add new ones
@@ -936,6 +1052,7 @@ namespace RemoteDebugger.Main
                     if (pd == null)
                     {
                         pd = AddBreakPointDisplay(bp.nextAddress.GetLongAddress());
+                        changed = true;
                     }
 
                     used.Add(pd);
@@ -951,7 +1068,14 @@ namespace RemoteDebugger.Main
                 if (!used.Contains(BreakpointDisplayList[i]))
                 {
                     RemoveBreakPointDisplay(BreakpointDisplayList[i]);
+                    changed = true;
                 }
+            }
+
+
+            if (changed)
+            {
+                UpdateDismWindow();
             }
 
 

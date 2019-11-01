@@ -48,6 +48,7 @@ namespace RemoteDebugger
             }
 
             public bool used = false;
+            public byte replaceopcode = 0;      
             public NextAddress nextAddress;
 
         }
@@ -144,9 +145,10 @@ namespace RemoteDebugger
 
                 int addr = Serial.Get16Bit(ref items, ref index);
                 int bank = Serial.Get8Bit(ref items, ref index);
+                breakpointData[i].replaceopcode = (byte)Serial.Get8Bit(ref items, ref index);
+
                 breakpointData[i].nextAddress.SetAddress(addr,bank); 
                 
-                index++;    //skip over opcode
             }
 
             MainForm.sourceCodeView.UpdateBreakpointView(ref breakpointData);
@@ -234,6 +236,18 @@ namespace RemoteDebugger
 
 		    return -1;
 	    }
+
+
+        public static int FindFreeBreakpointAddr(int longaddr)
+        {
+            for (int i = 0; i < breakpointData.Count; i++)
+            {
+                if (breakpointData[i].used && breakpointData[i].nextAddress.GetLongAddress() == longaddr)
+                    return i;
+            }
+
+            return -1;
+        }
 
 	    /// -------------------------------------------------------------------------------------------------
 	    /// <summary> Number breakpoints active. </summary>

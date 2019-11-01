@@ -25,6 +25,7 @@ SOFTWARE.
 */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -45,6 +46,19 @@ namespace RemoteDebugger
     /// -------------------------------------------------------------------------------------------------
     public partial class Disassembly : Form
     {
+        public class linebuildData
+        {
+            public linebuildData(int _addr, string s)
+            {
+                line = s;
+                addr = _addr;
+            }
+
+            public string line;
+            public int addr;
+        }
+
+
         /// <summary> Information describing the disassembly. </summary>
         BindingList<DisassemblyData> disassemblyData;
 
@@ -65,6 +79,12 @@ namespace RemoteDebugger
 
 
         private eZ80Disassembler.DisassembledInstruction[] instrs;
+
+
+        public List<linebuildData> DissasemblyLines = new List<linebuildData>();
+        public int DissasemblyLinesPC;     // the list in list above thats the z80 PC is
+
+
 
         /// -------------------------------------------------------------------------------------------------
         /// <summary> Constructor. </summary>
@@ -156,11 +176,50 @@ namespace RemoteDebugger
 
 
 
+        // -------------------------------------------------------------------------------------------------
+        // Patch dism memory with breakpoints
+        //
+        // \param [in,out]  mem
+        // The memory.
+        // \param           addr
+        // The address.
+        // \param           length
+        // The length.
+        // -------------------------------------------------------------------------------------------------
+        private void PatchDismMemoryWithBreakpoints(ref byte[] mem, int addr, int length)
+        {
+
+            for (int i = 0; i < length; i++)
+            {
+                //looking for breakpoint instruction
+                if (mem[i] == 0xc7)
+                {
+                    int a = addr + i;
+                    int bank = NextAddress.GetBankFromAddress(ref MainForm.banks, a);
+
+                    int brk = Breakpoint.FindFreeBreakpointAddr(NextAddress.MakeLongAddress(bank, a));
+                    if (brk >= 0)
+                    {
+                        //found a breakpoint so lets replace the memory bytes with the origional value.
+                        mem[i] = Breakpoint.breakpointData[brk].replaceopcode;
+                    }
+
+                }
+            }
+
+        }
+
+
+
         private int DisasmWithOffset(ref byte[] data, int disaddr,int pc, int offset)
         {
             dissassemblyBaseAddress = disaddr+offset;
             disassemblyMemory = new byte[(data.Length - 5)+offset];
             Array.Copy(data, 5+offset, disassemblyMemory, 0, (data.Length - 5)-offset);
+
+
+            PatchDismMemoryWithBreakpoints(ref disassemblyMemory,dissassemblyBaseAddress,disassemblyMemory.Length);
+
 
             int start = 0;
             int end = disassemblyMemory.Length - 1;
@@ -203,6 +262,7 @@ namespace RemoteDebugger
         {
             int pc = MainForm.myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
 
+
             int offset=-1;
             int foundline = -1;
             do
@@ -214,6 +274,9 @@ namespace RemoteDebugger
             //goto next instruction
             SyncEmulator();
             StepEmulator();
+
+
+
 
             int instructionOffset = Math.Max(0,disasmline - 15);
             for (int index = 0; index < 30; index++)
@@ -294,7 +357,11 @@ namespace RemoteDebugger
             Invalidate();
 
 
+            UpdateGetDissasemblyLines();
+
             MainForm.sourceCodeView.UpdateDismWindow();
+
+
 
 /*
             //bool updated = false;
@@ -502,32 +569,29 @@ namespace RemoteDebugger
 
         // -------------------------------------------------------------------------------------------------
         // Gets dissasembly source
-        //
-        // \return  The dissasembly source.
         // -------------------------------------------------------------------------------------------------
-        public string GetDissasemblySource(ref TraceFile tf,int maxlines)
+        public void UpdateGetDissasemblyLines()
         {
-            string textfile = "";
-            tf.lines.Clear();
-
-            if (instrs == null) return "";
 
 
 
-            int instructionOffset = 0;//Math.Max(0,disasmline - (maxlines/2) );
-            int lineNumber = 0;
+            if (instrs == null) return;
+
+            DissasemblyLines.Clear();
+
+
+
+            int instructionOffset = 0; //Math.Max(0,disasmline - (maxlines/2) );
+            DissasemblyLinesPC = 0;
             for (int index = 0; index < instrs.Length; index++)
             {
                 eZ80Disassembler.DisassembledInstruction di = instrs[index + instructionOffset];
-                
+
                 int addr = (dissassemblyBaseAddress + di.StartPosition);
 
-                
+
                 //if (lineNumber >= maxlines)
                 //    break;
-                
-                //int addr = (dissassemblyBaseAddress + di.StartPosition);
-
 
                 Labels.Label l = Labels.GetLabel(ref MainForm.banks, addr);
 
@@ -535,14 +599,16 @@ namespace RemoteDebugger
                 {
                     if (!l.label.Contains("."))
                     {
-                        textfile = textfile +"\n; **************************************************************************\n";
-                        textfile = textfile + "; "+l.label + "\n";
-                        textfile = textfile +"; **************************************************************************\n";
-                        lineNumber += 4;
+                        DissasemblyLines.Add(new linebuildData(-1, ""));
+                        DissasemblyLines.Add(new linebuildData(-1,
+                            "; **************************************************************************"));
+                        DissasemblyLines.Add(new linebuildData(-1, "; " + l.label));
+                        DissasemblyLines.Add(new linebuildData(-1,
+                            "; **************************************************************************"));
 
                     }
-                    textfile = textfile + l.label + ":\n";
-                    lineNumber++;
+
+                    DissasemblyLines.Add(new linebuildData(-1, l.label + ":"));
                 }
 
 
@@ -550,7 +616,7 @@ namespace RemoteDebugger
                 string Comment = "; ";
                 for (int i = 0; i < di.Length; i++)
                 {
-                    Comment = Comment + disassemblyMemory[di.StartPosition +i].ToString("X2") + " ";
+                    Comment = Comment + disassemblyMemory[di.StartPosition + i].ToString("X2") + " ";
                 }
 
 
@@ -570,12 +636,6 @@ namespace RemoteDebugger
 
                 // do value
 
-                LineData ld = new LineData();
-                //ld.address = addr;
-                ld.lineNumber = lineNumber;
-                ld.nextAddress = new NextAddress(addr,NextAddress.GetBankFromAddress(ref MainForm.banks,addr));
-                ld.tf = tf;
-                tf.lines.Add(ld);
 
 
 
@@ -598,11 +658,12 @@ namespace RemoteDebugger
 
                             if (offset == 0)
                             {
-                                dis = dis.Replace(m.Value, l.label) + "  ;" + m.Value;
+                                dis = dis.Replace(m.Value, l.label);
                             }
                             else
                             {
-                                //dis = dis.Replace(m.Value, l.label+"+"+offset)+ "  ;"+m.Value;
+                                if (offset < 16 && offset > (-16))
+                                    dis = dis.Replace(m.Value, l.label + "+" + offset);
                             }
                         }
 
@@ -622,12 +683,55 @@ namespace RemoteDebugger
                     line = line + Comment;
 
                 }
-                textfile = textfile + line + "\n";
-                lineNumber++;
 
+                if (index == disasmline)
+                    DissasemblyLinesPC = DissasemblyLines.Count;
+
+
+                DissasemblyLines.Add(new linebuildData(addr, line));
 
 
             }
+        }
+
+        // -------------------------------------------------------------------------------------------------
+        // Gets dissasembly source
+        //
+        // \param [in,out]  tf
+        // The tf.
+        // \param           maxlines
+        // The maxlines.
+        //
+        // \return  The dissasembly source.
+        // -------------------------------------------------------------------------------------------------
+        public string GetDissasemblySource(ref TraceFile tf,int maxlines,int currentline)
+        {
+
+            string textfile = "";
+            tf.lines.Clear();
+            int lineNumber = 0;
+
+
+            for (int i = 0; i<maxlines-1; i++)
+            {
+                textfile = textfile + DissasemblyLines[currentline].line+"\n";
+
+
+                if (DissasemblyLines[currentline].addr >= 0)
+                {
+                    LineData ld = new LineData();
+                    ld.lineNumber = lineNumber;
+                    ld.nextAddress = new NextAddress(DissasemblyLines[currentline].addr,NextAddress.GetBankFromAddress(ref MainForm.banks,DissasemblyLines[currentline].addr));
+                    ld.tf = tf;
+                    tf.lines.Add(ld);
+
+                }
+
+                lineNumber++;
+                currentline++;
+            }
+
+
 
 
             return textfile;

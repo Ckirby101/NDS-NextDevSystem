@@ -245,24 +245,19 @@ namespace RemoteDebugger
             myNewRegisters.regcallback(response,tag);
 
 
-                if (myDisassembly != null)
-                {
-                    if (Program.InStepMode)
-                        FocusPC();
+            if (Program.InStepMode) FocusPC();
 
-                    int pc = myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
-                    myDisassembly.RequestUpdate(pc);
+            MainForm.myBreakpoints.RequestUpdate();
 
-                }
+            MainForm.myMemoryWatch.UpdateMemory();
+            MainForm.myMemWatch.UpdateMemory();
+            MainForm.myWatches.UpdateWatches();
+            MainForm.mycallstack.UpdateCallStack();
 
+            int pc = myNewRegisters.GetRegisterValueint(Registers.Z80Register.pc);
+            myDisassembly.RequestUpdate(pc);
 
-                MainForm.myMemoryWatch.UpdateMemory();
-                MainForm.myMemWatch.UpdateMemory();
-                MainForm.myWatches.UpdateWatches();
-                MainForm.myBreakpoints.RequestUpdate();
-                MainForm.mycallstack.UpdateCallStack();
-
-                Program.StepBusy = false;
+            Program.StepBusy = false;
 
 
 

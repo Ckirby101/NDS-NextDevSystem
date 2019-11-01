@@ -117,7 +117,7 @@ namespace RemoteDebugger
                 int laddr = l.nextAddress.GetLongAddress();
 				if (longaddr >= laddr)
 				{
-					int off = addr - laddr;
+					int off = longaddr - laddr;
 					if (off < best)
 					{
 						best = off;

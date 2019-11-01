@@ -197,7 +197,8 @@ namespace RemoteDebugger.Main
                 int v = GetLocalZ80Address(ref MainForm.banks);
                 if (v >= 0)
                 {
-                    return "<"+bank.ToString("X2") + ":" + v.ToString("X4")+">";
+                    //                    return "<"+bank.ToString("X2") + ":" + v.ToString("X4")+">";
+                    return "<" +v.ToString("X4")+">";
                 }
 
 
