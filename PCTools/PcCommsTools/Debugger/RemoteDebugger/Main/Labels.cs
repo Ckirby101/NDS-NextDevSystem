@@ -13,16 +13,18 @@ namespace RemoteDebugger
 
 		public class Label
 		{
-			public Label(string l,int a,int b,bool f)
+			public Label(string l,NextAddress na,bool f,bool d)
             {
-                nextAddress = new NextAddress(a,b);
+                nextAddress = na;
 
 				label = l;
 				function = f;
+                define = d;
 			}
 
 			public string label;
 			public bool function;
+            public bool define;
             public NextAddress nextAddress;
 
             public override string ToString()
@@ -48,10 +50,17 @@ namespace RemoteDebugger
 		/// <param name="addr">  The address. </param>
 		/// <param name="bank">  The bank. </param>
 		/// -------------------------------------------------------------------------------------------------
-		public static void AddLabel(string label, int addr, int bank,bool isfunction)
+		public static void AddLabel(string label, int addr, int bank,bool isfunction,bool isdefine)
 		{
 
-			labels.Add( new Label(label,addr,bank,isfunction) );
+            NextAddress na = new NextAddress(addr,bank);
+
+            if (isdefine)
+            {
+                na.SetAddressLong(addr);
+            }
+
+			labels.Add( new Label(label,na,isfunction,isdefine) );
 
 
 

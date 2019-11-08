@@ -209,7 +209,7 @@ namespace RemoteDebugger.Main
 			traceFiles = new List<TraceFile>();
 
 
-			Regex registersregex = new Regex(@"^(?<filename>[_a-zA-Z0-9\\. :-]*)\|(?<line>[0-9]*)\|(?<bank>[-0-9]*)\|(?<addr>[0-9]*)\|(?<type>[LFTD])");
+			Regex registersregex = new Regex(@"^(?<filename>[_a-zA-Z0-9\\. :-]*)\|(?<line>[0-9]*)\|(?<macrofile>[_a-zA-Z0-9\\. :-]*)\|(?<macroline>[0-9]*)\|(?<bank>[-0-9]*)\|(?<value>[0-9]*)\|(?<type>[LFTD])\|(?<label>[_a-zA-Z0-9.-]*)");
 
 
             int index = 0;
@@ -217,9 +217,6 @@ namespace RemoteDebugger.Main
 
 			foreach (string s in lines)
             {
-                if (index == 223)
-                    Console.WriteLine("Hello");
-
                 index++;
 				if (!string.IsNullOrEmpty(s))
 				{
@@ -227,20 +224,20 @@ namespace RemoteDebugger.Main
 					var match = registersregex.Match(s);
 					//Console.WriteLine(match.Groups["label"] + " " + match.Groups["address"] + " " + match.Groups["type"] + " " + match.Groups["section"]);
 
+                    string mfn = match.Groups["macrofile"].ToString();
+                    int mline = 0;
+                    int.TryParse(match.Groups["macroline"].ToString(), NumberStyles.Integer, null, out mline);
+
 					string fn = match.Groups["filename"].ToString();
+                    string label = match.Groups["label"].ToString();
 
 					int bank = 0;
 					int.TryParse(match.Groups["bank"].ToString(), NumberStyles.Integer, null, out bank);
 					int line = 0;
 					int.TryParse(match.Groups["line"].ToString(), NumberStyles.Integer, null, out line);
-					int addr = 0;
-					int.TryParse(match.Groups["addr"].ToString(), NumberStyles.Integer, null, out addr);
+					int value = 0;
+					int.TryParse(match.Groups["value"].ToString(), NumberStyles.Integer, null, out value);
 
-
-                    if (fn.StartsWith("audio_"))
-                    {
-                        Console.WriteLine("Hello");
-                    }
 
 
 					if (match.Groups["type"].ToString() == "T")     //Trace Data
@@ -264,19 +261,22 @@ namespace RemoteDebugger.Main
 						//ld.address = addr;
 						//ld.bank = bank;
 						ld.lineNumber = line-1;
-                        ld.nextAddress = new NextAddress(addr,bank);
+                        ld.nextAddress = new NextAddress(value,bank);
                         ld.tf = tracefile;
 
 						tracefile.lines.Add(ld);
 					}
-					else if (match.Groups["type"].ToString() == "L" || match.Groups["type"].ToString() == "D")        //Label
+					else if (match.Groups["type"].ToString() == "L")        //Label
+                    {
+                        Labels.AddLabel(label,value,bank,false,false);
+                    }
+                    else if (match.Groups["type"].ToString() == "D")        //Define
 					{
-
-						Labels.AddLabel(fn,addr,bank,false);
+						Labels.AddLabel(label,value,bank,false,true);
 					}
 					else if (match.Groups["type"].ToString() == "F")        //Function
 					{
-						Labels.AddLabel(fn,addr,bank,true);
+						Labels.AddLabel(label,value,bank,true,false);
 					}
 
 

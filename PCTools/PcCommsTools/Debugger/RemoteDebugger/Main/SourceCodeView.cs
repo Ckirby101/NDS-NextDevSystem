@@ -818,16 +818,20 @@ namespace RemoteDebugger.Main
 				if (HoverLabel.function)
 				{
 					//its a function label
-					HoverTipScintilla.CallTipShow(Hoverpos,"Function :"+HoverLabel.label+" @ $"+HoverLabel.nextAddress.ToString());
+					HoverTipScintilla.CallTipShow(Hoverpos,"Function :"+HoverLabel.label+" @ $"+HoverLabel.nextAddress.ToString("b"));
 
 
 				}
-				else
+				else if (HoverLabel.define)
 				{
-                    HoverTipScintilla.CallTipShow(Hoverpos,"Label :"+HoverLabel.label+" = $"+HoverLabel.nextAddress.ToString());
+                    HoverTipScintilla.CallTipShow(Hoverpos,"define :"+HoverLabel.label+" = $"+HoverLabel.nextAddress.GetLongAddress().ToString("X4"));
 					//Program.telnetConnection.SendCommand("read-memory "+HoverLabel.address.ToString()+" 2", HoverCallback);
 				}
-
+                else
+                {
+                    HoverTipScintilla.CallTipShow(Hoverpos,"Label :"+HoverLabel.label+" = $"+HoverLabel.nextAddress.ToString());
+                    //Program.telnetConnection.SendCommand("read-memory "+HoverLabel.address.ToString()+" 2", HoverCallback);
+                }
 
 
 
