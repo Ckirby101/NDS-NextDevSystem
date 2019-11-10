@@ -110,14 +110,14 @@ namespace RemoteDebugger.Main
 
 
 		/// -------------------------------------------------------------------------------------------------
-		/// <summary> Gets cloest valid code address. </summary>
+		/// <summary> Gets closest valid code address. </summary>
 		///
 		/// <remarks> 18/09/2018. </remarks>
 		///
 		/// <param name="addr"> The address. </param>
 		/// <param name="bank"> The bank. </param>
 		///
-		/// <returns> The cloest valid code address. </returns>
+		/// <returns> The closest valid code address. </returns>
 		/// -------------------------------------------------------------------------------------------------
 		private LineData _GetCloestValidCodeAddress(int addr,int bank)
 		{
@@ -196,6 +196,35 @@ namespace RemoteDebugger.Main
 			return (result);
 		}
 
+		private static Regex linenumberregex =
+			new Regex(@"(?<line>[0-9]+)(:(?<colbegin>[0-9]+)(:(?<colend>[0-9]+))?)?");
+
+		/// -------------------------------------------------------------------------------------------------
+		/// <summary> Parse trace data of line number, format: "line[:colbegin[:colend]]". </summary>
+		///
+		/// <remarks> 10/11/2018. </remarks>
+		///
+		/// <param name="s"> Data substring from the trace file. </param>
+		///
+		/// <returns> Integer tuple "line, colbegin, colend". Any 0 value means invalid string or missing value. </returns>
+		/// -------------------------------------------------------------------------------------------------
+		private static Tuple<int, int, int> ParseLineNumber(string s) {
+			int line = 0, colbegin = 0, colend = 0;
+			if (!string.IsNullOrEmpty(s)) {
+				var match = linenumberregex.Match(s);
+				if (match.Success) {
+					line = int.Parse(match.Groups["line"].ToString());
+					if (match.Groups["colbegin"].Success) {
+						colbegin = int.Parse(match.Groups["colbegin"].ToString());
+						if (match.Groups["colend"].Success) {
+							colend = int.Parse(match.Groups["colend"].ToString());
+						}
+					}
+				}
+			}
+			return new Tuple<int, int, int>(line, colbegin, colend);
+		}
+
 		/// -------------------------------------------------------------------------------------------------
 		/// <summary> Parse trace data. </summary>
 		///
@@ -208,33 +237,57 @@ namespace RemoteDebugger.Main
 			//z80.asm|25|5|32828
 			traceFiles = new List<TraceFile>();
 
+			string filenameregexchars = @"[_a-zA-Z0-9\\., :/@#$%^(){}\[\]!+=~-]";
+			Regex registersregex = new Regex(
+				@"^(?<filename>" + filenameregexchars + @"*)\|"
+				+ @"(?<line>[0-9:]+)\|"
+				+ @"(?<macrofile>" + filenameregexchars + @"*)\|"
+				+ @"(?<macroline>[0-9:]+)\|"
+				+ @"(?<bank>-?[0-9]+)\|"
+				+ @"(?<value>-?[0-9]+)\|"
+				+ @"(?<type>[LFTDZ])\|"
+				+ @"(?<label>.*)"
+			);
 
-			Regex registersregex = new Regex(@"^(?<filename>[_a-zA-Z0-9\\. :-]*)\|(?<line>[0-9]*)\|(?<macrofile>[_a-zA-Z0-9\\. :-]*)\|(?<macroline>[0-9]*)\|(?<bank>[-0-9]*)\|(?<value>[0-9]*)\|(?<type>[LFTD])\|(?<label>[_a-zA-Z0-9.-]*)");
 
 
-            int index = 0;
+			int index = 0;
 			string[] lines = File.ReadAllLines(filename);
 
 			foreach (string s in lines)
-            {
-                index++;
+			{
+				index++;
 				if (!string.IsNullOrEmpty(s))
 				{
-                    Console.WriteLine(s);
+					if (s.StartsWith("||")) {
+						Console.WriteLine("# comment: " + s.Substring(2));
+						continue;
+					}
+					if (s.StartsWith("|SLD.data.version|")) {
+						var sldversion = s.Substring(18);
+						if (!"0".Equals(sldversion)) {
+							Console.WriteLine("# Unknown SLD version: " + sldversion);
+							//TODO some warning about unsupported SLD version
+						}
+						continue;
+					}
 					var match = registersregex.Match(s);
+					if (!match.Success) {
+						Console.WriteLine("! matching failed for line: " + s);
+						continue;
+					}
+                    Console.WriteLine(s);
 					//Console.WriteLine(match.Groups["label"] + " " + match.Groups["address"] + " " + match.Groups["type"] + " " + match.Groups["section"]);
 
                     string mfn = match.Groups["macrofile"].ToString();
-                    int mline = 0;
-                    int.TryParse(match.Groups["macroline"].ToString(), NumberStyles.Integer, null, out mline);
+					var mline = ParseLineNumber(match.Groups["macroline"].ToString());
 
 					string fn = match.Groups["filename"].ToString();
                     string label = match.Groups["label"].ToString();
 
 					int bank = 0;
 					int.TryParse(match.Groups["bank"].ToString(), NumberStyles.Integer, null, out bank);
-					int line = 0;
-					int.TryParse(match.Groups["line"].ToString(), NumberStyles.Integer, null, out line);
+					var line = ParseLineNumber(match.Groups["line"].ToString());
 					int value = 0;
 					int.TryParse(match.Groups["value"].ToString(), NumberStyles.Integer, null, out value);
 
@@ -260,7 +313,7 @@ namespace RemoteDebugger.Main
 
 						//ld.address = addr;
 						//ld.bank = bank;
-						ld.lineNumber = line-1;
+						ld.lineNumber = line.Item1-1;
                         ld.nextAddress = new NextAddress(value,bank);
                         ld.tf = tracefile;
 
